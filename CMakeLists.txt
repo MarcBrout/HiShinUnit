@@ -12,6 +12,11 @@ set(SOURCE_FILES
         src/TaskManager.cpp
         include/TaskManager.h
         src/Splitter.cpp
-        include/Splitter.hpp)
+        include/Splitter.hpp
+        include/Cell.h
+        src/Board.cpp
+        include/Board.h
+        src/Checker.cpp
+        include/Checker.h)
 
-add_executable(HiShinUnit ${SOURCE_FILES})
+add_executable(gomoku ${SOURCE_FILES})
