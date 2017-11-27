@@ -3,7 +3,11 @@ project(gomoku)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES
-        src/main.cpp)
+include_directories(include)
 
-add_executable(HiShinUnit ${SOURCE_FILES})
+set(SOURCE_FILES    src/main.cpp
+                    include/Cell.h
+                    src/Board.cpp
+                    include/Board.h src/Checker.cpp include/Checker.h)
+
+add_executable(gomoku ${SOURCE_FILES})
