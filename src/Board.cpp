@@ -19,7 +19,7 @@ void Board::setCellState(uint32_t posY, uint32_t posX, CellState state)
     board[posY][posX] = state;
 }
 
-CellState &Board::getCellState(uint32_t posY, uint32_t posX) const
+CellState Board::getCellState(uint32_t posY, uint32_t posX) const
 {
     return board[posY][posX];
 }

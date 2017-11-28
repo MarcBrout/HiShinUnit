@@ -16,7 +16,7 @@ public:
     Board(std::array<std::array<CellState, 19>, 19> &) = delete;
 
     void setCellState(uint32_t, uint32_t, CellState);
-    CellState &getCellState(uint32_t, uint32_t) const;
+    CellState getCellState(uint32_t, uint32_t) const;
     void reset();
 
 private:
