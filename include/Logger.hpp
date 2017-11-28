@@ -21,8 +21,8 @@ private:
     friend class Singleton<Logger>;
 
     Logger();
-    Logger(const Logger&) = delete;
-    virtual ~Logger();
+
+    ~Logger() override;
 
 public:
     enum Level
@@ -41,6 +41,7 @@ public:
     std::string toString(Level lvl);
 
     static void log(Level lvl, std::string msg, bool abort = false);
+    Logger(const Logger&) = delete;
 
 private:
     std::ofstream outFile;

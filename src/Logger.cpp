@@ -3,9 +3,8 @@
 //
 
 #include <iostream>
-#include <cstdlib>
 #include <fstream>
-#include "tools/Logger.hpp"
+#include "Logger.hpp"
 
 #ifdef DEBUG
 bool Debug::DEBUG_MODE = true;
@@ -13,9 +12,7 @@ bool Debug::DEBUG_MODE = true;
 bool Debug::DEBUG_MODE = false;
 #endif
 
-Logger::~Logger() {
-
-}
+Logger::~Logger() = default;
 
 Logger::Logger() : outFile("")
 {
@@ -56,8 +53,10 @@ void Logger::log(std::string msg, Logger::Level lvl)
 
 void Logger::logFile(std::string msg, Logger::Level lvl)
 {
-    std::ostream &stream = outFile.is_open() ? outFile : std::cout;
-    stream << toString(lvl) << ": " << msg << std::endl;
+    if (outFile.is_open())
+        outFile << toString(lvl) << ": " << msg << std::endl;
+    else
+        std::cout << toString(lvl) << ": " << msg << std::endl;
 }
 
 std::string Logger::toString(Logger::Level lvl)
@@ -68,7 +67,7 @@ std::string Logger::toString(Logger::Level lvl)
 
 void Logger::setFile(std::string const &file)
 {
-    if (file != "") {
+    if (!file.empty()) {
         outFile.open(file.c_str());
     }
 }
