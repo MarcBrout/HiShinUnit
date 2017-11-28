@@ -7,7 +7,7 @@
 
 Checker::Checker() = default;
 
-CellState Checker::hasAWinner(std::array<std::array<CellState, 19>, 19> &board)
+CellState Checker::hasAWinner(const std::array<std::array<CellState, 19>, 19> &board)
 {
     CellState final;
 
@@ -16,7 +16,7 @@ CellState Checker::hasAWinner(std::array<std::array<CellState, 19>, 19> &board)
     return final;
 }
 
-CellState Checker::checks(std::array<std::array<CellState, 19>, 19> &board)
+CellState Checker::checks(const std::array<std::array<CellState, 19>, 19> &board)
 {
     for (uint32_t y = 0; y < board.size(); ++y)
     {
@@ -36,7 +36,7 @@ CellState Checker::checks(std::array<std::array<CellState, 19>, 19> &board)
     return Empty;
 }
 
-uint32_t Checker::checkWinRow(std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
+uint32_t Checker::checkWinRow(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
 {
     uint32_t count = 1;
     for (count; count < 5; ++count)
@@ -47,7 +47,7 @@ uint32_t Checker::checkWinRow(std::array<std::array<CellState, 19>, 19> &board, 
     return count;
 }
 
-uint32_t Checker::checkWinCol(std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
+uint32_t Checker::checkWinCol(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
 {
     uint32_t count = 1;
     for (count; count < 5; ++count)
@@ -58,7 +58,7 @@ uint32_t Checker::checkWinCol(std::array<std::array<CellState, 19>, 19> &board, 
     return count;
 }
 
-uint32_t Checker::checkWinDiaRight(std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
+uint32_t Checker::checkWinDiaRight(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
 {
     uint32_t count = 1;
     for (count; count < 5; ++count)
@@ -69,7 +69,7 @@ uint32_t Checker::checkWinDiaRight(std::array<std::array<CellState, 19>, 19> &bo
     return count;
 }
 
-uint32_t Checker::checkWinDiaLeft(std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
+uint32_t Checker::checkWinDiaLeft(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
 {
     uint32_t count = 1;
     for (count; count < 5; ++count)
