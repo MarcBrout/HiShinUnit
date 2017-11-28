@@ -10,14 +10,16 @@
 void Core::run() {
     Logger::getInstance().logFile("Core started");
 
-    TaskManager taskManager;
+    TaskManager taskManager(running);
 
     while (running) {
         std::string line = readString();
 
         std::string answer = taskManager.executeTask(line);
 
-        send(answer);
+
+        if (answer != "")
+            send(answer);
     }
 }
 
