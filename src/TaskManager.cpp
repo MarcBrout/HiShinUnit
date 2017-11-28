@@ -10,7 +10,6 @@
 std::string TaskManager::executeTask(std::string const &task) {
     std::vector<std::string> out;
 
-    Logger::getInstance().logFile("task = " + task);
     splitter.clear();
     splitter.split(task, " ,");
     splitter.moveTokensTo(out);
@@ -24,10 +23,6 @@ std::string TaskManager::executeTask(std::string const &task) {
             out.erase(out.begin());
         }
 
-        for (std::string const &str: out)
-            Logger::getInstance().logFile("task args = " + str);
-
-        Logger::getInstance().logFile("command to proceed = " + proceed);
         if (tasks.find(proceed) == tasks.end())
             return MSG_UNKNOWN;
         return (*this.*tasks[proceed])(out);
@@ -55,17 +50,18 @@ std::string TaskManager::turn(std::vector<std::string> const &args) {
         return MSG_ERROR + " expecting x and y in range 0..18";
     (*board).setCellState(y, x, Player2);
 
-    Position pos{};
+    Position pos;
     //TODO Guess POS IA
-    // getIaPlay(board.getBoard(), pos)
+    getIaPlay(pos);
     (*board).setCellState(pos.y, pos.x, Player1);
     return pos.toString();
 }
 
 std::string TaskManager::begin(std::vector<std::string> const &args) {
-    Position pos{};
+    Position pos;
     //TODO Guess POS IA
-    // getIaPlay(board.getBoard, pos)
+    getIaPlay(pos);
+
     (*board).setCellState(pos.y, pos.x, Player1);
     return pos.toString();
 }
@@ -91,9 +87,12 @@ std::string TaskManager::configure(std::vector<std::string> const &args) {
 }
 
 std::string TaskManager::done(std::vector<std::string> const &args) {
+    Position pos;
+
     // TODO Calculate our move
+    getIaPlay(pos);
     isBoardInConfiguration = false;
-    return "0,0";
+    return pos.toString();
 }
 
 std::string TaskManager::unknown(std::vector<std::string> const &args) {
@@ -138,14 +137,14 @@ TaskManager::TaskManager(bool &running, uint32_t boardSize):
         tasks({
                       {"START", &TaskManager::start},
                       {"BEGIN", &TaskManager::begin},
-                      {"INFO", &TaskManager::unknown},
+                      {"INFO", &TaskManager::nomessage},
                       {"BOARD", &TaskManager::boardUp},
                       {"DONE", &TaskManager::done},
                       {"TURN", &TaskManager::turn},
                       {"END", &TaskManager::end},
                       {"ABOUT", &TaskManager::unknown},
                       {"RECTSTART", &TaskManager::rectstart},
-                      {"RESTART", &TaskManager::unknown},
+                      {"RESTART", &TaskManager::restart},
                       {"TAKEBACK", &TaskManager::takeBack},
                       {"PLAY", &TaskManager::unknown},
                       {"ABOUT", &TaskManager::about},
@@ -156,4 +155,21 @@ TaskManager::TaskManager(bool &running, uint32_t boardSize):
         coreRunning(running),
         board(std::make_unique<Board>())
 {
+}
+
+std::string TaskManager::nomessage(std::vector<std::string> const &args) {
+    return MSG_NO_RESPONSE;
+}
+
+void TaskManager::getIaPlay(Position &outPos) {
+    uint32_t x;
+    uint32_t y;
+
+    do {
+         x = static_cast<uint32_t>(std::rand() % 19);
+         y = static_cast<uint32_t>(std::rand() % 19);
+    } while ((*board)[y][x] != CellState::Empty);
+
+    outPos.x = x;
+    outPos.y = y;
 }

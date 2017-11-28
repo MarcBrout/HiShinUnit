@@ -10,12 +10,13 @@
 #include <functional>
 #include <vector>
 #include <memory>
+#include "Position.hpp"
 #include "Splitter.hpp"
 #include "Board.hpp"
 
 class TaskManager {
 public:
-    explicit TaskManager(bool &running, uint32_t boardSize = 18);
+    explicit TaskManager(bool &running, uint32_t boardSize = 19);
     ~TaskManager() = default;
 
     std::string executeTask(std::string const &task);
@@ -48,8 +49,10 @@ private:
     std::string about(std::vector<std::string> const& args);
     std::string takeBack(std::vector<std::string> const& args);
     std::string end(std::vector<std::string> const& args);
-    bool isInBound(int x) const;
+    std::string nomessage(std::vector<std::string> const& args);
 
+    bool isInBound(int x) const;
+    void getIaPlay(Position &outPos);
 };
 
 #endif //GOMOKU_PARSER_H

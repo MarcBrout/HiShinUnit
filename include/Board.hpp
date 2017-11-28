@@ -21,6 +21,7 @@ public:
     const std::array<std::array<CellState, 19>, 19> &getBoard() const;
 
     void reset();
+    std::array<CellState, 19> &operator[](uint32_t y);
 
 private:
     Checker checker;

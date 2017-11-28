@@ -36,3 +36,7 @@ void Board::reset()
 const std::array<std::array<CellState, 19>, 19> &Board::getBoard() const {
     return board;
 }
+
+std::array<CellState, 19> &Board::operator[](uint32_t y) {
+    return board[y];
+}

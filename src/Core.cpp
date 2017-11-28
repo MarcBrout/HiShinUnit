@@ -8,8 +8,6 @@
 #include "Core.hpp"
 
 void Core::run() {
-    Logger::getInstance().logFile("Core started");
-
     TaskManager taskManager(running);
 
     while (running) {
@@ -17,7 +15,7 @@ void Core::run() {
 
         std::string answer = taskManager.executeTask(line);
 
-
+        std::cout << "DEBUG " + answer << std::endl;
         if (!answer.empty())
             send(answer);
     }
