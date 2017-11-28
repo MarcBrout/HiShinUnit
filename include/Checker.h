@@ -14,10 +14,11 @@ public:
     CellState hasAWinner(std::array<std::array<CellState, 19>, 19> &);
 
 private:
-    CellState checkWinRow(std::array<std::array<CellState, 19>, 19> &);
-    CellState checkWinCol(std::array<std::array<CellState, 19>, 19> &);
-    CellState checkWinDiaRight(std::array<std::array<CellState, 19>, 19> &);
-    CellState checkWinDiaLeft(std::array<std::array<CellState, 19>, 19> &);
+    CellState checks(std::array<std::array<CellState, 19>, 19> &);
+    uint32_t checkWinRow(std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
+    uint32_t checkWinCol(std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
+    uint32_t checkWinDiaRight(std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
+    uint32_t checkWinDiaLeft(std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
 };
 
 #endif //GOMOKU_CHECKER_H
