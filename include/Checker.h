@@ -6,6 +6,7 @@
 #define GOMOKU_CHECKER_H
 
 #include "Cell.h"
+#include <array>
 
 class Checker {
 public:

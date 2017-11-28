@@ -23,7 +23,7 @@ CellState Checker::checkWinRow(std::array<std::array<CellState, 19>, 19> &board)
 {
     for (uint32_t y = 0; y < board.size(); ++y)
     {
-        for (int32_t x = 0; x < board[y].size(); ++x)
+        for (uint32_t x = 0; x < board[y].size(); ++x)
         {
             CellState tmp = board[y][x];
             if (tmp == Player1 || tmp == Player2)
