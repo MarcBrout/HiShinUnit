@@ -20,6 +20,11 @@ set(SOURCE_FILES
         include/Checker.hpp
         include/Logger.hpp
         include/Singleton.hpp
-        src/Logger.cpp)
+        src/Logger.cpp
+        src/ThreadPool.cpp
+        include/ThreadPool.hpp
+        src/AICase.cpp
+        include/AICase.hpp
+        include/ThreadState.hpp)
 
 add_executable(gomoku ${SOURCE_FILES})
