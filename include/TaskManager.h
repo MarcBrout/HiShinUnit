@@ -19,9 +19,10 @@ public:
     std::string executeTask(std::string const &task);
     bool isBoardInConfigurationMode() const;
 
+    typedef std::string (TaskManager::*taskPtr_t)(std::vector<std::string> const &) const;
+
 private:
-    std::map<std::string,
-            std::function<std::string(std::vector<std::string> const&)>> tasks;
+    std::map<std::string, taskPtr_t> tasks;
     Splitter splitter;
     bool isBoardInConfiguration = false;
 
