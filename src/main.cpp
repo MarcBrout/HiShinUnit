@@ -1,7 +1,7 @@
-#include <iostream>
+#include <Core.h>
 
 int main()
 {
-	std::cout << "Hello world !" << std::endl;
+    Core().run();
 	return 0;
 }
