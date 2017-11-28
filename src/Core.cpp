@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include "TaskManager.h"
-#include "Core.h"
+#include "TaskManager.hpp"
+#include "Core.hpp"
 
 void Core::run() {
     TaskManager taskManager;

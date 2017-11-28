@@ -5,8 +5,8 @@
 #ifndef GOMOKU_BOARD_H
 #define GOMOKU_BOARD_H
 
-#include "Cell.h"
-#include "Checker.h"
+#include "Cell.hpp"
+#include "Checker.hpp"
 #include <array>
 
 class Board {

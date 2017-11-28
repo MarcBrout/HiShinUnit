@@ -3,7 +3,7 @@
 //
 
 #include <array>
-#include "Checker.h"
+#include "Checker.hpp"
 
 Checker::Checker() = default;
 

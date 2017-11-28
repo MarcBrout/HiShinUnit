@@ -5,7 +5,7 @@
 #ifndef GOMOKU_CHECKER_H
 #define GOMOKU_CHECKER_H
 
-#include "Cell.h"
+#include "Cell.hpp"
 #include <array>
 
 class Checker {

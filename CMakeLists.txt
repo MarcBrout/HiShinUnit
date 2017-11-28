@@ -8,16 +8,16 @@ include_directories(include)
 set(SOURCE_FILES
         src/main.cpp
         src/Core.cpp
-        include/Core.h
+        include/Core.hpp
         src/TaskManager.cpp
-        include/TaskManager.h
+        include/TaskManager.hpp
         src/Splitter.cpp
         include/Splitter.hpp
-        include/Cell.h
+        include/Cell.hpp
         src/Board.cpp
-        include/Board.h
+        include/Board.hpp
         src/Checker.cpp
-        include/Checker.h
+        include/Checker.hpp
         include/Logger.hpp
         src/Logger.cpp)
 

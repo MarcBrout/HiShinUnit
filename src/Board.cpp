@@ -2,7 +2,7 @@
 // Created by Zenox on 11/27/2017.
 //
 
-#include "Board.h"
+#include "Board.hpp"
 
 Board::Board() : checker()
 {
