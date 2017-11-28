@@ -44,6 +44,7 @@ private:
     std::string done(std::vector<std::string> const& args);
     std::string unknown(std::vector<std::string> const& args);
     std::string rectstart(std::vector<std::string> const& args);
+    std::string restart(std::vector<std::string> const& args);
     std::string about(std::vector<std::string> const& args);
     std::string takeBack(std::vector<std::string> const& args);
     std::string end(std::vector<std::string> const& args);
