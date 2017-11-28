@@ -12,7 +12,9 @@ bool Debug::DEBUG_MODE = true;
 bool Debug::DEBUG_MODE = false;
 #endif
 
-Logger::~Logger() = default;
+Logger::~Logger() {
+    closeFile();
+};
 
 Logger::Logger() : outFile("")
 {

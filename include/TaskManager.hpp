@@ -9,11 +9,13 @@
 #include <map>
 #include <functional>
 #include <vector>
+#include <memory>
 #include "Splitter.hpp"
+#include "Board.hpp"
 
 class TaskManager {
 public:
-    explicit TaskManager(uint32_t boardSize = 18);
+    explicit TaskManager(bool &running, uint32_t boardSize = 18);
     ~TaskManager() = default;
 
     std::string executeTask(std::string const &task);
@@ -26,6 +28,8 @@ private:
     Splitter splitter;
     uint32_t size;
     bool isBoardInConfiguration = false;
+    bool &coreRunning;
+    std::unique_ptr<Board> board;
 
     std::string const MSG_ERROR = "ERROR";
     std::string const MSG_UNKNOWN = "UNKNOWN";

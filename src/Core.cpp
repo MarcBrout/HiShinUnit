@@ -3,19 +3,23 @@
 //
 
 #include <iostream>
+#include <Logger.hpp>
 #include "TaskManager.hpp"
 #include "Core.hpp"
 
 void Core::run() {
-    TaskManager taskManager;
+    Logger::getInstance().logFile("Core started");
+
+    TaskManager taskManager(running);
 
     while (running) {
         std::string line = readString();
 
         std::string answer = taskManager.executeTask(line);
-        if (answer == "END")
-            break;
-        send(answer);
+
+
+        if (answer != "")
+            send(answer);
     }
 }
 

@@ -3,12 +3,12 @@
 //
 
 #include <algorithm>
-#include <iostream>
 #include "TaskManager.hpp"
 
 std::string TaskManager::executeTask(std::string const &task) {
     std::vector<std::string> out;
 
+    Logger::getInstance().logFile("task = " + task);
     splitter.clear();
     splitter.split(task, " ,");
     splitter.moveTokensTo(out);
@@ -19,19 +19,28 @@ std::string TaskManager::executeTask(std::string const &task) {
             proceed = "CONFIGURE";
         } else {
             proceed = out.front();
-            std::remove(out.begin(), out.begin() + 1, out[0]);
+            out.erase(out.begin());
         }
+
+        for (std::string const &str: out)
+            Logger::getInstance().logFile("task args = " + str);
+
+        Logger::getInstance().logFile("command to proceed = " + proceed);
+        if (tasks.find(proceed) == tasks.end())
+            return MSG_UNKNOWN;
         return (*this.*tasks[proceed])(out);
     }
-    return "ERROR";
+    return MSG_ERROR;
 }
 
 std::string TaskManager::start(std::vector<std::string> const &args) const {
     if (args.size() != 1)
-        return MSG_ERROR + "missing size argument";
+        return MSG_ERROR + " expecting only board size (18)";
 
     if (std::stoi(args[0]) != size)
-        return MSG_ERROR + "size not supported";
+        return MSG_ERROR + " size not supported (18)";
+
+    board = std::make_unique();
 
     return MSG_OK;
 }
@@ -56,9 +65,11 @@ bool TaskManager::isBoardInConfigurationMode() const {
     return isBoardInConfiguration;
 }
 
+std::string TaskManager::end() {
+    return "END";
+}
 
-
-TaskManager::TaskManager(uint32_t boardSize):
+TaskManager::TaskManager(bool &running, uint32_t boardSize):
         tasks({
                       {"START", &TaskManager::start},
                       {"BEGIN", &TaskManager::begin},
@@ -76,11 +87,7 @@ TaskManager::TaskManager(uint32_t boardSize):
                       {"CONFIGURE", &TaskManager::configure}
               }),
         splitter(),
-        size(boardSize)
+        size(boardSize),
+        coreRunning(running)
 {
 }
-
-std::string TaskManager::end() {
-    return "END";
-}
-
