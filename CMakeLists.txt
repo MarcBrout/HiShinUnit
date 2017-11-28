@@ -18,7 +18,7 @@ set(SOURCE_FILES
         include/Board.h
         src/Checker.cpp
         include/Checker.h
-        include/Logger.h
+        include/Logger.hpp
         src/Logger.cpp)
 
 add_executable(gomoku ${SOURCE_FILES})
