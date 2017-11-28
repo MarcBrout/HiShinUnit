@@ -42,21 +42,21 @@ bool TaskManager::isBoardInConfigurationMode() const {
 }
 
 TaskManager::TaskManager(): tasks({
-                {"START", &start},
-                {"BEGIN", &unknown},
-                {"INFO", &unknown},
-                {"BOARD", &unknown},
-                {"DONE", &unknown},
-                {"TURN", &unknown},
-                {"END", &unknown},
-                {"ABOUT", &unknown},
-                {"RECTSTART", &unknown},
-                {"RESTART", &unknown},
-                {"TAKEBACK", &unknown},
-                {"PLAY", &unknown},
-                {"ABOUT", &unknown},
-                {"CONFIGURE", &configure}
-        }),
+                                          {"START", &TaskManager::start},
+                                          {"BEGIN", &TaskManager::unknown},
+                                          {"INFO", &TaskManager::unknown},
+                                          {"BOARD", &TaskManager::unknown},
+                                          {"DONE", &TaskManager::unknown},
+                                          {"TURN", &TaskManager::unknown},
+                                          {"END", &TaskManager::unknown},
+                                          {"ABOUT", &TaskManager::unknown},
+                                          {"RECTSTART", &TaskManager::unknown},
+                                          {"RESTART", &TaskManager::unknown},
+                                          {"TAKEBACK", &TaskManager::unknown},
+                                          {"PLAY", &TaskManager::unknown},
+                                          {"ABOUT", &TaskManager::unknown},
+                                          {"CONFIGURE", &TaskManager::configure}
+                                  }),
                             splitter()
 {
 }
