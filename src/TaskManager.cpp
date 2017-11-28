@@ -186,6 +186,8 @@ CellState TaskManager::recurs(Board &myBoard, uint32_t x, uint32_t y, CellState 
     else if (comp == Player2)
         return Player2;
 
+    if (myBoard.isFill())
+        return Empty;
     Position out;
     //Change player Role;
     if (state == Player1)

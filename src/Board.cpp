@@ -53,3 +53,13 @@ Board &Board::operator=(Board &board) {
 Checker Board::getChecker() const {
     return Checker();
 }
+
+bool Board::isFill() {
+    for (std::array<CellState, 19> &y : board) {
+        for (CellState &state : y) {
+            if (state == Empty)
+                return false;
+        }
+    }
+    return true;
+}

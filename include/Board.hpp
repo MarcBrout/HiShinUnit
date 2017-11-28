@@ -23,6 +23,7 @@ public:
     Checker getChecker() const;
 
     void reset();
+    bool isFill();
     std::array<CellState, 19> &operator[](uint32_t y);
 
 private:
