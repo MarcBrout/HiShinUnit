@@ -26,11 +26,9 @@ CellState Board::getCellState(uint32_t posY, uint32_t posX) const
 
 void Board::reset()
 {
-    for (uint32_t y = 0 ; y < board.size(); y++)
-    {
-        for (uint32_t x = 0; x < board[y].size(); x++)
-        {
-            board[y][x] = Empty;
+    for (std::array<CellState, 19> &y : board) {
+        for (CellState &state : y) {
+            state = Empty;
         }
     }
 }
