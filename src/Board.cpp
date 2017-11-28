@@ -32,3 +32,7 @@ void Board::reset()
         }
     }
 }
+
+const std::array<std::array<CellState, 19>, 19> &Board::getBoard() const {
+    return board;
+}

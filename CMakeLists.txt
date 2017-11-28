@@ -20,6 +20,6 @@ set(SOURCE_FILES
         include/Checker.hpp
         include/Logger.hpp
         include/Singleton.hpp
-        src/Logger.cpp)
+        src/Logger.cpp include/Position.hpp)
 
 add_executable(gomoku ${SOURCE_FILES})

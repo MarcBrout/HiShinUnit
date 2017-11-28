@@ -40,7 +40,9 @@ private:
     std::string begin(std::vector<std::string> const& args) const;
     std::string configure(std::vector<std::string> const& args) const;
     std::string unknown(std::vector<std::string> const& args) const;
-    std::string end();
+    std::string restart(std::vector<std::string> const& args) const;
+    std::string takeBack(std::vector<std::string> const& args);
+    std::string end(std::vector<std::string> const& args);
 };
 
 #endif //GOMOKU_PARSER_H

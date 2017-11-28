@@ -17,6 +17,9 @@ public:
 
     void setCellState(uint32_t, uint32_t, CellState);
     CellState getCellState(uint32_t, uint32_t) const;
+
+    const std::array<std::array<CellState, 19>, 19> &getBoard() const;
+
     void reset();
 
 private:
