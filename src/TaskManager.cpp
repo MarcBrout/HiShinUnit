@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <iostream>
 #include "TaskManager.hpp"
 
 std::string TaskManager::executeTask(std::string const &task) {
@@ -55,6 +56,8 @@ bool TaskManager::isBoardInConfigurationMode() const {
     return isBoardInConfiguration;
 }
 
+
+
 TaskManager::TaskManager(uint32_t boardSize):
         tasks({
                       {"START", &TaskManager::start},
@@ -63,7 +66,7 @@ TaskManager::TaskManager(uint32_t boardSize):
                       {"BOARD", &TaskManager::unknown},
                       {"DONE", &TaskManager::unknown},
                       {"TURN", &TaskManager::turn},
-                      {"END", &TaskManager::unknown},
+                      {"END", &TaskManager::end},
                       {"ABOUT", &TaskManager::unknown},
                       {"RECTSTART", &TaskManager::unknown},
                       {"RESTART", &TaskManager::unknown},
@@ -75,5 +78,9 @@ TaskManager::TaskManager(uint32_t boardSize):
         splitter(),
         size(boardSize)
 {
+}
+
+std::string TaskManager::end() {
+    return "END";
 }
 

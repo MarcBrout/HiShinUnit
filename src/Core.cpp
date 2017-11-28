@@ -13,7 +13,8 @@ void Core::run() {
         std::string line = readString();
 
         std::string answer = taskManager.executeTask(line);
-
+        if (answer == "END")
+            break;
         send(answer);
     }
 }

@@ -36,6 +36,7 @@ private:
     std::string begin(std::vector<std::string> const& args) const;
     std::string configure(std::vector<std::string> const& args) const;
     std::string unknown(std::vector<std::string> const& args) const;
+    std::string end();
 };
 
 #endif //GOMOKU_PARSER_H
