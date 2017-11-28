@@ -18,7 +18,7 @@ void Core::run() {
         std::string answer = taskManager.executeTask(line);
 
 
-        if (answer != "")
+        if (!answer.empty())
             send(answer);
     }
 }

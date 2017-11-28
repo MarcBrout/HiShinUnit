@@ -66,7 +66,8 @@ bool TaskManager::isBoardInConfigurationMode() const {
 }
 
 std::string TaskManager::end() {
-    return "END";
+    coreRunning = false;
+    return "";
 }
 
 TaskManager::TaskManager(bool &running, uint32_t boardSize):
