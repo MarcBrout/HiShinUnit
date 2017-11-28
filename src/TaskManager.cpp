@@ -3,11 +3,13 @@
 //
 
 #include <algorithm>
+#include <Logger.hpp>
 #include "TaskManager.hpp"
 
 std::string TaskManager::executeTask(std::string const &task) {
     std::vector<std::string> out;
 
+    Logger::getInstance().logFile("task = " + task);
     splitter.clear();
     splitter.split(task, " ,");
     splitter.moveTokensTo(out);
@@ -18,8 +20,14 @@ std::string TaskManager::executeTask(std::string const &task) {
             proceed = "CONFIGURE";
         } else {
             proceed = out.front();
-            std::remove(out.begin(), out.begin() + 1, out[0]);
+            out.erase(out.begin());
         }
+
+        for (std::string str: out)
+        {
+            Logger::getInstance().logFile("task args = " + str);
+        }
+        Logger::getInstance().logFile("command to proceed = " + proceed);
         return (*this.*tasks[proceed])(out);
     }
     return "ERROR";
@@ -27,10 +35,10 @@ std::string TaskManager::executeTask(std::string const &task) {
 
 std::string TaskManager::start(std::vector<std::string> const &args) const {
     if (args.size() != 1)
-        return MSG_ERROR + "missing size argument";
+        return MSG_ERROR + " missing size argument";
 
     if (std::stoi(args[0]) != size)
-        return MSG_ERROR + "size not supported";
+        return MSG_ERROR + " size not supported";
 
     return MSG_OK;
 }

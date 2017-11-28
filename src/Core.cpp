@@ -3,10 +3,13 @@
 //
 
 #include <iostream>
+#include <Logger.hpp>
 #include "TaskManager.hpp"
 #include "Core.hpp"
 
 void Core::run() {
+    Logger::getInstance().logFile("Core started");
+
     TaskManager taskManager;
 
     while (running) {
