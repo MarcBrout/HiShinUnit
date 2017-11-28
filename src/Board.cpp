@@ -6,7 +6,6 @@
 
 Board::Board() : checker()
 {
-    board = {{Empty}};
 }
 
 Board::Board(Board const &board)
@@ -26,6 +25,7 @@ CellState Board::getCellState(uint32_t posY, uint32_t posX) const
 
 void Board::reset()
 {
+    board = {};
     for (std::array<CellState, 19> &y : board) {
         for (CellState &state : y) {
             state = Empty;
