@@ -40,3 +40,16 @@ const std::array<std::array<CellState, 19>, 19> &Board::getBoard() const {
 std::array<CellState, 19> &Board::operator[](uint32_t y) {
     return board[y];
 }
+
+Board &Board::operator=(Board &board) {
+    if (&board != this)
+    {
+        this->checker = board.checker;
+        this->board = board.board;
+    }
+    return *this;
+}
+
+Checker Board::getChecker() const {
+    return Checker();
+}

@@ -11,14 +11,14 @@
 class Checker {
 public:
     Checker();
-    CellState hasAWinner(std::array<std::array<CellState, 19>, 19> &);
+    CellState hasAWinner(const std::array<std::array<CellState, 19>, 19> &);
 
 private:
-    CellState checks(std::array<std::array<CellState, 19>, 19> &);
-    uint32_t checkWinRow(std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
-    uint32_t checkWinCol(std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
-    uint32_t checkWinDiaRight(std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
-    uint32_t checkWinDiaLeft(std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
+    CellState checks(const std::array<std::array<CellState, 19>, 19> &);
+    uint32_t checkWinRow(const std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
+    uint32_t checkWinCol(const std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
+    uint32_t checkWinDiaRight(const std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
+    uint32_t checkWinDiaLeft(const std::array<std::array<CellState, 19>, 19> &, uint32_t, uint32_t, CellState);
 };
 
 #endif //GOMOKU_CHECKER_H
