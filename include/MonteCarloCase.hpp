@@ -14,8 +14,6 @@ namespace ai {
         void process() override;
 
     private:
-        uint32_t x;
-        uint32_t y;
         Checker checker;
 
     private:

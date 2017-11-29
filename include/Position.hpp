@@ -27,6 +27,11 @@ struct Position
         return *this;
     }
 
+    Position(Position const& pos) {
+        x = pos.x;
+        y = pos.y;
+    }
+
     std::string toString() const {
         return std::string(std::to_string(x) + "," + std::to_string(y));
     }

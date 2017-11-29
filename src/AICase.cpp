@@ -2,6 +2,7 @@
 // Created by Pierre Bougon on 28/11/2017.
 //
 
+#include <iostream>
 #include "AICase.hpp"
 
 ai::AICase::AICase()
@@ -10,14 +11,15 @@ ai::AICase::AICase()
 }
 
 ai::AICase::AICase(std::unique_ptr<Board> newBoard,
-                   Position const &initPos,
+                   uint32_t x,
+                   uint32_t y,
                    size_t startRound) :
     board(std::move(newBoard)),
     weight(0.0),
     round(startRound),
-    pos(initPos)
+    pos(x, y)
 {
-
+   // std::cout << "CONSTRUCTION : " << pos.x << " & " << pos.y << std::endl;
 }
 
 ai::AICase::AICase(std::unique_ptr<Board> newBoard, size_t startRound) :

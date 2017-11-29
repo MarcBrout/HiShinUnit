@@ -16,8 +16,8 @@ public:
     Board(std::array<std::array<CellState, 19>, 19> &array) = delete;
     Board &operator=(Board &board);
 
-    void setCellState(uint32_t y, uint32_t x, CellState state);
-    CellState getCellState(uint32_t y, uint32_t x) const;
+    void setCellState(uint32_t x, uint32_t y, CellState state);
+    CellState getCellState(uint32_t x, uint32_t y) const;
 
     const std::array<std::array<CellState, 19>, 19> &getBoard() const;
     Checker getChecker() const;

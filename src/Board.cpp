@@ -16,15 +16,16 @@ Board::Board() : checker()
 
 Board::Board(Board const &board)
 {
+    this->checker = board.checker;
     this->board = board.board;
 }
 
-void Board::setCellState(uint32_t posY, uint32_t posX, CellState state)
+void Board::setCellState(uint32_t posX, uint32_t posY, CellState state)
 {
     board[posY][posX] = state;
 }
 
-CellState Board::getCellState(uint32_t posY, uint32_t posX) const
+CellState Board::getCellState(uint32_t posX, uint32_t posY) const
 {
     return board[posY][posX];
 }
@@ -61,7 +62,7 @@ Board &Board::operator=(Board &board) {
 }
 
 Checker Board::getChecker() const {
-    return Checker();
+    return checker;
 }
 
 bool Board::isFill() {
