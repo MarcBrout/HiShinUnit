@@ -36,7 +36,7 @@ CellState Checker::checks(const std::array<std::array<CellState, 19>, 19> &board
     return Empty;
 }
 
-uint32_t Checker::checkWinRow(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
+uint32_t Checker::checkWinRow(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state) const
 {
     uint32_t count = 1;
     for (count; count < 5; ++count)
@@ -47,7 +47,7 @@ uint32_t Checker::checkWinRow(const std::array<std::array<CellState, 19>, 19> &b
     return count;
 }
 
-uint32_t Checker::checkWinCol(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
+uint32_t Checker::checkWinCol(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state) const
 {
     uint32_t count = 1;
     for (count; count < 5; ++count)
@@ -58,7 +58,7 @@ uint32_t Checker::checkWinCol(const std::array<std::array<CellState, 19>, 19> &b
     return count;
 }
 
-uint32_t Checker::checkWinDiaRight(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
+uint32_t Checker::checkWinDiaRight(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state) const
 {
     uint32_t count = 1;
     for (count; count < 5; ++count)
@@ -69,7 +69,7 @@ uint32_t Checker::checkWinDiaRight(const std::array<std::array<CellState, 19>, 1
     return count;
 }
 
-uint32_t Checker::checkWinDiaLeft(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state)
+uint32_t Checker::checkWinDiaLeft(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state) const
 {
     uint32_t count = 1;
     for (count; count < 5; ++count)
@@ -78,4 +78,36 @@ uint32_t Checker::checkWinDiaLeft(const std::array<std::array<CellState, 19>, 19
             break;
     }
     return count;
+}
+
+bool Checker::checkInRowBefore(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const {
+    return x - 1 >= 0 && board[y][x - 1] == Empty;
+}
+
+bool Checker::checkInRowAfter(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const {
+    return x + 4 < board.size() && board[y][x + 4] == Empty;
+}
+
+bool Checker::checkInDiaRightAfter(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const {
+    return (x + 4 < board.size() && y + 4 < board.size()) && board[y + 4][x + 4] == Empty;
+}
+
+bool Checker::checkInColBefore(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const {
+    return y - 1 >= 0 && board[y - 1][x] == Empty;
+}
+
+bool Checker::checkInColAfter(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const {
+    return y + 4 < board.size() && board[y + 4][x] == Empty;
+}
+
+bool Checker::checkInDiaLeftBefore(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const {
+    return (x + 1 < board.size() && y - 1 >= 0) && board[y - 1][x + 1] == Empty;
+}
+
+bool Checker::checkInDiaLeftAfter(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const {
+    return (x - 4 >= 0 && y + 4 < board.size()) && board[y + 4][x - 4] == Empty;
+}
+
+bool Checker::checkInDiaRightBefore(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const {
+    return (x - 1 >= 0 && y - 1 >= 0) && board[y - 1][x - 1] == Empty;
 }

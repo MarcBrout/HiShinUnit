@@ -13,7 +13,7 @@ class MonteCarloIA {
 
 private:
     Board board;
-
+    Checker checker;
 public:
     MonteCarloIA() = delete;
     explicit MonteCarloIA(Board board1);
@@ -22,6 +22,9 @@ public:
     void getIaPlay(Position &outPos);
 
 private:
+    bool canIWinRow(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y);
+    bool canIWinCol(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y);
+    bool canIWinDia(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y);
     bool canIWin(Board &myBoard, Position &out, CellState player);
     bool enemyCanWin(Board &myBoard, Position &out, CellState player );
     CellState recurs(Board &board, uint32_t x, uint32_t y, CellState state);
