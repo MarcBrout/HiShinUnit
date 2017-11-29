@@ -9,7 +9,7 @@ ThreadPool::ThreadPool(unsigned int nbThreads)
 {
     for (unsigned int i = 0; i < nbThreads; ++i)
     {
-        threads.push_back(std::thread(threadWorkflow, this, i));
+        threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
         state.push_back(ThreadState::sleeping);
     }
     running = true;
@@ -35,8 +35,10 @@ void ThreadPool::stop()
 
 std::unique_ptr<ai::AICase> ThreadPool::getCaseDone()
 {
+    mutex.lock();
     std::unique_ptr<ai::AICase> aiCase = std::move(doneCases.front());
     doneCases.pop();
+    mutex.unlock();
     return std::move(aiCase);
 }
 
@@ -74,4 +76,18 @@ void ThreadPool::threadWorkflow(unsigned int id)
         doneCases.push(std::move(aiCase));
         mutex.unlock();
     }
+}
+
+std::deque<std::unique_ptr<AICase>> ThreadPool::getCasesDone(int round) {
+    std::deque<std::unique_ptr<AICase>> out;
+
+    mutex.lock();
+    while (!doneCases.empty()) {
+        if ((*doneCases.front()).getRound() == round) {
+            out.push_back(std::move(doneCases.front()));
+        }
+        doneCases.pop();
+    }
+    mutex.unlock();
+    return out;
 }

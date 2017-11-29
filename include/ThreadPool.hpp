@@ -23,6 +23,7 @@ public:
     bool                        addCase(std::unique_ptr<ai::AICase> task);
     void                        stop();
     std::unique_ptr<ai::AICase> getCaseDone();
+    std::deque<std::unique_ptr<ai::AICase>> getCasesDone(int round);
 
 protected:
     std::vector<std::thread>                    threads;
