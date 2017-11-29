@@ -2,10 +2,16 @@
 // Created by Zenox on 11/27/2017.
 //
 
+#include <iostream>
 #include "Board.hpp"
 
 Board::Board() : checker()
 {
+    for (std::array<CellState, 19> &line : board) {
+        for (CellState &cell : line) {
+            cell = Empty;
+        }
+    }
 }
 
 Board::Board(Board const &board)

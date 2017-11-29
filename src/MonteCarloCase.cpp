@@ -2,6 +2,7 @@
 // Created by Zenox on 11/29/2017.
 //
 
+#include <iostream>
 #include "MonteCarloCase.hpp"
 
 namespace ai {
@@ -127,13 +128,12 @@ namespace ai {
 
         //Launch x recursive here 1000, and growth the var result for each win of player 1
         for (uint32_t idx = 0; idx < 1000; ++idx) {
-            if (recurs(*board, x, y, Player1) == Player1)
-                result++;
+            //if (recurs(*board, x, y, Player1) == Player1)
+                //result++;
         }
         weight = result;
     }
 
-    // TODO update round
     MonteCarloCase::MonteCarloCase(Board const &board_c,
                                    uint32_t x, uint32_t y, size_t round)
             : AICase(std::make_unique<Board>(board_c), Position(x, y), round),

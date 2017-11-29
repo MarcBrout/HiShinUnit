@@ -5,7 +5,7 @@
 #include "MonteCarloIA.hpp"
 #include "MonteCarloCase.hpp"
 
-MonteCarloIA::MonteCarloIA() : AAI()
+MonteCarloIA::MonteCarloIA() : AAI(10)
 {
 }
 
