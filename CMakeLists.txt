@@ -22,6 +22,6 @@ set(SOURCE_FILES
         include/Singleton.hpp
         src/Logger.cpp
         include/Position.hpp
-        )
+        src/MonteCarloIA.cpp include/MonteCarloIA.hpp)
 
 add_executable(gomoku ${SOURCE_FILES})

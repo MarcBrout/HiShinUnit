@@ -51,12 +51,7 @@ private:
     std::string end(std::vector<std::string> const& args);
     std::string nomessage(std::vector<std::string> const& args);
 
-    bool canIWin(Board &myBoard, Position &out, CellState player);
-    bool enemyCanWin(Board &myBoard, Position &out, CellState player );
-    CellState recurs(Board &board, uint32_t x, uint32_t y, CellState state);
-    uint32_t monteCarlo(Board &board, uint32_t x, uint32_t y);
     bool isInBound(int x) const;
-    void getIaPlay(Position &outPos);
 };
 
 #endif //GOMOKU_PARSER_H
