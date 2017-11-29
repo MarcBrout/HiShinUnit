@@ -9,7 +9,7 @@ ThreadPool::ThreadPool(unsigned int nbThreads)
 {
     for (unsigned int i = 0; i < nbThreads; ++i)
     {
-        threads.push_back(std::thread(threadWorkflow, this, i));
+        threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
         state.push_back(ThreadState::sleeping);
     }
     running = true;
@@ -84,9 +84,9 @@ std::deque<std::unique_ptr<AICase>> ThreadPool::getCasesDone(int round) {
     mutex.lock();
     while (!doneCases.empty()) {
         if ((*doneCases.front()).getRound() == round) {
-            out.push_back(doneCases.front());
+            out.push_back(std::move(doneCases.front()));
         }
-        doneCases.pop;
+        doneCases.pop();
     }
     mutex.unlock();
     return out;
