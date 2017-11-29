@@ -15,7 +15,7 @@ ThreadPool::ThreadPool(unsigned int nbThreads)
     running = true;
 }
 
-bool ThreadPool::addTask(std::unique_ptr<AICase> task)
+bool ThreadPool::addCase(std::unique_ptr<ai::AICase> task)
 {
     mutex.lock();
     todoCases.push(std::move(task));
@@ -33,9 +33,9 @@ void ThreadPool::stop()
     threads.clear();
 }
 
-std::unique_ptr<AICase> ThreadPool::getCaseDone()
+std::unique_ptr<ai::AICase> ThreadPool::getCaseDone()
 {
-    std::unique_ptr<AICase> aiCase = std::move(doneCases.front());
+    std::unique_ptr<ai::AICase> aiCase = std::move(doneCases.front());
     doneCases.pop();
     return std::move(aiCase);
 }
@@ -62,7 +62,7 @@ void ThreadPool::threadWorkflow(unsigned int id)
         mutex.lock();
         if (todoCases.empty())
             continue;
-        std::unique_ptr<AICase> aiCase = std::move(todoCases.front());
+        std::unique_ptr<ai::AICase> aiCase = std::move(todoCases.front());
         todoCases.pop();
         mutex.unlock();
 

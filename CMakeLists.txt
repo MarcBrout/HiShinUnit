@@ -25,7 +25,7 @@ set(SOURCE_FILES
         include/ThreadPool.hpp
         src/AICase.cpp
         include/AICase.hpp
-        include/ThreadState.hpp)
+        include/ThreadState.hpp
         include/Position.hpp
         )
 
