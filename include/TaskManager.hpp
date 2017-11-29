@@ -13,10 +13,11 @@
 #include "Position.hpp"
 #include "Splitter.hpp"
 #include "Board.hpp"
+#include "AAI.hpp"
 
 class TaskManager {
 public:
-    explicit TaskManager(bool &running, uint32_t boardSize = 19);
+    explicit TaskManager(bool &running, uint32_t boardSize, std::unique_ptr<AAI> ai);
     ~TaskManager() = default;
 
     std::string executeTask(std::string const &task);
@@ -27,9 +28,11 @@ private:
     std::map<std::string, taskPtr_t> tasks;
     Splitter splitter;
     uint32_t size;
-    bool isBoardInConfiguration = false;
+    bool isBoardInConfiguration;
     bool &coreRunning;
     std::unique_ptr<Board> board;
+    std::unique_ptr<AAI> ai;
+    size_t currentRound;
 
     std::string const MSG_ERROR = "ERROR";
     std::string const MSG_UNKNOWN = "UNKNOWN";
@@ -49,7 +52,7 @@ private:
     std::string about(std::vector<std::string> const& args);
     std::string takeBack(std::vector<std::string> const& args);
     std::string end(std::vector<std::string> const& args);
-    std::string nomessage(std::vector<std::string> const& args);
+    std::string noMessage(std::vector<std::string> const &args);
 
     bool isInBound(int x) const;
 };

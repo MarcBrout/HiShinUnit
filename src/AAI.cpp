@@ -11,8 +11,8 @@ AAI::AAI(unsigned int threadCount, unsigned int timeLimit) :
         timeOut(timeLimit) {
 }
 
-void AAI::getAIPlay(Board const& board, int round, Position &posOut) {
-    initializeCases(board, cases);
+void AAI::getAIPlay(Board const& board, size_t round, Position &posOut) {
+    initializeCases(board, cases, round);
 
     while (!cases.empty()) {
         threadPool.addCase(std::move(cases.front()));

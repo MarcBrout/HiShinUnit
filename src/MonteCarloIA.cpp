@@ -5,11 +5,12 @@
 #include "MonteCarloIA.hpp"
 #include "MonteCarloCase.hpp"
 
-MonteCarloIA::MonteCarloIA(Board board1) : board(board1), checker()
+MonteCarloIA::MonteCarloIA() : AAI(10)
 {
 }
 
-void MonteCarloIA::initializeCases(Board const &board, std::deque<std::unique_ptr<ai::AICase>> &outCases) {
+void
+MonteCarloIA::initializeCases(Board const &board, std::deque<std::unique_ptr<ai::AICase>> &outCases, size_t round) {
     Position curMax;
     // Count is the max probality value of the cell
     uint32_t count = 0;
@@ -23,7 +24,9 @@ void MonteCarloIA::initializeCases(Board const &board, std::deque<std::unique_pt
         for (uint32_t x = 0; x < board.getBoard()[y].size(); ++x)
         {
             if (board[y][x] == Empty) {
-                outCases.push_back(std::make_unique<ai::MonteCarloCase>(board, x, y));
+                outCases.push_back(
+                        std::make_unique<ai::MonteCarloCase>(board, x, y, 0)
+                );
             }
         }
     }
@@ -32,7 +35,7 @@ void MonteCarloIA::initializeCases(Board const &board, std::deque<std::unique_pt
 void MonteCarloIA::resolve(std::deque<std::unique_ptr<ai::AICase>> &casesDone, Position &posOut) {
     double max = -1.0;
 
-    for (auto oneCase : casesDone)
+    for (auto const &oneCase : casesDone)
     {
         if (max < (*oneCase).getWeight())
         {

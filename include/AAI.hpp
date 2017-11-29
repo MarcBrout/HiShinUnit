@@ -22,8 +22,7 @@ public:
      * @param threadCount : number of threads used to resolve the cases
      * @param timeLimit : timeout before the AI retrieve the cases resolved
      */
-    explicit AAI(unsigned int threadCount = 20, unsigned int timeLimit = 4000);
-    AAI() = delete;
+    AAI(unsigned int threadCount = 20, unsigned int timeLimit = 4000);
     AAI(AAI const&) = delete;
     AAI(AAI &&) = delete;
 
@@ -36,7 +35,7 @@ public:
      * @param round : round count used to discard useless cases
      * @param posOut : winning move decided by the AAI
      */
-    void getAIPlay(Board const& board, int round, Position &posOut);
+    void getAIPlay(Board const &board, size_t round, Position &posOut);
 
     /**
      * Set the the time in milliseconds the threadpool should be working, the result will be
@@ -54,7 +53,7 @@ protected:
     * The user shall create, initialize and push his AICases in the outCases vector.
     * @param outCases : AICases that will be pushed into the threadpool
     */
-    virtual void initializeCases(Board const& board, std::deque<std::unique_ptr<ai::AICase>> &outCases) = 0;
+    virtual void initializeCases(Board const &board, std::deque<std::unique_ptr<ai::AICase>> &outCases, size_t round) = 0;
 
     /**
      * Method used to choose the best AICase from the resolved ones.

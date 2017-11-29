@@ -2,6 +2,7 @@
 // Created by Zenox on 11/29/2017.
 //
 
+#include <iostream>
 #include "MonteCarloCase.hpp"
 
 namespace ai {
@@ -136,7 +137,10 @@ namespace ai {
         weight = result;
     }
 
-    MonteCarloCase::MonteCarloCase(Board &board_c, uint32_t x, uint32_t y)
-            : AICase(), board(std::make_unique<Board>(board_c)), pos(x, y), checker() {
+    MonteCarloCase::MonteCarloCase(Board const &board_c,
+                                   uint32_t x, uint32_t y, size_t round)
+            : AICase(std::make_unique<Board>(board_c), Position(x, y), round),
+              checker()
+    {
     }
 }

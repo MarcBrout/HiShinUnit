@@ -10,20 +10,15 @@
 #include "Position.hpp"
 #include "AAI.hpp"
 
-class MonteCarloIA  : AAI {
-private:
-    Board board;
-    Checker checker;
+class MonteCarloIA : public AAI {
 public:
-    MonteCarloIA() = delete;
-    explicit MonteCarloIA(Board board1);
+    MonteCarloIA();
     MonteCarloIA(MonteCarloIA const& monteCarloIA) = delete;
 
 private:
-    void initializeCases(Board const &board, std::deque<std::unique_ptr<ai::AICase>> &outCases) override;
+    void initializeCases(Board const &board, std::deque<std::unique_ptr<ai::AICase>> &outCases, size_t round) override;
 
     void resolve(std::deque<std::unique_ptr<ai::AICase>> &casesDone, Position &posOut) override;
-//    void getIaPlay(Position &outPos);
 };
 
 

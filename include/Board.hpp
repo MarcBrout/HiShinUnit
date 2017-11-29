@@ -29,7 +29,7 @@ public:
 
 private:
     Checker checker;
-    std::array<std::array<CellState, 19>, 19> board = {{}};
+    std::array<std::array<CellState, 19>, 19> board;
 };
 
 #endif //GOMOKU_BOARD_H

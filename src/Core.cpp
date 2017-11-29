@@ -3,19 +3,21 @@
 //
 
 #include <iostream>
-#include <Logger.hpp>
+#include "MonteCarloIA.hpp"
 #include "TaskManager.hpp"
 #include "Core.hpp"
 
 void Core::run() {
-    TaskManager taskManager(running);
+    TaskManager taskManager(running, 19, std::make_unique<MonteCarloIA>());
 
     while (running) {
         std::string line = readString();
 
+        if (std::cin.eof())
+            break;
+
         std::string answer = taskManager.executeTask(line);
 
-        std::cout << "DEBUG " + answer << std::endl;
         if (!answer.empty())
             send(answer);
     }
@@ -25,6 +27,7 @@ std::string Core::readString() const {
     std::string line;
 
     std::getline(std::cin, line);
+
     return line;
 }
 

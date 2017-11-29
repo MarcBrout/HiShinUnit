@@ -5,7 +5,6 @@
 #include <algorithm>
 #include "Position.hpp"
 #include "TaskManager.hpp"
-#include "Logger.hpp"
 
 std::string TaskManager::executeTask(std::string const &task) {
     std::vector<std::string> out;
@@ -51,16 +50,15 @@ std::string TaskManager::turn(std::vector<std::string> const &args) {
     (*board).setCellState(y, x, Player2);
 
     Position pos;
-    //TODO Guess POS IA
-    getIaPlay(pos);
+    (*ai).getAIPlay(*board, currentRound++, pos);
+
     (*board).setCellState(pos.y, pos.x, Player1);
     return pos.toString();
 }
 
 std::string TaskManager::begin(std::vector<std::string> const &args) {
     Position pos;
-    //TODO Guess POS IA
-    getIaPlay(pos);
+    (*ai).getAIPlay(*board, currentRound++, pos);
 
     (*board).setCellState(pos.y, pos.x, Player1);
     return pos.toString();
@@ -89,8 +87,7 @@ std::string TaskManager::configure(std::vector<std::string> const &args) {
 std::string TaskManager::done(std::vector<std::string> const &args) {
     Position pos;
 
-    // TODO Calculate our move
-    getIaPlay(pos);
+    (*ai).getAIPlay(*board, currentRound++, pos);
     isBoardInConfiguration = false;
     return pos.toString();
 }
@@ -133,16 +130,17 @@ bool TaskManager::isInBound(int x) const {
     return (x < 19 && x >= 0);
 }
 
-TaskManager::TaskManager(bool &running, uint32_t boardSize):
+TaskManager::TaskManager(bool &running,
+                         uint32_t boardSize,
+                         std::unique_ptr<AAI> myAi) :
         tasks({
                       {"START", &TaskManager::start},
                       {"BEGIN", &TaskManager::begin},
-                      {"INFO", &TaskManager::nomessage},
+                      {"INFO", &TaskManager::noMessage},
                       {"BOARD", &TaskManager::boardUp},
                       {"DONE", &TaskManager::done},
                       {"TURN", &TaskManager::turn},
                       {"END", &TaskManager::end},
-                      {"ABOUT", &TaskManager::unknown},
                       {"RECTSTART", &TaskManager::rectstart},
                       {"RESTART", &TaskManager::restart},
                       {"TAKEBACK", &TaskManager::takeBack},
@@ -152,11 +150,14 @@ TaskManager::TaskManager(bool &running, uint32_t boardSize):
               }),
         splitter(),
         size(boardSize),
+        isBoardInConfiguration(false),
         coreRunning(running),
-        board(std::make_unique<Board>())
+        board(std::make_unique<Board>()),
+        ai(std::move(myAi)),
+        currentRound(0)
 {
 }
 
-std::string TaskManager::nomessage(std::vector<std::string> const &args) {
+std::string TaskManager::noMessage(std::vector<std::string> const &args) {
     return MSG_NO_RESPONSE;
 }

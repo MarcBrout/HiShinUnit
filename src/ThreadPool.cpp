@@ -2,6 +2,7 @@
 // Created by Pierre Bougon on 28/11/2017.
 //
 
+#include <iostream>
 #include "ThreadPool.hpp"
 
 ThreadPool::ThreadPool(unsigned int nbThreads)
@@ -9,8 +10,9 @@ ThreadPool::ThreadPool(unsigned int nbThreads)
 {
     for (unsigned int i = 0; i < nbThreads; ++i)
     {
-        threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
-        state.push_back(ThreadState::sleeping);
+        // TODO repair this shit
+       threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
+       state.push_back(ThreadState::sleeping);
     }
     running = true;
 }
@@ -46,30 +48,38 @@ void ThreadPool::threadWorkflow(unsigned int id)
 {
     while (running)
     {
-
+        // std::cout << "thread " << id << " started here " << std::endl;
         // Check if we have done all the tasks to do
+        mutex.lock();
         if (todoCases.empty())
         {
             // Wait until we rcv notification
-            state[id] = ThreadState::sleeping;
+            //state[id] = ThreadState::sleeping;
+            mutex.unlock();
             std::unique_lock<std::mutex> ulock(mutex);
             condvar.wait(ulock);
+        } else {
+            mutex.unlock();
         }
 
+        std::cout << "thread " << id << " run here " << std::endl;
         // If ThreadPool is down we stop the thread
         if (!running)
             break;
 
-        state[id] = ThreadState::working;
         mutex.lock();
+        //state[id] = ThreadState::working;
         if (todoCases.empty())
             continue;
         std::unique_ptr<ai::AICase> aiCase = std::move(todoCases.front());
         todoCases.pop();
+        std::cout << "Cases to proceed: " << todoCases.size() << std::endl;
+        std::cout << "Case: " << (*aiCase).getPos().toString() << std::endl;
         mutex.unlock();
 
         // Process the task
-        //aiCase.ntry(1000);
+        (*aiCase).process();
+        std::cout << "thread " << id << " reached here " << std::endl;
 
         // Add task to doneTasks queue
         mutex.lock();
@@ -82,12 +92,14 @@ std::deque<std::unique_ptr<ai::AICase>> ThreadPool::getCasesDone(int round) {
     std::deque<std::unique_ptr<ai::AICase>> out;
 
     mutex.lock();
+    std::cout << "STARTING TO REMOVE : " << doneCases.size() << std::endl;
     while (!doneCases.empty()) {
         if ((*doneCases.front()).getRound() == round) {
             out.push_back(std::move(doneCases.front()));
         }
         doneCases.pop();
     }
+    std::cout << "ALL CASES TAKEN : " << out.size() << std::endl;
     mutex.unlock();
     return out;
 }
