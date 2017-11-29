@@ -13,6 +13,10 @@ struct Position
     uint32_t x = 0;
     uint32_t y = 0;
 
+    Position(uint32_t X, uint32_t Y) : x(X), y(Y) {}
+
+    Position() = default;
+
     Position &operator=(Position &pos)
     {
         if (&pos != this)

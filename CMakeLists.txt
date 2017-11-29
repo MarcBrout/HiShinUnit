@@ -31,6 +31,6 @@ set(SOURCE_FILES
         include/AAI.hpp
         include/Position.hpp
         src/MonteCarloIA.cpp
-        include/MonteCarloIA.hpp)
+        include/MonteCarloIA.hpp src/MonteCarloCase.cpp include/MonteCarloCase.hpp)
 
 add_executable(gomoku ${SOURCE_FILES})

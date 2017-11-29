@@ -25,6 +25,7 @@ public:
     void reset();
     bool isFill();
     std::array<CellState, 19> &operator[](uint32_t y);
+    const std::array<CellState, 19> &operator[](uint32_t y) const;
 
 private:
     Checker checker;

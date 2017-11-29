@@ -39,3 +39,7 @@ void ai::AICase::setRound(size_t round)
 {
     this->round = round;
 }
+
+const Position &ai::AICase::getPos() const {
+    return pos;
+}

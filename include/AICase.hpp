@@ -8,6 +8,7 @@
 
 #include <memory>
 #include "Board.hpp"
+#include "Position.hpp"
 
 namespace ai
 {
@@ -25,13 +26,12 @@ namespace ai
         AICase(std::unique_ptr<Board> newBoard, size_t round);
 
         void        setBoard(std::unique_ptr<Board> newBoard);
-
         size_t      getRound() const;
+        const Position &getPos() const;
         void        setRound(size_t round);
-
-        void        resetWeight();
         double      getWeight();
 
+        void        resetWeight();
         virtual void process() = 0;
 
         AICase &operator=(AICase const &other) = delete;
@@ -40,6 +40,7 @@ namespace ai
         std::unique_ptr<Board>  board;
         double                  weight;
         size_t                  round;
+        Position                pos;
     };
 }
 
