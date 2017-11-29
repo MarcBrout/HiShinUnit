@@ -4,13 +4,26 @@
 
 #include "AICase.hpp"
 
-
 ai::AICase::AICase()
         : board(), weight(0.0)
 {
 }
 
-ai::AICase::AICase(std::unique_ptr<Board> newBoard, size_t round)
+ai::AICase::AICase(std::unique_ptr<Board> newBoard,
+                   Position const &initPos,
+                   size_t startRound) :
+    board(std::move(newBoard)),
+    weight(0.0),
+    round(startRound),
+    pos(initPos)
+{
+
+}
+
+ai::AICase::AICase(std::unique_ptr<Board> newBoard, size_t startRound) :
+        board(std::move(newBoard)),
+        weight(0.0),
+        round(startRound)
 {
 
 }

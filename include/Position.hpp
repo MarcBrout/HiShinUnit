@@ -17,7 +17,7 @@ struct Position
 
     Position() = default;
 
-    Position &operator=(Position &pos)
+    Position &operator=(Position const &pos)
     {
         if (&pos != this)
         {

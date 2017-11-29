@@ -52,7 +52,6 @@ std::string TaskManager::turn(std::vector<std::string> const &args) {
 
     Position pos;
     //TODO Guess POS IA
-    getIaPlay(pos);
     (*board).setCellState(pos.y, pos.x, Player1);
     return pos.toString();
 }
@@ -60,7 +59,6 @@ std::string TaskManager::turn(std::vector<std::string> const &args) {
 std::string TaskManager::begin(std::vector<std::string> const &args) {
     Position pos;
     //TODO Guess POS IA
-    getIaPlay(pos);
 
     (*board).setCellState(pos.y, pos.x, Player1);
     return pos.toString();
@@ -90,7 +88,6 @@ std::string TaskManager::done(std::vector<std::string> const &args) {
     Position pos;
 
     // TODO Calculate our move
-    getIaPlay(pos);
     isBoardInConfiguration = false;
     return pos.toString();
 }

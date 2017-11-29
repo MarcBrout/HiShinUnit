@@ -8,9 +8,9 @@
 #include "AICase.hpp"
 
 namespace ai {
-    class MonteCarloCase : AICase {
+    class MonteCarloCase : public AICase {
     public:
-        MonteCarloCase(Board &board, uint32_t x, uint32_t y);
+        MonteCarloCase(Board const &board, uint32_t x, uint32_t y, size_t round);
         void process() override;
 
     private:
