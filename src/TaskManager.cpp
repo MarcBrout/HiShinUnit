@@ -5,7 +5,6 @@
 #include <algorithm>
 #include "Position.hpp"
 #include "TaskManager.hpp"
-#include "Logger.hpp"
 
 std::string TaskManager::executeTask(std::string const &task) {
     std::vector<std::string> out;
@@ -51,14 +50,15 @@ std::string TaskManager::turn(std::vector<std::string> const &args) {
     (*board).setCellState(y, x, Player2);
 
     Position pos;
-    //TODO Guess POS IA
+    (*ai).getAIPlay(*board, currentRound++, pos);
+
     (*board).setCellState(pos.y, pos.x, Player1);
     return pos.toString();
 }
 
 std::string TaskManager::begin(std::vector<std::string> const &args) {
     Position pos;
-    //TODO Guess POS IA
+    (*ai).getAIPlay(*board, currentRound++, pos);
 
     (*board).setCellState(pos.y, pos.x, Player1);
     return pos.toString();
@@ -87,7 +87,7 @@ std::string TaskManager::configure(std::vector<std::string> const &args) {
 std::string TaskManager::done(std::vector<std::string> const &args) {
     Position pos;
 
-    // TODO Calculate our move
+    (*ai).getAIPlay(*board, currentRound++, pos);
     isBoardInConfiguration = false;
     return pos.toString();
 }
@@ -130,11 +130,13 @@ bool TaskManager::isInBound(int x) const {
     return (x < 19 && x >= 0);
 }
 
-TaskManager::TaskManager(bool &running, uint32_t boardSize):
+TaskManager::TaskManager(bool &running,
+                         uint32_t boardSize,
+                         std::unique_ptr<AAI> myAi) :
         tasks({
                       {"START", &TaskManager::start},
                       {"BEGIN", &TaskManager::begin},
-                      {"INFO", &TaskManager::nomessage},
+                      {"INFO", &TaskManager::noMessage},
                       {"BOARD", &TaskManager::boardUp},
                       {"DONE", &TaskManager::done},
                       {"TURN", &TaskManager::turn},
@@ -154,6 +156,6 @@ TaskManager::TaskManager(bool &running, uint32_t boardSize):
 {
 }
 
-std::string TaskManager::nomessage(std::vector<std::string> const &args) {
+std::string TaskManager::noMessage(std::vector<std::string> const &args) {
     return MSG_NO_RESPONSE;
 }

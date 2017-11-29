@@ -3,19 +3,18 @@
 //
 
 #include <iostream>
-#include <Logger.hpp>
+#include "MonteCarloIA.hpp"
 #include "TaskManager.hpp"
 #include "Core.hpp"
 
 void Core::run() {
-    TaskManager taskManager(running);
+    TaskManager taskManager(running, 0, std::make_unique<MonteCarloIA>());
 
     while (running) {
         std::string line = readString();
 
         std::string answer = taskManager.executeTask(line);
 
-        std::cout << "DEBUG " + answer << std::endl;
         if (!answer.empty())
             send(answer);
     }

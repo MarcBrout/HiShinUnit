@@ -18,9 +18,7 @@ set(SOURCE_FILES
         include/Board.hpp
         src/Checker.cpp
         include/Checker.hpp
-        include/Logger.hpp
         include/Singleton.hpp
-        src/Logger.cpp
         src/ThreadPool.cpp
         include/ThreadPool.hpp
         src/AICase.cpp
