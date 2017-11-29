@@ -9,6 +9,7 @@ ThreadPool::ThreadPool(unsigned int nbThreads)
 {
     for (unsigned int i = 0; i < nbThreads; ++i)
     {
+        // TODO repair this shit
        // threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
        state.push_back(ThreadState::sleeping);
     }
