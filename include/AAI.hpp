@@ -47,20 +47,20 @@ public:
 
 protected:
     ThreadPool threadPool;
-    std::deque<std::unique_ptr<AICase>> cases;
+    std::deque<std::unique_ptr<ai::AICase>> cases;
     unsigned int timeOut;
 
     /**
     * The user shall create, initialize and push his AICases in the outCases vector.
     * @param outCases : AICases that will be pushed into the threadpool
     */
-    virtual void initializeCases(Board const& board, std::deque<std::unique_ptr<AICase>> &outCases) = 0;
+    virtual void initializeCases(Board const& board, std::deque<std::unique_ptr<ai::AICase>> &outCases) = 0;
 
     /**
      * Method used to choose the best AICase from the resolved ones.
      * @param casesDone : resolved AICases
      */
-    virtual void resolve(std::deque<std::unique_ptr<AICase>> &casesDone, Position &posOut) = 0;
+    virtual void resolve(std::deque<std::unique_ptr<ai::AICase>> &casesDone, Position &posOut) = 0;
 };
 
 

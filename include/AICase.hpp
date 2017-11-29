@@ -6,10 +6,8 @@
 #define GOMOKU_AICASE_HPP_
 
 
-#include <bits/unique_ptr.h>
+#include <memory>
 #include "Board.hpp"
-#include "AI.hpp"
-
 
 namespace ai
 {
@@ -23,7 +21,7 @@ namespace ai
     {
     public:
         AICase();
-        AICase(AICase const &other);
+        AICase(AICase const &other) = delete;
         AICase(std::unique_ptr<Board> newBoard, size_t round);
 
         void        setBoard(std::unique_ptr<Board> newBoard);
@@ -33,15 +31,15 @@ namespace ai
 
         void        resetWeight();
         double      getWeight();
-        
+
         virtual void process() = 0;
 
-        AICase &operator=(AICase const &other);
+        AICase &operator=(AICase const &other) = delete;
 
     protected:
         std::unique_ptr<Board>  board;
         double                  weight;
-        uint32_t                round;
+        size_t                  round;
     };
 }
 
