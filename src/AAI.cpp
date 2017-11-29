@@ -5,7 +5,7 @@
 #include <chrono>
 #include "AAI.hpp"
 
-AAI::AAI(unsigned int threadCount, unsigned int timeLimit = 4000) :
+AAI::AAI(unsigned int threadCount, unsigned int timeLimit) :
         threadPool(threadCount),
         cases(),
         timeOut(timeLimit) {
@@ -15,14 +15,14 @@ void AAI::getAIPlay(Board const& board, int round, Position &posOut) {
     initializeCases(board, cases);
 
     while (!cases.empty()) {
-        threadPool.addCase(cases.front());
+        threadPool.addCase(std::move(cases.front()));
         cases.pop_front();
     }
 
     // Stop the main thread for timeOut milliseconds
     std::this_thread::sleep_for(std::chrono::milliseconds(timeOut));
 
-    std::deque<std::unique_ptr<AICase>> results = threadPool.getCasesDone(round);
+    std::deque<std::unique_ptr<ai::AICase>> results = threadPool.getCasesDone(round);
 
     resolve(results, posOut);
 }

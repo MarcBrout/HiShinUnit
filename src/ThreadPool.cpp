@@ -78,8 +78,8 @@ void ThreadPool::threadWorkflow(unsigned int id)
     }
 }
 
-std::deque<std::unique_ptr<AICase>> ThreadPool::getCasesDone(int round) {
-    std::deque<std::unique_ptr<AICase>> out;
+std::deque<std::unique_ptr<ai::AICase>> ThreadPool::getCasesDone(int round) {
+    std::deque<std::unique_ptr<ai::AICase>> out;
 
     mutex.lock();
     while (!doneCases.empty()) {
