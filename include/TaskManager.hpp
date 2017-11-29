@@ -28,11 +28,11 @@ private:
     std::map<std::string, taskPtr_t> tasks;
     Splitter splitter;
     uint32_t size;
-    bool isBoardInConfiguration = false;
+    bool isBoardInConfiguration;
     bool &coreRunning;
     std::unique_ptr<Board> board;
     std::unique_ptr<AAI> ai;
-    size_t currentRound = 0;
+    size_t currentRound;
 
     std::string const MSG_ERROR = "ERROR";
     std::string const MSG_UNKNOWN = "UNKNOWN";

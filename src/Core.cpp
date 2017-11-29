@@ -8,10 +8,13 @@
 #include "Core.hpp"
 
 void Core::run() {
-    TaskManager taskManager(running, 0, std::make_unique<MonteCarloIA>());
+    TaskManager taskManager(running, 19, std::make_unique<MonteCarloIA>());
 
     while (running) {
         std::string line = readString();
+
+        if (std::cin.eof())
+            break;
 
         std::string answer = taskManager.executeTask(line);
 
@@ -24,6 +27,7 @@ std::string Core::readString() const {
     std::string line;
 
     std::getline(std::cin, line);
+
     return line;
 }
 

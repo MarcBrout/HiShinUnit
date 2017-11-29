@@ -141,7 +141,6 @@ TaskManager::TaskManager(bool &running,
                       {"DONE", &TaskManager::done},
                       {"TURN", &TaskManager::turn},
                       {"END", &TaskManager::end},
-                      {"ABOUT", &TaskManager::unknown},
                       {"RECTSTART", &TaskManager::rectstart},
                       {"RESTART", &TaskManager::restart},
                       {"TAKEBACK", &TaskManager::takeBack},
@@ -151,8 +150,11 @@ TaskManager::TaskManager(bool &running,
               }),
         splitter(),
         size(boardSize),
+        isBoardInConfiguration(false),
         coreRunning(running),
-        board(std::make_unique<Board>())
+        board(std::make_unique<Board>()),
+        ai(std::move(myAi)),
+        currentRound(0)
 {
 }
 

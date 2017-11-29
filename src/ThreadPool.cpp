@@ -9,8 +9,8 @@ ThreadPool::ThreadPool(unsigned int nbThreads)
 {
     for (unsigned int i = 0; i < nbThreads; ++i)
     {
-        threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
-        state.push_back(ThreadState::sleeping);
+       // threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
+       state.push_back(ThreadState::sleeping);
     }
     running = true;
 }
