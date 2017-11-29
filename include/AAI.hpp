@@ -45,7 +45,7 @@ public:
      */
     void setTimeOut(unsigned int timeOut);
 
-private:
+protected:
     ThreadPool threadPool;
     std::deque<std::unique_ptr<AICase>> cases;
     unsigned int timeOut;

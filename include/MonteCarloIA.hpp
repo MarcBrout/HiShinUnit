@@ -8,9 +8,9 @@
 #include "Cell.hpp"
 #include "Board.hpp"
 #include "Position.hpp"
+#include "AAI.hpp"
 
-class MonteCarloIA {
-
+class MonteCarloIA  : AAI {
 private:
     Board board;
     Checker checker;

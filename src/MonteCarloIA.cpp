@@ -64,8 +64,6 @@ bool MonteCarloIA::canIWinDia(Board &myBoard, Position &out, CellState player, u
     return false;
 }
 
-
-
 bool MonteCarloIA::enemyCanWin(Board &myBoard, Position &out, CellState player)
 {
     //TODO Check if the enemy can win next round
