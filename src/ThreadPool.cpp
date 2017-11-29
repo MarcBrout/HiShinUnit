@@ -35,8 +35,10 @@ void ThreadPool::stop()
 
 std::unique_ptr<AICase> ThreadPool::getCaseDone()
 {
+    mutex.lock();
     std::unique_ptr<AICase> aiCase = std::move(doneCases.front());
     doneCases.pop();
+    mutex.unlock();
     return std::move(aiCase);
 }
 
@@ -74,4 +76,18 @@ void ThreadPool::threadWorkflow(unsigned int id)
         doneCases.push(std::move(aiCase));
         mutex.unlock();
     }
+}
+
+std::deque<std::unique_ptr<AICase>> ThreadPool::getCasesDone(int round) {
+    std::deque<std::unique_ptr<AICase>> out;
+
+    mutex.lock();
+    while (!doneCases.empty()) {
+        if ((*doneCases.front()).getRound() == round) {
+            out.push_back(doneCases.front());
+        }
+        doneCases.pop;
+    }
+    mutex.unlock();
+    return out;
 }

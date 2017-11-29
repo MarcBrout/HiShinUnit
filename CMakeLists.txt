@@ -25,8 +25,7 @@ set(SOURCE_FILES
         include/ThreadPool.hpp
         src/AICase.cpp
         include/AICase.hpp
-        include/ThreadState.hpp)
-        include/Position.hpp
-        )
+        include/ThreadState.hpp
+        include/Position.hpp src/AAI.cpp include/AAI.hpp)
 
 add_executable(gomoku ${SOURCE_FILES})
