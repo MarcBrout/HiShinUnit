@@ -21,7 +21,16 @@ set(SOURCE_FILES
         include/Logger.hpp
         include/Singleton.hpp
         src/Logger.cpp
+        src/ThreadPool.cpp
+        include/ThreadPool.hpp
+        src/AICase.cpp
+        include/AICase.hpp
+        include/ThreadState.hpp
         include/Position.hpp
-        src/MonteCarloIA.cpp include/MonteCarloIA.hpp)
+        src/AAI.cpp
+        include/AAI.hpp
+        include/Position.hpp
+        src/MonteCarloIA.cpp
+        include/MonteCarloIA.hpp)
 
 add_executable(gomoku ${SOURCE_FILES})
