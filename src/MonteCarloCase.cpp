@@ -106,10 +106,12 @@ namespace ai {
         if (canIWin(myBoard, out, state)) {
             if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
                 return comp;
+            return Empty;
         }
         if (enemyCanWin(myBoard, out, (state == Player2) ? Player1 : Player2)) {
             if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
                 return comp;
+            return Empty;
         }
         // Select a random cell to perform the recursive
         do {
@@ -127,7 +129,8 @@ namespace ai {
 
         //Launch x recursive here 1000, and growth the var result for each win of player 1
         for (uint32_t idx = 0; idx < 1000; ++idx) {
-            if (recurs(*board, x, y, Player1) == Player1)
+            Board copy(*board);
+            if (recurs(copy, x, y, Player1) == Player1)
                 result++;
         }
         weight = result;
