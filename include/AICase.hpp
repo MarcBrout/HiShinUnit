@@ -6,7 +6,7 @@
 #define GOMOKU_AICASE_HPP_
 
 
-#include <bits/unique_ptr.h>
+#include <memory>
 #include "Board.hpp"
 
 namespace ai
