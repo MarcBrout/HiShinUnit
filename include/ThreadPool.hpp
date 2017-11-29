@@ -20,15 +20,15 @@ public:
     ThreadPool() = delete;
     explicit ThreadPool(unsigned int nbThreads);
 
-    bool        addTask(std::unique_ptr<AICase> task);
-    void        stop();
-    std::unique_ptr<AICase> getCaseDone();
-    std::deque<std::unique_ptr<AICase>> getCasesDone(int round);
+    bool                        addCase(std::unique_ptr<ai::AICase> task);
+    void                        stop();
+    std::unique_ptr<ai::AICase> getCaseDone();
+    std::deque<std::unique_ptr<ai::AICase>> getCasesDone(int round);
 
 protected:
     std::vector<std::thread>                    threads;
-    std::queue<std::unique_ptr<AICase>>         todoCases;
-    std::queue<std::unique_ptr<AICase>>         doneCases;
+    std::queue<std::unique_ptr<ai::AICase>>         todoCases;
+    std::queue<std::unique_ptr<ai::AICase>>         doneCases;
     std::vector<ThreadState>                    state;
     std::atomic<bool>                           running;
     std::condition_variable                     condvar;

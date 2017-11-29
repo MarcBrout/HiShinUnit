@@ -9,13 +9,13 @@ ThreadPool::ThreadPool(unsigned int nbThreads)
 {
     for (unsigned int i = 0; i < nbThreads; ++i)
     {
-        threads.push_back(std::thread(threadWorkflow, this, i));
+        threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
         state.push_back(ThreadState::sleeping);
     }
     running = true;
 }
 
-bool ThreadPool::addTask(std::unique_ptr<AICase> task)
+bool ThreadPool::addCase(std::unique_ptr<ai::AICase> task)
 {
     mutex.lock();
     todoCases.push(std::move(task));
@@ -33,10 +33,10 @@ void ThreadPool::stop()
     threads.clear();
 }
 
-std::unique_ptr<AICase> ThreadPool::getCaseDone()
+std::unique_ptr<ai::AICase> ThreadPool::getCaseDone()
 {
     mutex.lock();
-    std::unique_ptr<AICase> aiCase = std::move(doneCases.front());
+    std::unique_ptr<ai::AICase> aiCase = std::move(doneCases.front());
     doneCases.pop();
     mutex.unlock();
     return std::move(aiCase);
@@ -64,7 +64,7 @@ void ThreadPool::threadWorkflow(unsigned int id)
         mutex.lock();
         if (todoCases.empty())
             continue;
-        std::unique_ptr<AICase> aiCase = std::move(todoCases.front());
+        std::unique_ptr<ai::AICase> aiCase = std::move(todoCases.front());
         todoCases.pop();
         mutex.unlock();
 
@@ -84,9 +84,9 @@ std::deque<std::unique_ptr<AICase>> ThreadPool::getCasesDone(int round) {
     mutex.lock();
     while (!doneCases.empty()) {
         if ((*doneCases.front()).getRound() == round) {
-            out.push_back(doneCases.front());
+            out.push_back(std::move(doneCases.front()));
         }
-        doneCases.pop;
+        doneCases.pop();
     }
     mutex.unlock();
     return out;
