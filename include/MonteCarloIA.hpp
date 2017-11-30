@@ -17,8 +17,8 @@ public:
 
 private:
     void initializeCases(Board const &board, std::deque<std::unique_ptr<ai::AICase>> &outCases, size_t round) override;
-
     void resolve(std::deque<std::unique_ptr<ai::AICase>> &casesDone, Position &posOut) override;
+    bool canIProcess(Board const &board, int32_t x, int32_t y) const;
 };
 
 
