@@ -67,8 +67,8 @@ namespace ai {
     }
 
     bool MonteCarloCase::canIWin(Board &myBoard, Position &out, CellState player) {
-        for (uint32_t y = 0; y < myBoard.getBoard().size(); ++y) {
-            for (uint32_t x = 0; x < myBoard[y].size(); ++x) {
+        for (uint32_t y = 0; y < myBoard.getSize(); ++y) {
+            for (uint32_t x = 0; x < myBoard.getSize(y); ++x) {
                 if (myBoard[y][x] == player) {
                     if (canIWinRow(myBoard, out, player, x, y) ||
                         canIWinCol(myBoard, out, player, x, y) ||
