@@ -5,7 +5,9 @@
 #include "MonteCarloIA.hpp"
 #include "MonteCarloCase.hpp"
 
-MonteCarloIA::MonteCarloIA() : AAI(4)
+static const unsigned int max_threads = std::thread::hardware_concurrency();
+
+MonteCarloIA::MonteCarloIA() : AAI(max_threads > 0 ? max_threads : 4, 4500)
 {
 }
 
@@ -29,7 +31,7 @@ void MonteCarloIA::initializeCases(Board const &board,
         {
             if (canIProcess(board, x, y)) {
                 outCases.push_back(
-                        std::make_unique<ai::MonteCarloCase>(board, x, y, 0)
+                        std::make_unique<ai::MonteCarloCase>(board, x, y, round)
                 );
             }
         }

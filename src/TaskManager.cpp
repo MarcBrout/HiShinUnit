@@ -47,12 +47,12 @@ std::string TaskManager::turn(std::vector<std::string> const &args) {
 
     if ((x < 0 || x > size) || (y < 0 || y > size))
         return MSG_ERROR + " expecting x and y in range 0..18";
-    (*board).setCellState(y, x, Player2);
+    (*board).setCellState(x, y, Player2);
 
     Position pos;
     (*ai).getAIPlay(*board, currentRound++, pos);
 
-    (*board).setCellState(pos.y, pos.x, Player1);
+    (*board).setCellState(pos.x, pos.y, Player1);
     return pos.toString();
 }
 
@@ -60,7 +60,7 @@ std::string TaskManager::begin(std::vector<std::string> const &args) {
     Position pos;
     (*ai).getAIPlay(*board, currentRound++, pos);
 
-    (*board).setCellState(pos.y, pos.x, Player1);
+    (*board).setCellState(pos.x, pos.y, Player1);
     return pos.toString();
 }
 
@@ -89,6 +89,8 @@ std::string TaskManager::done(std::vector<std::string> const &args) {
 
     (*ai).getAIPlay(*board, currentRound++, pos);
     isBoardInConfiguration = false;
+
+    (*board).setCellState(pos.x, pos.y, Player1);
     return pos.toString();
 }
 

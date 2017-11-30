@@ -20,15 +20,15 @@ void AAI::getAIPlay(Board const& board, size_t round, Position &posOut) {
         cases.pop_front();
     }
 
-    std::cout << "Go to the BED" << std::endl;
+    //std::cout << "Go to the BED" << std::endl;
 
     // Stop the main thread for timeOut milliseconds
     std::this_thread::sleep_for(std::chrono::milliseconds(timeOut));
 
-    std::cout << "WAKE UP" << std::endl;
+    //std::cout << "WAKE UP" << std::endl;
 
     std::deque<std::unique_ptr<ai::AICase>> results = threadPool.getCasesDone(round);
-    std::cout << "SIZE = " << results.size() << std::endl;
+    //std::cout << "SIZE = " << results.size() << std::endl;
 
     resolve(results, posOut);
 }
