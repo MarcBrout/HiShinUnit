@@ -164,7 +164,7 @@ std::string TaskManager::noMessage(std::vector<std::string> const &args) {
     return MSG_NO_RESPONSE;
 }
 
-void TaskManager::stop()
+TaskManager::~TaskManager()
 {
     ai->stop();
 }

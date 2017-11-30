@@ -18,13 +18,11 @@
 class TaskManager {
 public:
     explicit TaskManager(bool &running, uint32_t boardSize, std::unique_ptr<AAI> ai);
-    ~TaskManager() = default;
+    ~TaskManager();
 
     std::string executeTask(std::string const &task);
 
     typedef std::string (TaskManager::*taskPtr_t)(std::vector<std::string> const &);
-
-    void stop();
 
 private:
     std::map<std::string, taskPtr_t> tasks;
