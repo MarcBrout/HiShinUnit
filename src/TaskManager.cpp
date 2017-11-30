@@ -47,7 +47,7 @@ std::string TaskManager::turn(std::vector<std::string> const &args) {
 
     if ((x < 0 || x > size) || (y < 0 || y > size))
         return MSG_ERROR + " expecting x and y in range 0..18";
-    (*board).setCellState(y, x, Player2);
+    (*board).setCellState(x, y, Player2);
 
     Position pos;
     (*ai).getAIPlay(*board, currentRound++, pos);

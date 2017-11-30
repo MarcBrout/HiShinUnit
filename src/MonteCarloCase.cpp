@@ -145,7 +145,7 @@ namespace ai {
         uint32_t result = 0;
 
         //Launch x recursive here 1000, and growth the var result for each win of player 1
-        for (uint32_t idx = 0; idx < 5; ++idx) {
+        for (uint32_t idx = 0; idx < 500; ++idx) {
             Board copy(*board);
            /* for (auto const &line : copy.getBoard()) {
                 for (CellState const &cell : line) {
