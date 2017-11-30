@@ -28,6 +28,7 @@ void AAI::getAIPlay(Board const& board, size_t round, Position &posOut) {
     std::cout << "WAKE UP" << std::endl;
 
     std::deque<std::unique_ptr<ai::AICase>> results = threadPool.getCasesDone(round);
+    std::cout << "SIZE = " << results.size() << std::endl;
 
     resolve(results, posOut);
 }

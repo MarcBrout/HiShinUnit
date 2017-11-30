@@ -84,7 +84,7 @@ namespace ai {
     CellState MonteCarloCase::recurs(Board &myBoard, uint32_t x, uint32_t y, CellState state) {
         CellState comp;
 
-        std::cout << x << " && " << y << " ================" << std::endl;
+        //std::cout << x << " && " << y << " ================" << std::endl;
         //Set the piece at the position giving in param.
         myBoard.setCellState(x, y, state);
 
@@ -95,7 +95,7 @@ namespace ai {
             std::cout << "\n";
         }*/
 
-        std::cout << " LET'S BEGIN" << std::endl;
+        //std::cout << " LET'S BEGIN" << std::endl;
         //Check
         comp = myBoard.getChecker().hasAWinner(myBoard.getBoard());
         if (comp == Player1)
@@ -103,7 +103,7 @@ namespace ai {
         else if (comp == Player2)
             return Player2;
 
-        std::cout << " AFTER CHECK PLAYER WIN" << std::endl;
+        //std::cout << " AFTER CHECK PLAYER WIN" << std::endl;
         if (myBoard.isFill())
             return Empty;
         Position out;
@@ -113,30 +113,30 @@ namespace ai {
         else
             state = Player1;
 
-        std::cout << " SWITCH PLAYER ROLE" << std::endl;
+        //std::cout << " SWITCH PLAYER ROLE" << std::endl;
         // Determine if we can end the game with one move
         if (canIWin(myBoard, out, state)) {
             if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
                 return comp;
             return Empty;
         }
-        std::cout << " CAN I WIN ?" << std::endl;
+        //std::cout << " CAN I WIN ?" << std::endl;
         if (enemyCanWin(myBoard, out, (state == Player2) ? Player1 : Player2)) {
             if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
                 return comp;
             return Empty;
         }
-        std::cout << " ENEMY CAN WIN ?" << std::endl;
+        //std::cout << " ENEMY CAN WIN ?" << std::endl;
 
         // Select a random cell to perform the recursive
         do {
             out.x = static_cast<uint32_t>(std::rand() % 19);
             out.y = static_cast<uint32_t>(std::rand() % 19);
         } while (myBoard[out.y][out.x] != CellState::Empty);
-        std::cout << " RANDOMINATOR" << std::endl;
+        //std::cout << " RANDOMINATOR" << std::endl;
         if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
             return comp;
-        std::cout << " BITCH" << std::endl;
+      //  std::cout << " BITCH" << std::endl;
         return Empty;
     }
 
@@ -145,7 +145,7 @@ namespace ai {
         uint32_t result = 0;
 
         //Launch x recursive here 1000, and growth the var result for each win of player 1
-        for (uint32_t idx = 0; idx < 1000; ++idx) {
+        for (uint32_t idx = 0; idx < 5; ++idx) {
             Board copy(*board);
            /* for (auto const &line : copy.getBoard()) {
                 for (CellState const &cell : line) {
@@ -153,6 +153,7 @@ namespace ai {
                 }
                 std::cout << "\n";
             }*/
+            //std::cout << "Idx : " << idx << std::endl;
             if (recurs(copy, pos.x, pos.y, Player1) == Player1)
                 result++;
         }

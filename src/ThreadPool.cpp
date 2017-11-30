@@ -62,7 +62,7 @@ void ThreadPool::threadWorkflow(unsigned int id)
             mutex.unlock();
         }
 
-        std::cout << "thread " << id << " run here " << std::endl;
+        //std::cout << "thread " << id << " run here " << std::endl;
         // If ThreadPool is down we stop the thread
         if (!running)
             break;
@@ -73,13 +73,13 @@ void ThreadPool::threadWorkflow(unsigned int id)
             continue;
         std::unique_ptr<ai::AICase> aiCase = std::move(todoCases.front());
         todoCases.pop();
-        std::cout << "Cases to proceed: " << todoCases.size() << std::endl;
-        std::cout << "Case: " << (*aiCase).getPos().toString() << std::endl;
+        //std::cout << "Cases to proceed: " << todoCases.size() << std::endl;
+        //std::cout << "Case: " << (*aiCase).getPos().toString() << std::endl;
         mutex.unlock();
 
         // Process the task
         (*aiCase).process();
-        std::cout << "thread " << id << " reached here " << std::endl;
+      //  std::cout << "thread " << id << " reached here " << std::endl;
 
         // Add task to doneTasks queue
         mutex.lock();
@@ -92,14 +92,14 @@ std::deque<std::unique_ptr<ai::AICase>> ThreadPool::getCasesDone(int round) {
     std::deque<std::unique_ptr<ai::AICase>> out;
 
     mutex.lock();
-    std::cout << "STARTING TO REMOVE : " << doneCases.size() << std::endl;
+    //std::cout << "STARTING TO REMOVE : " << doneCases.size() << std::endl;
     while (!doneCases.empty()) {
         if ((*doneCases.front()).getRound() == round) {
             out.push_back(std::move(doneCases.front()));
         }
         doneCases.pop();
     }
-    std::cout << "ALL CASES TAKEN : " << out.size() << std::endl;
+   // std::cout << "ALL CASES TAKEN : " << out.size() << std::endl;
     mutex.unlock();
     return out;
 }
