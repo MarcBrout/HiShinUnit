@@ -11,7 +11,7 @@ ThreadPool::ThreadPool(unsigned int nbThreads)
     for (unsigned int i = 0; i < nbThreads; ++i)
     {
         // TODO repair this shit
-       threads.push_back(std::thread(&ThreadPool::threadWorkflow, this, i));
+       threads.emplace_back(std::thread(&ThreadPool::threadWorkflow, this, i));
        state.push_back(ThreadState::sleeping);
     }
     running = true;
@@ -70,7 +70,10 @@ void ThreadPool::threadWorkflow(unsigned int id)
         mutex.lock();
         //state[id] = ThreadState::working;
         if (todoCases.empty())
+        {
+            mutex.unlock();
             continue;
+        }
         std::unique_ptr<ai::AICase> aiCase = std::move(todoCases.front());
         todoCases.pop();
         std::cout << "Cases to proceed: " << todoCases.size() << std::endl;
