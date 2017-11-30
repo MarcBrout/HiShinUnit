@@ -22,13 +22,6 @@ void MonteCarloIA::initializeCases(Board const &board,
         return ;
     }
 
-    Position curMax;
-    // Count is the max probality value of the cell
-    uint32_t count = 0;
-
-    // Tmp will receive the return of monteCarlo algo and will be compared with count
-    uint32_t tmp = 0;
-
     // looking for an Empty cell which i'll launch the monteCarlo recursive
     for (uint32_t y = 0; y < board.getSize(); ++y)
     {
