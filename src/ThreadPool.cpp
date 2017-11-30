@@ -6,13 +6,13 @@
 #include "ThreadPool.hpp"
 
 ThreadPool::ThreadPool(unsigned int nbThreads)
-        : threads(), todoCases(), doneCases(), state(), running(true), condvar(), mutex()
+    : threads(), todoCases(), doneCases(), state(), running(true), condvar(), mutex()
 {
     for (unsigned int i = 0; i < nbThreads; ++i)
     {
         // TODO repair this shit
-       threads.emplace_back(std::thread(&ThreadPool::threadWorkflow, this, i));
-       state.push_back(ThreadState::sleeping);
+        threads.emplace_back(std::thread(&ThreadPool::threadWorkflow, this, i));
+        state.push_back(ThreadState::sleeping);
     }
     running = true;
 }
@@ -30,8 +30,18 @@ void ThreadPool::stop()
 {
     running = false;
     condvar.notify_all();
-    for (std::thread &th : threads)
-        th.join();
+
+    bool hasAllThreadJoined = false;
+    while (!hasAllThreadJoined) {
+        hasAllThreadJoined = true;
+        for (std::thread &th : threads) {
+            if (th.joinable()) {
+                th.join();
+            } else {
+                hasAllThreadJoined = false;
+            }
+        }
+    }
     threads.clear();
 }
 
@@ -82,7 +92,7 @@ void ThreadPool::threadWorkflow(unsigned int id)
 
         // Process the task
         (*aiCase).process();
-      //  std::cout << "thread " << id << " reached here " << std::endl;
+        //  std::cout << "thread " << id << " reached here " << std::endl;
 
         // Add task to doneTasks queue
         mutex.lock();
@@ -103,7 +113,7 @@ std::deque<std::unique_ptr<ai::AICase>> ThreadPool::getCasesDone(int round) {
         }
         doneCases.pop();
     }
-   // std::cout << "ALL CASES TAKEN : " << out.size() << std::endl;
+    // std::cout << "ALL CASES TAKEN : " << out.size() << std::endl;
     mutex.unlock();
     return out;
 }

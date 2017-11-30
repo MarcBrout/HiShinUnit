@@ -36,3 +36,8 @@ void AAI::getAIPlay(Board const& board, size_t round, Position &posOut) {
 void AAI::setTimeOut(unsigned int timeLimit) {
      timeOut = timeLimit;
 }
+
+void AAI::stop()
+{
+    threadPool.stop();
+}

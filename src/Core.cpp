@@ -21,6 +21,7 @@ void Core::run() {
         if (!answer.empty())
             send(answer);
     }
+    taskManager.stop();
 }
 
 std::string Core::readString() const {

@@ -24,6 +24,8 @@ public:
 
     typedef std::string (TaskManager::*taskPtr_t)(std::vector<std::string> const &);
 
+    void stop();
+
 private:
     std::map<std::string, taskPtr_t> tasks;
     Splitter splitter;
