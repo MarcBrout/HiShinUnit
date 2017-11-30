@@ -95,8 +95,9 @@ std::deque<std::unique_ptr<ai::AICase>> ThreadPool::getCasesDone(int round) {
     std::deque<std::unique_ptr<ai::AICase>> out;
 
     mutex.lock();
-    //std::cout << "STARTING TO REMOVE : " << doneCases.size() << std::endl;
+    //std::cout << "STARTING TO REMOVE ROUND  : " << round << std::endl;
     while (!doneCases.empty()) {
+        //std::cout << "object round = " << doneCases.front()->getRound() << std::endl;
         if ((*doneCases.front()).getRound() == round) {
             out.push_back(std::move(doneCases.front()));
         }
