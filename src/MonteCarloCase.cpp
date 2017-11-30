@@ -61,12 +61,7 @@ namespace ai {
         return false;
     }
 
-    bool MonteCarloCase::enemyCanWin(Board &myBoard, Position &out, CellState player) {
-        //TODO Check if the enemy can win next round
-        return false;
-    }
-
-    bool MonteCarloCase::canIWin(Board &myBoard, Position &out, CellState player) {
+    bool MonteCarloCase::canThisPlayerWin(Board &myBoard, Position &out, CellState player) {
         for (uint32_t y = 0; y < myBoard.getSize(); ++y) {
             for (uint32_t x = 0; x < myBoard.getSize(y); ++x) {
                 if (myBoard[y][x] == player) {
@@ -115,13 +110,13 @@ namespace ai {
 
         //std::cout << " SWITCH PLAYER ROLE" << std::endl;
         // Determine if we can end the game with one move
-        if (canIWin(myBoard, out, state)) {
+        if (canThisPlayerWin(myBoard, out, state)) {
             if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
                 return comp;
             return Empty;
         }
         //std::cout << " CAN I WIN ?" << std::endl;
-        if (enemyCanWin(myBoard, out, (state == Player2) ? Player1 : Player2)) {
+        if (canThisPlayerWin(myBoard, out, (state == Player2) ? Player1 : Player2)) {
             if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
                 return comp;
             return Empty;
