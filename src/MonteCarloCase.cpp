@@ -6,68 +6,79 @@
 #include "MonteCarloCase.hpp"
 
 namespace ai {
-    bool MonteCarloCase::canIWinRow(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y) {
-        if (checker.checkWinRow(myBoard.getBoard(), x, y, player) == 4) {
-            if (checker.checkInRowBefore(myBoard.getBoard(), x, y)) {
-                out.x = x - 1;
-                out.y = y;
-                return true;
-            } else if (checker.checkInRowAfter(myBoard.getBoard(), x, y)) {
-                out.x = x + 4;
-                out.y = y;
-                return true;
+    bool MonteCarloCase::canIWinRow(Board &myBoard, Position &out, CellState player,
+                                    uint32_t x, uint32_t y, uint32_t limit) {
+        if (checker.checkCanWinRow(myBoard.getBoard(), x, y, player) >= limit) {
+            for (int32_t pos = -1; pos < 5; ++pos)
+            {
+                if (pos == 0)
+                    continue;
+                if (checker.checkInRow(myBoard.getBoard(), x, y, pos))
+                {
+                    out.x = x + pos;
+                    out.y = y;
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    bool MonteCarloCase::canIWinCol(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y) {
-        if (checker.checkWinCol(myBoard.getBoard(), x, y, player) == 4) {
-            if (checker.checkInColBefore(myBoard.getBoard(), x, y)) {
-                out.x = x;
-                out.y = y - 1;
-                return true;
-            } else if (checker.checkInColAfter(myBoard.getBoard(), x, y)) {
-                out.x = x;
-                out.y = y + 4;
-                return true;
+    bool MonteCarloCase::canIWinCol(Board &myBoard, Position &out, CellState player,
+                                    uint32_t x, uint32_t y, uint32_t limit) {
+        if (checker.checkCanWinCol(myBoard.getBoard(), x, y, player) >= limit) {
+            for (int32_t pos = -1; pos < 5; ++pos)
+            {
+                if (pos == 0)
+                    continue;
+                if (checker.checkInCol(myBoard.getBoard(), x, y, pos))
+                {
+                    out.x = x;
+                    out.y = y + pos;
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    bool MonteCarloCase::canIWinDia(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y) {
-        if (checker.checkWinDiaLeft(myBoard.getBoard(), x, y, player) == 4) {
-            if (checker.checkInDiaLeftBefore(myBoard.getBoard(), x, y)) {
-                out.x = x + 1;
-                out.y = y - 1;
-                return true;
-            } else if (checker.checkInDiaLeftAfter(myBoard.getBoard(), x, y)) {
-                out.x = x - 4;
-                out.y = y + 4;
-                return true;
+    bool MonteCarloCase::canIWinDia(Board &myBoard, Position &out, CellState player,
+                                    uint32_t x, uint32_t y, uint32_t limit) {
+        if (checker.checkCanWinDiaLeft(myBoard.getBoard(), x, y, player) >= limit) {
+            for (int32_t pos = -1; pos < 5; ++pos)
+            {
+                if (pos == 0)
+                    continue;
+                if (checker.checkInDiaLeft(myBoard.getBoard(), x, y, pos))
+                {
+                    out.x = x - pos;
+                    out.y = y + pos;
+                    return true;
+                }
             }
-        } else if (checker.checkWinDiaRight(myBoard.getBoard(), x, y, player) == 4) {
-            if (checker.checkInDiaRightBefore(myBoard.getBoard(), x, y)) {
-                out.x = x - 1;
-                out.y = y - 1;
-                return true;
-            } else if (checker.checkInDiaRightAfter(myBoard.getBoard(), x, y)) {
-                out.x = x + 4;
-                out.y = y + 4;
-                return true;
+        } else if (checker.checkCanWinDiaRight(myBoard.getBoard(), x, y, player) >= limit) {
+            for (int32_t pos = -1; pos < 5; ++pos)
+            {
+                if (pos == 0)
+                    continue;
+                if (checker.checkInDiaRight(myBoard.getBoard(), x, y, pos))
+                {
+                    out.x = x + pos;
+                    out.y = y + pos;
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    bool MonteCarloCase::canThisPlayerWin(Board &myBoard, Position &out, CellState player) {
+    bool MonteCarloCase::canThisPlayerWin(Board &myBoard, Position &out, CellState player, uint32_t limit) {
         for (uint32_t y = 0; y < myBoard.getSize(); ++y) {
             for (uint32_t x = 0; x < myBoard.getSize(y); ++x) {
                 if (myBoard[y][x] == player) {
-                    if (canIWinRow(myBoard, out, player, x, y) ||
-                        canIWinCol(myBoard, out, player, x, y) ||
-                        canIWinDia(myBoard, out, player, x, y)) {
+                    if (canIWinRow(myBoard, out, player, x, y, limit) ||
+                        canIWinCol(myBoard, out, player, x, y, limit) ||
+                        canIWinDia(myBoard, out, player, x, y, limit)) {
                         return true;
                     }
                 }
@@ -110,18 +121,12 @@ namespace ai {
 
         //std::cout << " SWITCH PLAYER ROLE" << std::endl;
         // Determine if we can end the game with one move
-        if (canThisPlayerWin(myBoard, out, state)) {
+        if (canThisPlayerWin(myBoard, out, state, 4) ||
+            canThisPlayerWin(myBoard, out, (state == Player2) ? Player1 : Player2, 3)) {
             if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
                 return comp;
             return Empty;
         }
-        //std::cout << " CAN I WIN ?" << std::endl;
-        if (canThisPlayerWin(myBoard, out, (state == Player2) ? Player1 : Player2)) {
-            if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
-                return comp;
-            return Empty;
-        }
-        //std::cout << " ENEMY CAN WIN ?" << std::endl;
 
         // Select a random cell to perform the recursive
         do {
@@ -138,9 +143,17 @@ namespace ai {
 
     void MonteCarloCase::process() {
         uint32_t result = 0;
+        Position checkPos;
 
+        if (canThisPlayerWin(*board, checkPos, Player2, 3) || canThisPlayerWin(*board, checkPos, Player1, 4)) {
+            if (checkPos == pos)
+                weight = 100;
+            else
+                weight = 0;
+            return;
+        }
         //Launch x recursive here 1000, and growth the var result for each win of player 1
-        for (uint32_t idx = 0; idx < 500; ++idx) {
+        for (uint32_t idx = 0; idx < 100; ++idx) {
             Board copy(*board);
            /* for (auto const &line : copy.getBoard()) {
                 for (CellState const &cell : line) {

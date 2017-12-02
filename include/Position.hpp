@@ -27,6 +27,11 @@ struct Position
         return *this;
     }
 
+    bool operator==(Position const &pos)
+    {
+        return pos.x == x && pos.y == y;
+    }
+
     Position(Position const& pos) {
         x = pos.x;
         y = pos.y;
