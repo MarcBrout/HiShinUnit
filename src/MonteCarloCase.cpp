@@ -9,7 +9,7 @@ namespace ai {
     bool MonteCarloCase::canIWinRow(Board &myBoard, Position &out, CellState player,
                                     uint32_t x, uint32_t y, uint32_t limit) {
         if (checker.checkCanWinRow(myBoard.getBoard(), x, y, player) >= limit) {
-            for (int32_t pos = -1; pos < 5; ++pos)
+            for (int32_t pos = 1; pos < 5; ++pos)
             {
                 if (pos == 0)
                     continue;
@@ -20,6 +20,12 @@ namespace ai {
                     return true;
                 }
             }
+            if (checker.checkInRow(myBoard.getBoard(), x, y, -1))
+            {
+                out.x = x - 1;
+                out.y = y;
+                return true;
+            }
         }
         return false;
     }
@@ -27,7 +33,7 @@ namespace ai {
     bool MonteCarloCase::canIWinCol(Board &myBoard, Position &out, CellState player,
                                     uint32_t x, uint32_t y, uint32_t limit) {
         if (checker.checkCanWinCol(myBoard.getBoard(), x, y, player) >= limit) {
-            for (int32_t pos = -1; pos < 5; ++pos)
+            for (int32_t pos = 1; pos < 5; ++pos)
             {
                 if (pos == 0)
                     continue;
@@ -38,6 +44,12 @@ namespace ai {
                     return true;
                 }
             }
+            if (checker.checkInCol(myBoard.getBoard(), x, y, -1))
+            {
+                out.x = x;
+                out.y = y - 1;
+                return true;
+            }
         }
         return false;
     }
@@ -45,7 +57,7 @@ namespace ai {
     bool MonteCarloCase::canIWinDia(Board &myBoard, Position &out, CellState player,
                                     uint32_t x, uint32_t y, uint32_t limit) {
         if (checker.checkCanWinDiaLeft(myBoard.getBoard(), x, y, player) >= limit) {
-            for (int32_t pos = -1; pos < 5; ++pos)
+            for (int32_t pos = 1; pos < 5; ++pos)
             {
                 if (pos == 0)
                     continue;
@@ -56,8 +68,14 @@ namespace ai {
                     return true;
                 }
             }
+            if (checker.checkInDiaLeft(myBoard.getBoard(), x, y, -1))
+            {
+                out.x = x + 1;
+                out.y = y - 1;
+                return true;
+            }
         } else if (checker.checkCanWinDiaRight(myBoard.getBoard(), x, y, player) >= limit) {
-            for (int32_t pos = -1; pos < 5; ++pos)
+            for (int32_t pos = 1; pos < 5; ++pos)
             {
                 if (pos == 0)
                     continue;
@@ -67,6 +85,12 @@ namespace ai {
                     out.y = y + pos;
                     return true;
                 }
+            }
+            if (checker.checkInDiaRight(myBoard.getBoard(), x, y, -1))
+            {
+                out.x = x - 1;
+                out.y = y - 1;
+                return true;
             }
         }
         return false;
@@ -145,11 +169,19 @@ namespace ai {
         uint32_t result = 0;
         Position checkPos;
 
-        if (canThisPlayerWin(*board, checkPos, Player2, 3) || canThisPlayerWin(*board, checkPos, Player1, 4)) {
+        if (canThisPlayerWin(*board, checkPos, Player1, 4)) {
             if (checkPos == pos)
                 weight = 100;
-            else
-                weight = 0;
+           return;
+        }
+        if (canThisPlayerWin(*board, checkPos, Player2, 3))
+        {
+            if (checkPos == pos)
+                weight = 95;
+            if (canThisPlayerWin(*board, checkPos, Player2, 4)) {
+                if (checkPos == pos)
+                    weight = 100;
+            }
             return;
         }
         //Launch x recursive here 1000, and growth the var result for each win of player 1
