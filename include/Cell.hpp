@@ -11,7 +11,8 @@ enum CellState
 {
     Empty = 0,
     Player1,
-    Player2
+    Player2,
+    OutOfBound
 };
 
 #endif //GOMOKU_CELL_H

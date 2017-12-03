@@ -7,34 +7,27 @@
 
 #include <cstdint>
 #include <string>
+#include "Evaluator/Move.h"
 
 struct Position
 {
-    uint32_t x = 0;
-    uint32_t y = 0;
+    uint32_t x;
+    uint32_t y;
 
-    Position(uint32_t X, uint32_t Y) : x(X), y(Y) {}
+    // Constructors
+    explicit Position(uint32_t x = 0, uint32_t y = 0) : x(x), y(y) {}
+    Position(Position const& pos);
+    Position(Position &&) = default;
+    ~Position() = default;
 
-    Position() = default;
+    // Copy operator
+    Position &operator=(Position const &pos);
+    Position &operator=(Position &&) = default;
 
-    Position &operator=(Position const &pos)
-    {
-        if (&pos != this)
-        {
-            x = pos.x;
-            y = pos.y;
-        }
-        return *this;
-    }
+    // Special Interaction with the Move structure
+    Position operator+(Move const &move) const;
 
-    Position(Position const& pos) {
-        x = pos.x;
-        y = pos.y;
-    }
-
-    std::string toString() const {
-        return std::string(std::to_string(x) + "," + std::to_string(y));
-    }
+    std::string toString() const;
 };
 
 #endif //GOMOKU_POSITION_HPP
