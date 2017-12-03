@@ -17,10 +17,10 @@ namespace ai {
         Checker checker;
 
     private:
-        bool canIWinRow(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y);
-        bool canIWinCol(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y);
-        bool canIWinDia(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y);
-        bool canThisPlayerWin(Board &myBoard, Position &out, CellState player);
+        bool canIWinRow(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y, uint32_t limit);
+        bool canIWinCol(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y, uint32_t limit);
+        bool canIWinDia(Board &myBoard, Position &out, CellState player, uint32_t x, uint32_t y, uint32_t limit);
+        bool canThisPlayerWin(Board &myBoard, Position &out, CellState player, uint32_t limit);
         CellState recurs(Board &board, uint32_t x, uint32_t y, CellState state);
     };
 }

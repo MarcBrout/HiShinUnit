@@ -28,6 +28,7 @@ struct Position
     Position operator+(Move const &move) const;
 
     std::string toString() const;
+    bool operator==(Position const &pos);
 };
 
 #endif //GOMOKU_POSITION_HPP

@@ -20,7 +20,7 @@ void MonteCarloIA::initializeCases(Board const &board,
         outCases.push_back(
                 std::make_unique<ai::MonteCarloCase>(board, board.getSize(0) / 2,
                                                      board.getSize() / 2,
-                                                     0));
+                                                     round));
         return ;
     }
 
