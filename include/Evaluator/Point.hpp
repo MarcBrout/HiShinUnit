@@ -5,7 +5,7 @@
 #ifndef GOMOKU_LINE_HPP
 #define GOMOKU_LINE_HPP
 
-
+#include <functional>
 #include <map>
 #include "Cell.hpp"
 #include "Board.hpp"

@@ -6,6 +6,16 @@
 #include <functional>
 #include "Evaluator/Point.hpp"
 
+bool isPlayer(CellState in, CellState player)
+{
+    return in == player;
+}
+
+bool isFree(CellState in, CellState player)
+{
+    return in == player || in == CellState::Empty;
+}
+
 uint8_t Point::getLength(Board const &board)
 {
     Position lengthLeftPos(central);
@@ -17,7 +27,7 @@ uint8_t Point::getLength(Board const &board)
     countPlayerGoPieces(board, lengthLeftPos, moves, direction, player, lengthLeft, isFree);
     countPlayerGoPieces(board, lengthRightPos, oppositeMoves, direction, player, lengthRight, isFree);
 
-    return (lengthLeft + lengthRight + 1u8);
+    return (lengthLeft + lengthRight + 1);
 }
 
 bool areEndsFree(CellState leftCell, CellState rightCell) {
@@ -76,10 +86,17 @@ void Point::propagate(Board const &board)
 
 }
 
+inline int32_t absolute(int32_t val) {
+    return (val > 0 ? val : -val);
+}
+
 uint32_t Point::relativePositionEvaluation(Board const &board, Position const &pos)
 {
-    return value = board.getSize() - std::abs(board.getSize() / 2 - central.x) +
-        board.getSize() - std::abs(board.getSize() / 2 - central.y);
+    int32_t size = board.getSize();
+    int32_t posX = central.x;
+    int32_t posY = central.y;
+
+    return static_cast<uint32_t >(size - absolute(size / 2 - posX) + size - absolute(size / 2 - posY));
 }
 
 CellState Point::move(Board const &board,
@@ -159,14 +176,4 @@ Point::Point(Position const &central, Direction const &direction, CellState cons
 uint32_t Point::getValue() const
 {
     return value;
-}
-
-bool isPlayer(CellState in, CellState player)
-{
-    return in == player;
-}
-
-bool isFree(CellState in, CellState player)
-{
-    return in == player || in == CellState::Empty;
 }

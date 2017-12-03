@@ -16,7 +16,7 @@ class Evaluator {
 public:
     Evaluator() = default;
 
-    std::vector<Position> evaluateBoard(Board const &board, uint32_t minimumLvl, CellState player, uint8_t limit = 10);
+    std::vector<std::pair<Position, uint32_t>> evaluateBoard(Board const &board, uint32_t minimumLvl, CellState player, uint8_t limit = 10);
 private:
     uint32_t evaluatePoint(Board const &board, Position const &play, CellState player) const;
 };
