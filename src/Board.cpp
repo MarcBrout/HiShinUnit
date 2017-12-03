@@ -12,19 +12,23 @@ Board::Board() : checker()
             cell = Empty;
         }
     }
+    empty = true;
 }
 
 Board::Board(Board const &board)
 {
+    this->checker = board.checker;
     this->board = board.board;
 }
 
-void Board::setCellState(uint32_t posY, uint32_t posX, CellState state)
+void Board::setCellState(uint32_t posX, uint32_t posY, CellState state)
 {
     board[posY][posX] = state;
+    if (empty)
+        empty = false;
 }
 
-CellState Board::getCellState(uint32_t posY, uint32_t posX) const
+CellState Board::getCellState(uint32_t posX, uint32_t posY) const
 {
     return board[posY][posX];
 }
@@ -37,6 +41,7 @@ void Board::reset()
             state = Empty;
         }
     }
+    empty = true;
 }
 
 const std::array<std::array<CellState, 19>, 19> &Board::getBoard() const {
@@ -61,7 +66,7 @@ Board &Board::operator=(Board &board) {
 }
 
 Checker Board::getChecker() const {
-    return Checker();
+    return checker;
 }
 
 bool Board::isFill() {
@@ -72,4 +77,16 @@ bool Board::isFill() {
         }
     }
     return true;
+}
+
+uint32_t Board::getSize() const {
+    return board.size();
+}
+
+uint32_t Board::getSize(uint32_t y) const {
+    return board[y].size();
+}
+
+bool Board::isEmpty() const {
+    return empty;
 }

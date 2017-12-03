@@ -44,6 +44,11 @@ public:
      */
     void setTimeOut(unsigned int timeOut);
 
+    /**
+     * Call the AI to cease working and stop all threads
+     */
+    void stop();
+
 protected:
     ThreadPool threadPool;
     std::deque<std::unique_ptr<ai::AICase>> cases;

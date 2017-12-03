@@ -13,19 +13,20 @@ public:
     Checker();
     CellState hasAWinner(const std::array<std::array<CellState, 19>, 19> &board);
     CellState checks(const std::array<std::array<CellState, 19>, 19> &board);
-    uint32_t checkWinRow(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state) const;
-    uint32_t checkWinCol(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state) const;
-    uint32_t checkWinDiaRight(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state) const;
-    uint32_t checkWinDiaLeft(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y, CellState state) const;
+    uint32_t checkWinRow(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, CellState state) const;
+    uint32_t checkWinCol(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, CellState state) const;
+    uint32_t checkWinDiaRight(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, CellState state) const;
+    uint32_t checkWinDiaLeft(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, CellState state) const;
 
-    bool checkInRowBefore(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const;
-    bool checkInRowAfter(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const;
-    bool checkInColBefore(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const;
-    bool checkInColAfter(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const;
-    bool checkInDiaLeftBefore(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const;
-    bool checkInDiaLeftAfter(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const;
-    bool checkInDiaRightBefore(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const;
-    bool checkInDiaRightAfter(const std::array<std::array<CellState, 19>, 19> &board, uint32_t x, uint32_t y) const;
+    uint32_t checkCanWinRow(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, CellState state) const;
+    uint32_t checkCanWinCol(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, CellState state) const;
+    uint32_t checkCanWinDiaRight(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, CellState state) const;
+    uint32_t checkCanWinDiaLeft(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, CellState state) const;
+
+    bool checkInRow(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, int32_t pos) const;
+    bool checkInCol(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, int32_t pos) const;
+    bool checkInDiaLeft(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, int32_t pos) const;
+    bool checkInDiaRight(const std::array<std::array<CellState, 19>, 19> &board, int32_t x, int32_t y, int32_t pos) const;
 };
 
 #endif //GOMOKU_CHECKER_H

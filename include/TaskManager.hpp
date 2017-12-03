@@ -18,7 +18,7 @@
 class TaskManager {
 public:
     explicit TaskManager(bool &running, uint32_t boardSize, std::unique_ptr<AAI> ai);
-    ~TaskManager() = default;
+    ~TaskManager();
 
     std::string executeTask(std::string const &task);
 

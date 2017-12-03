@@ -24,7 +24,7 @@ namespace ai
         AICase();
         AICase(AICase const &other) = delete;
         AICase(std::unique_ptr<Board> newBoard, size_t round);
-        AICase(std::unique_ptr<Board> newBoard, Position const &pos, size_t round);
+        AICase(std::unique_ptr<Board> newBoard, uint32_t x, uint32_t y, size_t round);
 
         void        setBoard(std::unique_ptr<Board> newBoard);
         size_t      getRound() const;
