@@ -25,7 +25,8 @@ public:
         HIGH_LOW = 70,
         HIGH = 80,
         VERY_HIGH = 90,
-        WIN = 100
+        WIN = 100,
+        FINAL_WIN = 105
     };
 
     enum Direction {

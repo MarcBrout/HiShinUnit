@@ -34,6 +34,29 @@ Evaluator::evaluateBoard(Board const &board, CellState player, uint8_t limit, ui
     return filteredPosition;
 }
 
+void
+Evaluator::evaluateBoard_max_if(const Board &board, Position &outPos, CellState player,
+                                const std::function<bool(Board const &, uint32_t const &,
+                                                              uint32_t const &)> &check)
+{
+    Position tmp;
+    int32_t max = -1;
+
+    for (uint32_t y = 0; y < board.getSize(); ++y) {
+        for (uint32_t x = 0; x < board.getSize(); ++x) {
+            tmp.x = x;
+            tmp.y = y;
+            if (check(board, x, y)) {
+                uint32_t value = evaluatePoint(board, tmp, player);
+                if (static_cast<int32_t>(value) > max) {
+                    outPos = tmp;
+                    max = value;
+                }
+            }
+        }
+    }
+}
+
 uint32_t Evaluator::evaluatePoint(Board const &board, Position const &play, CellState player) const
 {
     std::vector<Point> points;
@@ -51,12 +74,13 @@ uint32_t Evaluator::evaluatePoint(Board const &board, Position const &play, Cell
     });
 
     int winCount = std::count(values.cbegin(), values.cend(), Point::WIN);
-    int veryHighCount = std::count(values.cbegin(), values.cend(), Point::VERY_HIGH);
+    int veryHighCount = std::count(values.cbegin(), values.cend(), Point::MEDIUM_HIGH);
 
-    if (winCount > 0 || veryHighCount > 1) {
-        return (Point::WIN);
+    if (winCount > 0) {
+        return (Point::FINAL_WIN);
     }
-
+    if (veryHighCount > 1)
+        return (Point::WIN);
 
     return *std::max_element(values.begin(), values.end());
 }
