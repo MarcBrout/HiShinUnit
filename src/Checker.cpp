@@ -58,6 +58,8 @@ uint32_t Checker::checkCanWinRow(const std::array<std::array<CellState, 19>, 19>
             alreadyOneEmpty = true;
         }
     }
+    if (count == 4 && !alreadyOneEmpty)
+        count++;
     //std::cout << "OUT ROW : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -81,6 +83,8 @@ uint32_t Checker::checkCanWinCol(const std::array<std::array<CellState, 19>, 19>
             alreadyOneEmpty = true;
         }
     }
+    if (count == 4 && !alreadyOneEmpty)
+        count++;
     //std::cout << "OUT COL : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -103,6 +107,8 @@ uint32_t Checker::checkCanWinDiaRight(const std::array<std::array<CellState, 19>
             alreadyOneEmpty = true;
         }
     }
+    if (count == 4 && !alreadyOneEmpty)
+        count++;
     //std::cout << "OUT DIA RIGHT : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -126,6 +132,8 @@ uint32_t Checker::checkCanWinDiaLeft(const std::array<std::array<CellState, 19>,
             alreadyOneEmpty = true;
         }
     }
+    if (count == 4 && !alreadyOneEmpty)
+        count++;
     //std::cout << "OUT DIA LEFT : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
