@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <iostream>
 #include "Position.hpp"
 #include "TaskManager.hpp"
 
@@ -67,6 +68,7 @@ std::string TaskManager::begin(std::vector<std::string> const &args) {
 std::string TaskManager::boardUp(std::vector<std::string> const &args) {
     (*board).reset();
     isBoardInConfiguration = true;
+    currentRound = 0;
     return MSG_NO_RESPONSE;
 }
 
@@ -77,10 +79,11 @@ std::string TaskManager::configure(std::vector<std::string> const &args) {
         auto y = static_cast<uint32_t>(std::stoi(args[1]));
         auto p = static_cast<uint32_t>(std::stoi(args[2]));
 
-        if (isInBound(x) && isInBound(y) && p == 1 || p == 2) {
+        if (isInBound(x) && isInBound(y) && (p == 1 || p == 2)) {
             (*board).setCellState(x, y, static_cast<CellState>(p));
         }
     }
+
     return MSG_NO_RESPONSE;
 }
 
@@ -120,7 +123,7 @@ std::string TaskManager::takeBack(std::vector<std::string> const &args) {
 
     if ((x < 0 || x > size) || (y < 0 || y > size))
         return MSG_ERROR + " expecting x and y in range 0..18";
-    (*board).setCellState(y, x, Empty);
+    (*board).setCellState(x, y, Empty);
     return "OK";
 }
 

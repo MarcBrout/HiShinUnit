@@ -10,7 +10,7 @@
 
 static const unsigned int max_threads = std::thread::hardware_concurrency();
 
-MonteCarloIA::MonteCarloIA() : AAI(max_threads > 0 ? max_threads : 4, 4500)
+MonteCarloIA::MonteCarloIA() : AAI(max_threads > 0 ? max_threads : 4, 2000)
 {
 }
 
@@ -32,8 +32,8 @@ void MonteCarloIA::initializeCases(Board const &board,
     std::vector<std::pair<Position, uint32_t>> topCells;
     std::vector<std::pair<Position, uint32_t>> enemyTopCells;
 
-    topCells = evaluator.evaluateBoard(board, CellState::Player1, 5);
-    enemyTopCells = evaluator.evaluateBoard(board, CellState::Player2, 5);
+    topCells = evaluator.evaluateBoard(board, CellState::Player1);
+    enemyTopCells = evaluator.evaluateBoard(board, CellState::Player2);
 
 
     // SendBest case scenario for both players

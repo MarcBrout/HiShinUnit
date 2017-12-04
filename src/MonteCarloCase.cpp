@@ -174,18 +174,18 @@ namespace ai {
                 weight = 100;
            return;
         }
-        if (canThisPlayerWin(*board, checkPos, Player2, 3))
+        if (canThisPlayerWin(*board, checkPos, Player2, 4))
         {
             if (checkPos == pos)
                 weight = 95;
-            if (canThisPlayerWin(*board, checkPos, Player2, 4)) {
+            if (canThisPlayerWin(*board, checkPos, Player2, 5)) {
                 if (checkPos == pos)
                     weight = 99;
             }
             return;
         }
         //Launch x recursive here 1000, and growth the var result for each win of player 1
-        for (uint32_t idx = 0; idx < 100; ++idx) {
+        for (uint32_t idx = 0; idx < 500; ++idx) {
             Board copy(*board);
            /* for (auto const &line : copy.getBoard()) {
                 for (CellState const &cell : line) {

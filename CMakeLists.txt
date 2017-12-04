@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
-project(gomoku)
+
+set(NAME pbrain-HiShinUnit)
+
+project(${NAME})
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -31,4 +34,4 @@ set(SOURCE_FILES
         src/MonteCarloIA.cpp
         include/MonteCarloIA.hpp src/MonteCarloCase.cpp include/MonteCarloCase.hpp src/Evaluator/Evaluator.cpp include/Evaluator/Evaluator.hpp include/Evaluator/Move.h src/Position.cpp src/Evaluator/Point.cpp include/Evaluator/Point.hpp)
 
-add_executable(gomoku ${SOURCE_FILES})
+add_executable(${NAME} ${SOURCE_FILES})
