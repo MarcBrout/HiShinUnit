@@ -96,7 +96,7 @@ uint32_t Point::relativePositionEvaluation(Board const &board, Position const &p
     int32_t posX = central.x;
     int32_t posY = central.y;
 
-    return static_cast<uint32_t >(size - absolute(size / 2 - posX) + size - absolute(size / 2 - posY));
+    return static_cast<uint32_t >(size - absolute(size / 2 - posX) + size - absolute(size / 2 - posY)) / 2 ;
 }
 
 CellState Point::move(Board const &board,
