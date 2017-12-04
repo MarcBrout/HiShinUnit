@@ -7,6 +7,6 @@
 
 #include "Board.hpp"
 
-bool  canIProcess(Board const &board, int32_t x, int32_t y) const;
+bool  canIProcess(Board const &board, int32_t x, int32_t y);
 
 #endif //GOMOKU_CANIPROCESS_HPP

@@ -34,6 +34,32 @@ Evaluator::evaluateBoard(Board const &board, CellState player, uint8_t limit, ui
     return filteredPosition;
 }
 
+std::vector<std::pair<Position, uint32_t>>
+Evaluator::evaluateBoard_if(const Board &board, Position &outPos, CellState player,
+                                const std::function<bool(Board const &, uint32_t const &,
+                                                         uint32_t const &)> &check,
+    uint32_t limit)
+{
+    std::vector<std::pair<Position, uint32_t>> filteredPosition;
+
+    for (uint32_t y = 0; y < board.getSize(); ++y) {
+        for (uint32_t x = 0; x < board.getSize(); ++x) {
+            if (check(board, x, y)) {
+                Position pos(x, y);
+                filteredPosition.emplace_back(std::make_pair(pos, evaluatePoint(board, pos, player)));
+            }
+        }
+    }
+
+    std::sort(filteredPosition.begin(), filteredPosition.end(),
+              [](std::pair<Position, uint32_t> &a, std::pair<Position, uint32_t> &b) {
+                  return a.second > b.second;
+              });
+
+    filteredPosition.resize(limit);
+    return filteredPosition;
+}
+
 void
 Evaluator::evaluateBoard_max_if(const Board &board, Position &outPos, CellState player,
                                 const std::function<bool(Board const &, uint32_t const &,
