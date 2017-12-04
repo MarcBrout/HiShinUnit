@@ -32,15 +32,17 @@ void MonteCarloIA::initializeCases(Board const &board,
     std::vector<std::pair<Position, uint32_t>> topCells;
     std::vector<std::pair<Position, uint32_t>> enemyTopCells;
 
-    topCells = evaluator.evaluateBoard(board, CellState::Player1);
-    enemyTopCells = evaluator.evaluateBoard(board, CellState::Player2);
+    topCells = evaluator.evaluateBoard(board, CellState::Player1, 5);
+    enemyTopCells = evaluator.evaluateBoard(board, CellState::Player2, 5);
 
 
     // SendBest case scenario for both players
     std::for_each(topCells.cbegin(),
                   topCells.cend(),
                   [&outCases, &board, &round](std::pair<Position, uint32_t> const &cell) {
+/*
                       std::cout << "DEBUG our cell[" << cell.first.y << "][" << cell.first.x << "] = " << cell.second << std::endl;
+*/
                       outCases.push_back(
                               std::make_unique<ai::MonteCarloCase>(board, cell.first.x, cell.first.y, round)
                       );
@@ -48,7 +50,9 @@ void MonteCarloIA::initializeCases(Board const &board,
     std::for_each(enemyTopCells.cbegin(),
                   enemyTopCells.cend(),
                   [&outCases, &board, &round](std::pair<Position, uint32_t> const &cell) {
+/*
                       std::cout << "DEBUG his cell[" << cell.first.y << "][" << cell.first.x << "] = " << cell.second << std::endl;
+*/
                       outCases.push_back(
                               std::make_unique<ai::MonteCarloCase>(board, cell.first.x, cell.first.y, round)
                       );

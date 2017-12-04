@@ -145,8 +145,8 @@ namespace ai {
 
         //std::cout << " SWITCH PLAYER ROLE" << std::endl;
         // Determine if we can end the game with one move
-        if (canThisPlayerWin(myBoard, out, state, 4) ||
-            canThisPlayerWin(myBoard, out, (state == Player2) ? Player1 : Player2, 3)) {
+        if (canThisPlayerWin(myBoard, out, state, 5) ||
+            canThisPlayerWin(myBoard, out, (state == Player2) ? Player1 : Player2, 4)) {
             if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
                 return comp;
             return Empty;
@@ -169,6 +169,7 @@ namespace ai {
         uint32_t result = 0;
         Position checkPos;
 
+
         if (canThisPlayerWin(*board, checkPos, Player1, 5)) {
             if (checkPos == pos)
                 weight = 100;
@@ -184,8 +185,9 @@ namespace ai {
             }
             return;
         }
+
         //Launch x recursive here 1000, and growth the var result for each win of player 1
-        for (uint32_t idx = 0; idx < 500; ++idx) {
+        for (uint32_t idx = 0; idx < 5000; ++idx) {
             Board copy(*board);
            /* for (auto const &line : copy.getBoard()) {
                 for (CellState const &cell : line) {
