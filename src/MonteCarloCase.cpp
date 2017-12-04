@@ -153,10 +153,10 @@ namespace ai {
         }
 
         // Select a random cell to perform the recursive
-        do {
+       /*do {
             out.x = static_cast<uint32_t>(std::rand() % 19);
             out.y = static_cast<uint32_t>(std::rand() % 19);
-        } while (myBoard[out.y][out.x] != CellState::Empty);
+        } while (myBoard[out.y][out.x] != CellState::Empty);*/
         //std::cout << " RANDOMINATOR" << std::endl;
         if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
             return comp;

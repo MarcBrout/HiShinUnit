@@ -29,6 +29,6 @@ set(SOURCE_FILES
         include/AAI.hpp
         include/Position.hpp
         src/MonteCarloIA.cpp
-        include/MonteCarloIA.hpp src/MonteCarloCase.cpp include/MonteCarloCase.hpp src/Evaluator/Evaluator.cpp include/Evaluator/Evaluator.hpp include/Evaluator/Move.h src/Position.cpp src/Evaluator/Point.cpp include/Evaluator/Point.hpp)
+        include/MonteCarloIA.hpp src/MonteCarloCase.cpp include/MonteCarloCase.hpp src/Evaluator/Evaluator.cpp include/Evaluator/Evaluator.hpp include/Evaluator/Move.h src/Position.cpp src/Evaluator/Point.cpp include/Evaluator/Point.hpp src/Evaluator/CanIProcess.cpp include/Evaluator/CanIProcess.hpp)
 
 add_executable(gomoku ${SOURCE_FILES})
