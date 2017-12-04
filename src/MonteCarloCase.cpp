@@ -156,7 +156,7 @@ namespace ai {
        do {
             out.x = static_cast<uint32_t>(std::rand() % 19);
             out.y = static_cast<uint32_t>(std::rand() % 19);
-        } while (myBoard[out.y][out.x] != CellState::Empty && canIProcess(myBoard, out.x, out.y));
+        } while (myBoard[out.y][out.x] != CellState::Empty);
         //std::cout << "DEBUG RANDOMINATOR" << std::endl;
         return recurs(myBoard, out.x, out.y, state);
     }
@@ -165,7 +165,6 @@ namespace ai {
     void MonteCarloCase::process() {
         uint32_t result = 0;
         Position checkPos;
-
 
         if (canThisPlayerWin(*board, checkPos, Player1, 4)) {
             if (checkPos == pos)
@@ -188,7 +187,8 @@ namespace ai {
         }
 
         //Launch x recursive here 1000, and growth the var result for each win of player 1
-        for (uint32_t idx = 0; idx < 10000; ++idx) {
+        constexpr uint32_t launches = 100;
+        for (uint32_t idx = 0; idx < launches; ++idx) {
             Board copy(*board);
            /* for (auto const &line : copy.getBoard()) {
                 for (CellState const &cell : line) {
@@ -200,7 +200,7 @@ namespace ai {
             if (recurs(copy, pos.x, pos.y, Player1) == Player1)
                 result++;
         }
-        weight = result;
+        weight = result / launches * 100.0;
     }
 
     MonteCarloCase::MonteCarloCase(Board const &board_c,

@@ -56,13 +56,13 @@ uint32_t Checker::checkCanWinRow(const std::array<std::array<CellState, 19>, 19>
         {
             if (alreadyOneEmpty) {
                 --count;
-                return static_cast<uint32_t>(count);
+                break;
             }
             alreadyOneEmpty = true;
         }
     }
-    if (count == 3 && !alreadyOneEmpty)
-        count += 2;
+    if (count == 3)
+        count += alreadyOneEmpty ? 1 : 2;
     //std::cout << "OUT ROW : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -84,13 +84,13 @@ uint32_t Checker::checkCanWinCol(const std::array<std::array<CellState, 19>, 19>
         {
             if (alreadyOneEmpty) {
                 --count;
-                return static_cast<uint32_t>(count);
+                break;
             }
             alreadyOneEmpty = true;
         }
     }
-    if (count == 3 && !alreadyOneEmpty)
-        count += 2;
+    if (count == 3)
+        count += alreadyOneEmpty ? 1 : 2;
     //std::cout << "OUT COL : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -112,13 +112,13 @@ uint32_t Checker::checkCanWinDiaRight(const std::array<std::array<CellState, 19>
         if (board[y + count][x + count] == Empty) {
             if (alreadyOneEmpty) {
                 --count;
-                return static_cast<uint32_t>(count);
+                break;
             }
             alreadyOneEmpty = true;
         }
     }
-    if (count == 3 && !alreadyOneEmpty)
-        count += 2;
+    if (count == 3)
+        count += alreadyOneEmpty ? 1 : 2;
     //std::cout << "OUT DIA RIGHT : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -140,13 +140,13 @@ uint32_t Checker::checkCanWinDiaLeft(const std::array<std::array<CellState, 19>,
         if (board[y + count][x - count] == Empty) {
             if (alreadyOneEmpty) {
                 --count;
-                return static_cast<uint32_t>(count);
+                break;
             }
             alreadyOneEmpty = true;
         }
     }
-    if (count == 3 && !alreadyOneEmpty)
-        count += 2;
+    if (count == 3)
+        count += alreadyOneEmpty ? 1 : 2;
     //std::cout << "OUT DIA LEFT : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
