@@ -10,10 +10,10 @@
 #include <functional>
 #include <vector>
 #include <memory>
-#include "Position.hpp"
-#include "Splitter.hpp"
-#include "Board.hpp"
-#include "AAI.hpp"
+#include "Logic/Position.hpp"
+#include "Tools/Splitter.hpp"
+#include "Logic/Board.hpp"
+#include "Logic/AAI.hpp"
 
 class TaskManager {
 public:

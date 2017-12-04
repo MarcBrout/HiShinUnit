@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "ThreadPool.hpp"
+#include "Core/ThreadPool.hpp"
 
 ThreadPool::ThreadPool(unsigned int nbThreads)
     : threads(), todoCases(), doneCases(), state(), running(true), condvar(), mutex()

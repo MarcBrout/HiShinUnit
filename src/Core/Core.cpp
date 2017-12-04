@@ -3,9 +3,9 @@
 //
 
 #include <iostream>
-#include "MonteCarloIA.hpp"
-#include "TaskManager.hpp"
-#include "Core.hpp"
+#include "MonteCarlo/MonteCarloIA.hpp"
+#include "Core/TaskManager.hpp"
+#include "Core/Core.hpp"
 
 void Core::run() {
     TaskManager taskManager(running, 19, std::make_unique<MonteCarloIA>());

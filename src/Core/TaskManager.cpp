@@ -4,8 +4,8 @@
 
 #include <algorithm>
 #include <iostream>
-#include "Position.hpp"
-#include "TaskManager.hpp"
+#include "Logic/Position.hpp"
+#include "Core/TaskManager.hpp"
 
 std::string TaskManager::executeTask(std::string const &task) {
     std::vector<std::string> out;

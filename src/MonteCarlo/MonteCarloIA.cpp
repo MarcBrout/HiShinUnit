@@ -5,8 +5,8 @@
 #include <iostream>
 #include <Evaluator/Point.hpp>
 #include "Evaluator/Evaluator.hpp"
-#include "MonteCarloIA.hpp"
-#include "MonteCarloCase.hpp"
+#include "MonteCarlo/MonteCarloIA.hpp"
+#include "MonteCarlo/MonteCarloCase.hpp"
 
 static const unsigned int max_threads = std::thread::hardware_concurrency();
 

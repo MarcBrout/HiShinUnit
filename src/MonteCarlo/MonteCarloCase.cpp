@@ -5,7 +5,7 @@
 #include <iostream>
 #include <Evaluator/Evaluator.hpp>
 #include <Evaluator/CanIProcess.hpp>
-#include "MonteCarloCase.hpp"
+#include "MonteCarlo/MonteCarloCase.hpp"
 
 namespace ai {
     bool MonteCarloCase::canIWinRow(Board &myBoard, Position &out, CellState player,

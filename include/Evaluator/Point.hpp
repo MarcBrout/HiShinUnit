@@ -7,9 +7,9 @@
 
 #include <functional>
 #include <map>
-#include "Cell.hpp"
-#include "Board.hpp"
-#include "Position.hpp"
+#include "Logic/Cell.hpp"
+#include "Logic/Board.hpp"
+#include "Logic/Position.hpp"
 
 class Point {
     // Public types

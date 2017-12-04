@@ -11,7 +11,7 @@
 #include <thread>
 #include <queue>
 #include <atomic>
-#include "AICase.hpp"
+#include "Logic/AICase.hpp"
 #include "ThreadState.hpp"
 
 class ThreadPool

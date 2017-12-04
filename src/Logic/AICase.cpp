@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "AICase.hpp"
+#include "Logic/AICase.hpp"
 
 ai::AICase::AICase()
         : board(), weight(0.0)

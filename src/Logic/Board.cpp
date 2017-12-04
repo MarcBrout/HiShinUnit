@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "Board.hpp"
+#include "Logic/Board.hpp"
 
 Board::Board() : checker()
 {

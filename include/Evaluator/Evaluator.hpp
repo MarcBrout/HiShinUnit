@@ -9,9 +9,9 @@
 #include <memory>
 #include <functional>
 #include <vector>
-#include "Board.hpp"
+#include "Logic/Board.hpp"
 #include "Point.hpp"
-#include "Position.hpp"
+#include "Logic/Position.hpp"
 
 class Evaluator {
 public:

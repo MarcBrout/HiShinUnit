@@ -4,7 +4,7 @@
 
 #include <array>
 #include <iostream>
-#include "Checker.hpp"
+#include "Logic/Checker.hpp"
 
 Checker::Checker() = default;
 

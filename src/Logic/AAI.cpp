@@ -4,7 +4,7 @@
 
 #include <chrono>
 #include <iostream>
-#include "AAI.hpp"
+#include "Logic/AAI.hpp"
 
 AAI::AAI(unsigned int threadCount, unsigned int timeLimit) :
         threadPool(threadCount),

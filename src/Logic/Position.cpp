@@ -2,7 +2,7 @@
 // Created by Marc on 02/12/2017.
 //
 
-#include "Position.hpp"
+#include "Logic/Position.hpp"
 
 Position &Position::operator=(Position const &pos)
 {

@@ -6,7 +6,7 @@
 #define GOMOKU_AAI_HPP
 
 #include <memory>
-#include "ThreadPool.hpp"
+#include "Core/ThreadPool.hpp"
 #include "AICase.hpp"
 #include "Position.hpp"
 #include "Board.hpp"

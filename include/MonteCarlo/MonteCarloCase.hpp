@@ -5,7 +5,7 @@
 #ifndef GOMOKU_MONTECARLOCASE_HPP
 #define GOMOKU_MONTECARLOCASE_HPP
 
-#include "AICase.hpp"
+#include "Logic/AICase.hpp"
 
 namespace ai {
     class MonteCarloCase : public AICase {

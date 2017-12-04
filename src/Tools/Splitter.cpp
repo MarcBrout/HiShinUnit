@@ -4,7 +4,7 @@
 
 #include <algorithm>
 #include <iostream>
-#include "Splitter.hpp"
+#include "Tools/Splitter.hpp"
 
 const std::vector<std::string> & Splitter::getTokens() const
 {

@@ -5,10 +5,10 @@
 #ifndef GOMOKU_MONTECARLOIA_HPP
 #define GOMOKU_MONTECARLOIA_HPP
 
-#include "Cell.hpp"
-#include "Board.hpp"
-#include "Position.hpp"
-#include "AAI.hpp"
+#include "Logic/Cell.hpp"
+#include "Logic/Board.hpp"
+#include "Logic/Position.hpp"
+#include "Logic/AAI.hpp"
 
 class MonteCarloIA : public AAI {
 public:
