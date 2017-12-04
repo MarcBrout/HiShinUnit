@@ -168,10 +168,14 @@ namespace ai {
         Position checkPos;
 
 
-        if (canThisPlayerWin(*board, checkPos, Player1, 5)) {
+        if (canThisPlayerWin(*board, checkPos, Player1, 4)) {
             if (checkPos == pos)
-                weight = 100;
-           return;
+                weight = 95;
+            if (canThisPlayerWin(*board, checkPos, Player1, 5)) {
+                if (checkPos == pos)
+                    weight = 100;
+                return;
+            }
         }
         if (canThisPlayerWin(*board, checkPos, Player2, 4))
         {

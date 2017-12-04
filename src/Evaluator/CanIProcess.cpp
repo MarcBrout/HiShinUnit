@@ -4,7 +4,7 @@
 
 #include "Evaluator/CanIProcess.hpp"
 
-bool  canIProcess(Board const &board, int32_t x, int32_t y) const {
+bool  canIProcess(Board const &board, int32_t x, int32_t y) {
     if (board[y][x] == Empty) {
         if ((x - 1) >= 0 && board[y][x - 1] != Empty)
             return true;

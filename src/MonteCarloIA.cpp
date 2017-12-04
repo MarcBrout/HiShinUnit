@@ -40,9 +40,9 @@ void MonteCarloIA::initializeCases(Board const &board,
     std::for_each(topCells.cbegin(),
                   topCells.cend(),
                   [&outCases, &board, &round](std::pair<Position, uint32_t> const &cell) {
-/*
+
                       std::cout << "DEBUG our cell[" << cell.first.y << "][" << cell.first.x << "] = " << cell.second << std::endl;
-*/
+
                       outCases.push_back(
                               std::make_unique<ai::MonteCarloCase>(board, cell.first.x, cell.first.y, round)
                       );
@@ -50,9 +50,9 @@ void MonteCarloIA::initializeCases(Board const &board,
     std::for_each(enemyTopCells.cbegin(),
                   enemyTopCells.cend(),
                   [&outCases, &board, &round](std::pair<Position, uint32_t> const &cell) {
-/*
+
                       std::cout << "DEBUG his cell[" << cell.first.y << "][" << cell.first.x << "] = " << cell.second << std::endl;
-*/
+
                       outCases.push_back(
                               std::make_unique<ai::MonteCarloCase>(board, cell.first.x, cell.first.y, round)
                       );
