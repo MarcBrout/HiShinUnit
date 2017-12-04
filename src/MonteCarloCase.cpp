@@ -174,13 +174,13 @@ namespace ai {
                 weight = 100;
            return;
         }
-        if (canThisPlayerWin(*board, checkPos, Player2, 4))
+        if (canThisPlayerWin(*board, checkPos, Player2, 3))
         {
             if (checkPos == pos)
                 weight = 95;
-            if (canThisPlayerWin(*board, checkPos, Player2, 5)) {
+            if (canThisPlayerWin(*board, checkPos, Player2, 4)) {
                 if (checkPos == pos)
-                    weight = 100;
+                    weight = 99;
             }
             return;
         }
