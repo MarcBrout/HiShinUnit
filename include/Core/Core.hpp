@@ -18,5 +18,4 @@ private:
     void send(std::string const &message) const;
 };
 
-
 #endif //GOMOKU_CORE_H
