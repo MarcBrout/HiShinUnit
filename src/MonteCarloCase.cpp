@@ -3,6 +3,8 @@
 //
 
 #include <iostream>
+#include <Evaluator/Evaluator.hpp>
+#include <Evaluator/CanIProcess.hpp>
 #include "MonteCarloCase.hpp"
 
 namespace ai {
@@ -128,10 +130,8 @@ namespace ai {
         //std::cout << " LET'S BEGIN" << std::endl;
         //Check
         comp = myBoard.getChecker().hasAWinner(myBoard.getBoard());
-        if (comp == Player1)
-            return Player1;
-        else if (comp == Player2)
-            return Player2;
+        if (comp == Player1 || comp == Player2)
+            return comp;
 
         //std::cout << " AFTER CHECK PLAYER WIN" << std::endl;
         if (myBoard.isFill())
@@ -147,9 +147,7 @@ namespace ai {
         // Determine if we can end the game with one move
         if (canThisPlayerWin(myBoard, out, state, 5) ||
             canThisPlayerWin(myBoard, out, (state == Player2) ? Player1 : Player2, 4)) {
-            if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
-                return comp;
-            return Empty;
+            return recurs(myBoard, out.x, out.y, state);
         }
 
         // Select a random cell to perform the recursive
@@ -158,10 +156,10 @@ namespace ai {
             out.y = static_cast<uint32_t>(std::rand() % 19);
         } while (myBoard[out.y][out.x] != CellState::Empty);*/
         //std::cout << " RANDOMINATOR" << std::endl;
-        if ((comp = recurs(myBoard, out.x, out.y, state)) == Player1 || comp == Player2)
-            return comp;
-      //  std::cout << " BITCH" << std::endl;
-        return Empty;
+        Evaluator evaluator;
+
+        evaluator.evaluateBoard_max_if(myBoard, out, state, canIProcess);
+        return recurs(myBoard, out.x, out.y, state);
     }
 
 
