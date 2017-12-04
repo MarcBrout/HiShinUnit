@@ -169,16 +169,16 @@ namespace ai {
         uint32_t result = 0;
         Position checkPos;
 
-        if (canThisPlayerWin(*board, checkPos, Player2, 4)) {
+        if (canThisPlayerWin(*board, checkPos, Player1, 4)) {
             if (checkPos == pos)
                 weight = 100;
            return;
         }
-        if (canThisPlayerWin(*board, checkPos, Player1, 3))
+        if (canThisPlayerWin(*board, checkPos, Player2, 3))
         {
             if (checkPos == pos)
                 weight = 95;
-            if (canThisPlayerWin(*board, checkPos, Player1, 4)) {
+            if (canThisPlayerWin(*board, checkPos, Player2, 4)) {
                 if (checkPos == pos)
                     weight = 100;
             }
