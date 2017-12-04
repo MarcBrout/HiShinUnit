@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include <Evaluator/Point.hpp>
-#include "Evaluator/Evaluator.hpp"
+#include "Shin/Evaluator/Point.hpp"
+#include "Shin/Evaluator/Evaluator.hpp"
 #include "MonteCarlo/MonteCarloIA.hpp"
 #include "MonteCarlo/MonteCarloCase.hpp"
 
@@ -28,7 +28,7 @@ void MonteCarloIA::initializeCases(Board const &board,
     }
 
     // Evaluating best cases scenarios
-    Evaluator evaluator;
+    ai::Evaluator evaluator;
     std::vector<std::pair<Position, uint32_t>> topCells;
     std::vector<std::pair<Position, uint32_t>> enemyTopCells;
 

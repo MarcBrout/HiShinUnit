@@ -32,6 +32,20 @@ set(SOURCE_FILES
         include/Logic/AAI.hpp
         include/Logic/Position.hpp
         src/MonteCarlo/MonteCarloIA.cpp
-        include/MonteCarlo/MonteCarloIA.hpp src/MonteCarlo/MonteCarloCase.cpp include/MonteCarlo/MonteCarloCase.hpp src/Evaluator/Evaluator.cpp include/Evaluator/Evaluator.hpp include/Evaluator/Move.h src/Logic/Position.cpp src/Evaluator/Point.cpp include/Evaluator/Point.hpp src/Evaluator/CanIProcess.cpp include/Evaluator/CanIProcess.hpp)
+        include/MonteCarlo/MonteCarloIA.hpp
+        src/MonteCarlo/MonteCarloCase.cpp
+        include/MonteCarlo/MonteCarloCase.hpp
+        src/Shin/Evaluator/Evaluator.cpp
+        include/Shin/Evaluator/Evaluator.hpp
+        include/Shin/Evaluator/Move.h
+        src/Logic/Position.cpp
+        src/Shin/Evaluator/Point.cpp
+        include/Shin/Evaluator/Point.hpp
+        src/Shin/Evaluator/CanIProcess.cpp
+        include/CanIProcess.hpp
+        src/Shin/ShinAI.cpp
+        include/Shin/ShinAI.hpp
+        src/Shin/ShinCase.cpp
+        include/Shin/ShinCase.hpp)
 
 add_executable(${NAME} ${SOURCE_FILES})

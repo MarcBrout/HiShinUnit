@@ -22,9 +22,10 @@ public:
      * @param threadCount : number of threads used to resolve the cases
      * @param timeLimit : timeout before the AI retrieve the cases resolved
      */
-    AAI(unsigned int threadCount = 20, unsigned int timeLimit = 4000);
+    explicit AAI(unsigned int threadCount = 20, unsigned int timeLimit = 4000);
     AAI(AAI const&) = delete;
     AAI(AAI &&) = delete;
+    virtual ~AAI() = default;
 
     /**
      * This function will push the items first initialized from the initialize function

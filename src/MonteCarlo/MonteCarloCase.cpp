@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include <Evaluator/Evaluator.hpp>
-#include <Evaluator/CanIProcess.hpp>
+#include "Shin/Evaluator/Evaluator.hpp"
+#include "CanIProcess.hpp"
 #include "MonteCarlo/MonteCarloCase.hpp"
 
 namespace ai {

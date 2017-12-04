@@ -7,7 +7,7 @@
 
 #include <cstdint>
 #include <string>
-#include "Evaluator/Move.h"
+#include "Shin/Evaluator/Move.h"
 
 struct Position
 {
