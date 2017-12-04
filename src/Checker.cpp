@@ -49,17 +49,21 @@ uint32_t Checker::checkCanWinRow(const std::array<std::array<CellState, 19>, 19>
     for (count; count < 5; ++count)
     {
         //  std::cout << "COUNT ROW : " << count << std::endl;
-        if ((count + x >= board[y].size()) || (board[y][x + count] == enemy))
+        if ((count + x >= board[y].size()) || (board[y][x + count] == enemy)){
+            --count;
             break;
+        }
         if (board[y][x + count] == Empty)
         {
-            if (alreadyOneEmpty)
+            if (alreadyOneEmpty) {
+                --count;
                 return static_cast<uint32_t>(count);
+            }
             alreadyOneEmpty = true;
         }
     }
-    if (count == 4 && !alreadyOneEmpty)
-        count++;
+    if (count == 3 && !alreadyOneEmpty)
+        count += 2;
     //std::cout << "OUT ROW : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -73,18 +77,21 @@ uint32_t Checker::checkCanWinCol(const std::array<std::array<CellState, 19>, 19>
     for (count; count < 5; ++count)
     {
         //  std::cout << "COUNT COL : " << count << std::endl;
-        if ((count + y >= board.size()) || (board[y + count][x] == enemy))
+        if ((count + y >= board.size()) || (board[y + count][x] == enemy)){
+            --count;
             break;
-
+        }
         if (board[y + count][x] == Empty)
         {
-            if (alreadyOneEmpty)
+            if (alreadyOneEmpty) {
+                --count;
                 return static_cast<uint32_t>(count);
+            }
             alreadyOneEmpty = true;
         }
     }
-    if (count == 4 && !alreadyOneEmpty)
-        count++;
+    if (count == 3 && !alreadyOneEmpty)
+        count += 2;
     //std::cout << "OUT COL : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -98,17 +105,21 @@ uint32_t Checker::checkCanWinDiaRight(const std::array<std::array<CellState, 19>
     for (count; count < 5; ++count)
     {
         //  std::cout << "COUNT DIA RIGHT : " << count << std::endl;
-        if ((count + x >= board[y].size()) || (count + y >= board.size()) || (board[y + count][x + count] == enemy))
+        if ((count + x >= board[y].size()) || (count + y >= board.size()) || (board[y + count][x + count] == enemy)){
+            --count;
             break;
-        if (board[y + count][x + count] == Empty)
-        {
-            if (alreadyOneEmpty)
+        }
+
+        if (board[y + count][x + count] == Empty) {
+            if (alreadyOneEmpty) {
+                --count;
                 return static_cast<uint32_t>(count);
+            }
             alreadyOneEmpty = true;
         }
     }
-    if (count == 4 && !alreadyOneEmpty)
-        count++;
+    if (count == 3 && !alreadyOneEmpty)
+        count += 2;
     //std::cout << "OUT DIA RIGHT : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -123,17 +134,20 @@ uint32_t Checker::checkCanWinDiaLeft(const std::array<std::array<CellState, 19>,
     for (count; count < 5; ++count)
     {
         //  std::cout << "COUNT DIA LEFT : " << count << " => " << x << ", " << y << std::endl;
-        if ((x - count < 0) || (y + count >= board.size()) || (board[y + count][x - count] == enemy))
+        if ((x - count < 0) || (y + count >= board.size()) || (board[y + count][x - count] == enemy)){
+            --count;
             break;
-        if (board[y + count][x - count] == Empty)
-        {
-            if (alreadyOneEmpty)
+        }
+        if (board[y + count][x - count] == Empty) {
+            if (alreadyOneEmpty) {
+                --count;
                 return static_cast<uint32_t>(count);
+            }
             alreadyOneEmpty = true;
         }
     }
-    if (count == 4 && !alreadyOneEmpty)
-        count++;
+    if (count == 3 && !alreadyOneEmpty)
+        count += 2;
     //std::cout << "OUT DIA LEFT : " << count << std::endl;
     return static_cast<uint32_t>(count);
 }
@@ -160,7 +174,7 @@ uint32_t Checker::checkWinCol(const std::array<std::array<CellState, 19>, 19> &b
     for (count; count < 5; ++count)
     {
       //  std::cout << "COUNT COL : " << count << std::endl;
-        if ((count + y >= board.size()) || (board[y + count][x] == state))
+        if ((count + y >= board.size()) || (board[y + count][x] != state))
             break;
     }
     //std::cout << "OUT COL : " << count << std::endl;
@@ -174,7 +188,7 @@ uint32_t Checker::checkWinDiaRight(const std::array<std::array<CellState, 19>, 1
     for (count; count < 5; ++count)
     {
       //  std::cout << "COUNT DIA RIGHT : " << count << std::endl;
-        if ((count + x >= board[y].size()) || (count + y >= board.size()) || (board[y + count][x + count] == state))
+        if ((count + x >= board[y].size()) || (count + y >= board.size()) || (board[y + count][x + count] != state))
             break;
     }
     //std::cout << "OUT DIA RIGHT : " << count << std::endl;
