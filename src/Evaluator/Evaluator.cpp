@@ -4,6 +4,7 @@
 
 #include <map>
 #include <cmath>
+#include <iostream>
 #include "Evaluator/Point.hpp"
 #include "Evaluator/Evaluator.hpp"
 
@@ -60,7 +61,7 @@ Evaluator::evaluateBoard_if(const Board &board, Position &outPos, CellState play
     return filteredPosition;
 }
 
-void
+uint32_t
 Evaluator::evaluateBoard_max_if(const Board &board, Position &outPos, CellState player,
                                 const std::function<bool(Board const &, uint32_t const &,
                                                               uint32_t const &)> &check)
@@ -81,6 +82,11 @@ Evaluator::evaluateBoard_max_if(const Board &board, Position &outPos, CellState 
             }
         }
     }
+/*
+    std::cout << "DEBUG player" << (player == CellState::Player1 ? "1" : "2")
+              << " cell[" << outPos.y << "][" << outPos.x << "= " << max << std::endl;
+*/
+    return static_cast<uint32_t >(max);
 }
 
 uint32_t Evaluator::evaluatePoint(Board const &board, Position const &play, CellState player) const
@@ -102,11 +108,11 @@ uint32_t Evaluator::evaluatePoint(Board const &board, Position const &play, Cell
     int winCount = std::count(values.cbegin(), values.cend(), Point::WIN);
     int veryHighCount = std::count(values.cbegin(), values.cend(), Point::MEDIUM_HIGH);
 
-    if (winCount > 0) {
+    if (winCount > 1) {
         return (Point::FINAL_WIN);
     }
-    if (veryHighCount > 1)
+    if (veryHighCount > 1) {
         return (Point::WIN);
-
+    }
     return *std::max_element(values.begin(), values.end());
 }

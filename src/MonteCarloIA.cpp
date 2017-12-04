@@ -10,7 +10,7 @@
 
 static const unsigned int max_threads = std::thread::hardware_concurrency();
 
-MonteCarloIA::MonteCarloIA() : AAI(max_threads > 0 ? max_threads : 4, 2000)
+MonteCarloIA::MonteCarloIA() : AAI(max_threads > 0 ? max_threads : 4, 2500)
 {
 }
 

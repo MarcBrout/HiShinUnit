@@ -28,7 +28,6 @@ CellState Checker::checks(const std::array<std::array<CellState, 19>, 19> &board
             CellState tmp = board[y][x];
             if (tmp == Player1 || tmp == Player2)
             {
-      //          std::cout << "LOOP : " << x << ", " << y << std::endl;
                 if ((checkWinRow(board, x, y, tmp) == 5) ||
                     (checkWinCol(board, x, y, tmp) == 5) ||
                     (checkWinDiaRight(board, x, y, tmp) == 5) ||
