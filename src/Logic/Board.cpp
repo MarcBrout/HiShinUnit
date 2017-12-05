@@ -56,7 +56,7 @@ const std::array<CellState, 19> &Board::operator[](uint32_t y) const {
     return board[y];
 }
 
-Board &Board::operator=(Board &board) {
+Board &Board::operator=(Board const &board) {
     if (&board != this)
     {
         this->checker = board.checker;

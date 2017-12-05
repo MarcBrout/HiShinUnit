@@ -19,8 +19,8 @@ set(SOURCE_FILES
         include/Logic/Cell.hpp
         src/Logic/Board.cpp
         include/Logic/Board.hpp
-        src/Logic/Checker.cpp
-        include/Logic/Checker.hpp
+        src/MonteCarlo/Checker.cpp
+        include/MonteCarlo/Checker.hpp
         include/Tools/Singleton.hpp
         src/Core/ThreadPool.cpp
         include/Core/ThreadPool.hpp
@@ -41,7 +41,7 @@ set(SOURCE_FILES
         src/Logic/Position.cpp
         src/Shin/Evaluator/Line.cpp
         include/Shin/Evaluator/Line.hpp
-        src/Shin/Evaluator/CanIProcess.cpp
+        src/MonteCarlo/CanIProcess.cpp
         include/CanIProcess.hpp
         src/Shin/ShinAI.cpp
         include/Shin/ShinAI.hpp

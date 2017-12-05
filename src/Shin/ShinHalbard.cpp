@@ -53,6 +53,7 @@ std::vector<Position> ai::ShinHalbard::getMaxPositions(Line::Values value, Line:
 std::vector<Position> ai::ShinHalbard::setMaxPositions(std::vector<std::unique_ptr<ai::AICase>> &cases, Line::Values &outMax) {
     std::vector<Position> maxes;
 
+    // Return the maximum value position, in descending order
     if (!cases.empty()) {
         std::sort(cases.begin(), cases.end(), [](std::unique_ptr<ai::AICase> &a,
                                                  std::unique_ptr<ai::AICase> &b) {

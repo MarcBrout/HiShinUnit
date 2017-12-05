@@ -6,7 +6,7 @@
 #define GOMOKU_BOARD_H
 
 #include "Cell.hpp"
-#include "Checker.hpp"
+#include "MonteCarlo/Checker.hpp"
 #include <array>
 
 class Board {
@@ -14,7 +14,7 @@ public:
     Board();
     Board(Board const& board);
     Board(std::array<std::array<CellState, 19>, 19> &array) = delete;
-    Board &operator=(Board &board);
+    Board &operator=(Board const &board);
 
     void setCellState(uint32_t x, uint32_t y, CellState state);
     CellState getCellState(uint32_t x, uint32_t y) const;

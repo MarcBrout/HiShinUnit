@@ -33,8 +33,7 @@ namespace ai {
         topCells = evaluator.evaluateBoard(board, CellState::Player1, 5);
         enemyTopCells = evaluator.evaluateBoard(board, CellState::Player2, 5);
 
-
-        // SendBest case scenario for both players
+        // Send best case scenario for both players
         std::for_each(topCells.cbegin(),
                       topCells.cend(),
                       [&outCases, &board, &round](std::pair<Position, uint32_t> const &cell) {

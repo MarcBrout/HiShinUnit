@@ -45,6 +45,7 @@ namespace ai {
         // The more the central position is close to the center of the board the more it's valuable
         value = relativePositionEvaluation(board, central);
 
+        // Evaluating the point
         switch (countLeft + countRight) {
             case 1:
                 if (areEndsFree(leftCell, rightCell))
@@ -81,6 +82,8 @@ namespace ai {
                 value = Values::FINAL_WIN;
                 break;
             default:
+                if (countRight + countLeft >= 4)
+                    value = Values::FINAL_WIN;
                 break;
         }
         return (countLeft + countRight);
@@ -126,11 +129,15 @@ namespace ai {
                                         const std::function<bool(CellState, CellState)> &cmp) {
         CellState lastCell;
 
+        // Moving in the direction until I'm blocked by the cmp function
         do {
             lastCell = move(board, pos, actions.at(direction), player, cmp);
             ++outCount;
         } while (lastCell == player || outCount > 6);
+
+        // Removing one move because we move one case too far
         --outCount;
+
         return lastCell;
     }
 

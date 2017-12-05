@@ -9,7 +9,6 @@ namespace ai {
     ThreadPool::ThreadPool(unsigned int nbThreads)
             : threads(), todoCases(), doneCases(), state(), running(true), condvar(), mutex() {
         for (unsigned int i = 0; i < nbThreads; ++i) {
-            // TODO repair this shit
             threads.emplace_back(std::thread(&ThreadPool::threadWorkflow, this, i));
             state.push_back(ThreadState::sleeping);
         }

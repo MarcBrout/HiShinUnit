@@ -26,7 +26,9 @@ ai::AICase::AICase(std::unique_ptr<Board> newBoard,
 ai::AICase::AICase(std::unique_ptr<Board> newBoard, size_t startRound) :
         board(std::move(newBoard)),
         weight(0.0),
-        round(startRound)
+        round(startRound),
+        pos(0, 0),
+        player(CellState::Empty)
 {
 
 }

@@ -24,6 +24,7 @@ namespace ai {
         myPlays.clear();
         enemyPlays.clear();
 
+        // Splitting the processed cases in their respective container
         while (!casesDone.empty()) {
             if ((*casesDone.front()).getPlayer() == CellState::Player1) {
                 const Position& pos = (*casesDone.front()).getPos();
@@ -35,14 +36,13 @@ namespace ai {
             casesDone.pop_front();
         }
 
-        //myPlays.print("MY PLAYS");
-        //enemyPlays.print("ENEMY PLAYS");
-
+        // Can I win ?
         if (myPlays.getCount(Line::FINAL_WIN) > 0) {
             simplePlay(posOut, Line::FINAL_WIN, myPlays);
             return ;
         }
 
+        // Can I Lose ?
         if (enemyPlays.getCount(Line::FINAL_WIN) > 0) {
             simplePlay(posOut, Line::FINAL_WIN, enemyPlays);
             return ;

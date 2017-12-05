@@ -21,10 +21,8 @@ namespace ai {
             cases.pop_front();
         }
 
-
         // Stop the main thread for timeOut milliseconds
         std::this_thread::sleep_for(std::chrono::milliseconds(timeOut));
-
 
         std::deque<std::unique_ptr<ai::AICase>> results = threadPool.getCasesDone(round);
 

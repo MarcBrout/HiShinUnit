@@ -4,7 +4,7 @@
 
 #include <array>
 #include <iostream>
-#include "Logic/Checker.hpp"
+#include "MonteCarlo/Checker.hpp"
 
 Checker::Checker() = default;
 

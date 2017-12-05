@@ -13,6 +13,7 @@ namespace ai {
     Evaluator::evaluateBoard(Board const &board, CellState player, uint8_t limit, uint32_t minimumValue) {
         std::vector<std::pair<Position, uint32_t>> filteredPosition;
 
+        // Evaluation every empty point of the board
         for (uint32_t y = 0; y < board.getSize(); ++y) {
             for (uint32_t x = 0; x < board.getSize(); ++x) {
                 if (board[y][x] == CellState::Empty) {
@@ -26,6 +27,7 @@ namespace ai {
             }
         }
 
+        // Sorting in descending order on evaluated value
         std::sort(filteredPosition.begin(), filteredPosition.end(),
                   [](std::pair<Position, uint32_t> &a, std::pair<Position, uint32_t> &b) {
                       return a.second > b.second;
@@ -42,6 +44,7 @@ namespace ai {
                                 uint32_t limit) {
         std::vector<std::pair<Position, uint32_t>> filteredPosition;
 
+        // Evaluation every point satisfying the check method parameter
         for (uint32_t y = 0; y < board.getSize(); ++y) {
             for (uint32_t x = 0; x < board.getSize(); ++x) {
                 if (check(board, x, y)) {
@@ -51,6 +54,7 @@ namespace ai {
             }
         }
 
+        // Sorting in descending order on evaluated value
         std::sort(filteredPosition.begin(), filteredPosition.end(),
                   [](std::pair<Position, uint32_t> &a, std::pair<Position, uint32_t> &b) {
                       return a.second > b.second;
@@ -67,6 +71,7 @@ namespace ai {
         Position tmp;
         int32_t max = -1;
 
+        // Evaluation the highest point satisfying the check method parameter
         for (uint32_t y = 0; y < board.getSize(); ++y) {
             for (uint32_t x = 0; x < board.getSize(); ++x) {
                 tmp.x = x;

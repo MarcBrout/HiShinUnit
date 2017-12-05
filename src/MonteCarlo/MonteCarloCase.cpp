@@ -116,6 +116,7 @@ namespace ai {
     CellState MonteCarloCase::recurs(Board &myBoard, uint32_t x, uint32_t y, CellState state) {
         CellState comp;
 
+        // Placing last play on board and check if we have a winner
         myBoard.setCellState(x, y, state);
         comp = myBoard.getChecker().hasAWinner(myBoard.getBoard());
         if (comp == Player1 || comp == Player2)
@@ -123,20 +124,16 @@ namespace ai {
 
         if (myBoard.isFill())
             return Empty;
+
+        // Swapping player Role;
+        state = state == Player1 ? Player2 : Player1;
+
         Position out;
-        //Change player Role;
-        if (state == Player1)
-            state = Player2;
-        else
-            state = Player1;
-
-        // Determine if we can end the game with one move
-
+        // Determine if we can end the game with this move
         if (canThisPlayerWin(myBoard, out, state, 5) ||
             canThisPlayerWin(myBoard, out, (state == Player2) ? Player1 : Player2, 4)) {
             return recurs(myBoard, out.x, out.y, state);
         }
-
 
         // Select a random cell to perform the recursive
        do {
@@ -151,6 +148,7 @@ namespace ai {
         uint32_t result = 0;
         Position checkPos;
 
+        // Checking if I can win
         if (canThisPlayerWin(*board, checkPos, Player1, 4)) {
             if (checkPos == pos)
                 weight = 95;
@@ -160,6 +158,8 @@ namespace ai {
                 return;
             }
         }
+
+        // Checking if I can lose
         if (canThisPlayerWin(*board, checkPos, Player2, 4))
         {
             if (checkPos == pos)
@@ -171,7 +171,7 @@ namespace ai {
             return;
         }
 
-        //Launch x recursive here 1000, and growth the var result for each win of player 1
+        // Launch x recursive here, and increment the result for each win of player1
         constexpr uint32_t launches = 100;
         for (uint32_t idx = 0; idx < launches; ++idx) {
             Board copy(*board);
