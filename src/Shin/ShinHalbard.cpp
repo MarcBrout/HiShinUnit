@@ -50,8 +50,7 @@ std::vector<Position> ai::ShinHalbard::getMaxPositions(Line::Values value, Line:
     }
 }
 
-std::vector<Position>
-ai::ShinHalbard::setMaxPositions(std::vector<std::unique_ptr<ai::AICase>> &cases, Line::Values &outMax) {
+std::vector<Position> ai::ShinHalbard::setMaxPositions(std::vector<std::unique_ptr<ai::AICase>> &cases, Line::Values &outMax) {
     std::vector<Position> maxes;
 
     if (!cases.empty()) {
@@ -62,10 +61,8 @@ ai::ShinHalbard::setMaxPositions(std::vector<std::unique_ptr<ai::AICase>> &cases
 
         outMax = static_cast<Line::Values>(static_cast<uint32_t>((*cases.front()).getWeight()));
 
-        //std::cout << "DEBUG Selecting max values" << std::endl;
         for (std::unique_ptr<ai::AICase> const &Case : cases) {
             if ((*Case).getWeight() == (*cases.front()).getWeight()) {
-                //std::cout << "DEBUG Position [" << (*Case).getPos().y << "][" << (*Case).getPos().x << "]" << std::endl;
                 maxes.emplace_back(Position((*Case).getPos()));
             } else {
                 break;

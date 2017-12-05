@@ -52,12 +52,10 @@ namespace ai {
 
     void ThreadPool::threadWorkflow(unsigned int id) {
         while (running) {
-            // std::cout << "thread " << id << " started here " << std::endl;
             // Check if we have done all the tasks to do
             mutex.lock();
             if (todoCases.empty()) {
                 // Wait until we rcv notification
-                //state[id] = ThreadState::sleeping;
                 mutex.unlock();
                 std::unique_lock<std::mutex> ulock(mutex);
                 condvar.wait(ulock);
@@ -65,26 +63,21 @@ namespace ai {
                 mutex.unlock();
             }
 
-            //std::cout << "thread " << id << " run here " << std::endl;
             // If ThreadPool is down we stop the thread
             if (!running)
                 break;
 
             mutex.lock();
-            //state[id] = ThreadState::working;
             if (todoCases.empty()) {
                 mutex.unlock();
                 continue;
             }
             std::unique_ptr<ai::AICase> aiCase = std::move(todoCases.front());
             todoCases.pop();
-            //std::cout << "Cases to proceed: " << todoCases.size() << std::endl;
-            //std::cout << "Case: " << (*aiCase).getPos().toString() << std::endl;
             mutex.unlock();
 
             // Process the task
             (*aiCase).process();
-            //  std::cout << "thread " << id << " reached here " << std::endl;
 
             // Add task to doneTasks queue
             mutex.lock();
@@ -97,15 +90,12 @@ namespace ai {
         std::deque<std::unique_ptr<ai::AICase>> out;
 
         mutex.lock();
-        //std::cout << "STARTING TO REMOVE ROUND  : " << round << std::endl;
         while (!doneCases.empty()) {
-            //std::cout << "object round = " << doneCases.front()->getRound() << std::endl;
             if ((*doneCases.front()).getRound() == round) {
                 out.push_back(std::move(doneCases.front()));
             }
             doneCases.pop();
         }
-        // std::cout << "ALL CASES TAKEN : " << out.size() << std::endl;
         mutex.unlock();
         return out;
     }

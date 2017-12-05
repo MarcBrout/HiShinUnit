@@ -21,7 +21,6 @@ ai::AICase::AICase(std::unique_ptr<Board> newBoard,
     pos(x, y),
     player(player)
 {
-   // std::cout << "CONSTRUCTION : " << pos.x << " & " << pos.y << std::endl;
 }
 
 ai::AICase::AICase(std::unique_ptr<Board> newBoard, size_t startRound) :

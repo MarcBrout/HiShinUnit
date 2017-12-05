@@ -116,24 +116,11 @@ namespace ai {
     CellState MonteCarloCase::recurs(Board &myBoard, uint32_t x, uint32_t y, CellState state) {
         CellState comp;
 
-        //std::cout << x << " && " << y << " ================" << std::endl;
-        //Set the piece at the position giving in param.
         myBoard.setCellState(x, y, state);
-
-        /* for (auto const &line : myBoard.getBoard()) {
-            for (CellState const &cell : line) {
-                std::cout << cell << " ";
-            }
-            std::cout << "\n";
-        }*/
-
-        //std::cout << " LET'S BEGIN" << std::endl;
-        //Check
         comp = myBoard.getChecker().hasAWinner(myBoard.getBoard());
         if (comp == Player1 || comp == Player2)
             return comp;
 
-        //std::cout << " AFTER CHECK PLAYER WIN" << std::endl;
         if (myBoard.isFill())
             return Empty;
         Position out;
@@ -143,7 +130,6 @@ namespace ai {
         else
             state = Player1;
 
-        //std::cout << " SWITCH PLAYER ROLE" << std::endl;
         // Determine if we can end the game with one move
 
         if (canThisPlayerWin(myBoard, out, state, 5) ||
@@ -157,7 +143,6 @@ namespace ai {
             out.x = static_cast<uint32_t>(std::rand() % 19);
             out.y = static_cast<uint32_t>(std::rand() % 19);
         } while (myBoard[out.y][out.x] != CellState::Empty);
-        //std::cout << "DEBUG RANDOMINATOR" << std::endl;
         return recurs(myBoard, out.x, out.y, state);
     }
 
@@ -190,13 +175,6 @@ namespace ai {
         constexpr uint32_t launches = 100;
         for (uint32_t idx = 0; idx < launches; ++idx) {
             Board copy(*board);
-           /* for (auto const &line : copy.getBoard()) {
-                for (CellState const &cell : line) {
-                    std::cout << cell << " ";
-                }
-                std::cout << "\n";
-            }*/
-            //std::cout << "Idx : " << idx << std::endl;
             if (recurs(copy, pos.x, pos.y, Player1) == Player1)
                 result++;
         }
