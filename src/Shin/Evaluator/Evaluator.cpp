@@ -5,7 +5,7 @@
 #include <map>
 #include <cmath>
 #include <iostream>
-#include "Shin/Evaluator/Point.hpp"
+#include "Shin/Evaluator/Line.hpp"
 #include "Shin/Evaluator/Evaluator.hpp"
 
 namespace ai {
@@ -80,37 +80,44 @@ namespace ai {
                 }
             }
         }
-/*
-    std::cout << "DEBUG player" << (player == CellState::Player1 ? "1" : "2")
-              << " cell[" << outPos.y << "][" << outPos.x << "= " << max << std::endl;
-*/
         return static_cast<uint32_t >(max);
     }
 
     uint32_t Evaluator::evaluatePoint(Board const &board, Position const &play, CellState player) const {
-        std::vector<Point> points;
+        std::vector<Line> Lines;
         std::vector<uint32_t> values;
+        uint32_t totalAround = 0;
 
         // Only doing half of the directions because we're checking full lines
-        points.emplace_back(Point(play, Point::Direction::North, player));
-        points.emplace_back(Point(play, Point::Direction::NorthEast, player));
-        points.emplace_back(Point(play, Point::Direction::East, player));
-        points.emplace_back(Point(play, Point::Direction::SouthEast, player));
+        Lines.emplace_back(Line(play, Line::Direction::North, player));
+        Lines.emplace_back(Line(play, Line::Direction::NorthEast, player));
+        Lines.emplace_back(Line(play, Line::Direction::East, player));
+        Lines.emplace_back(Line(play, Line::Direction::SouthEast, player));
 
-        std::for_each(points.begin(), points.end(), [&board, &values](Point &point) {
-            point.propagate(board);
+        std::for_each(Lines.begin(), Lines.end(), [&board, &values, &totalAround](Line &point) {
+            totalAround += point.propagate(board);
             values.push_back(point.getValue());
         });
 
-        int winCount = std::count(values.cbegin(), values.cend(), Point::WIN);
-        int veryHighCount = std::count(values.cbegin(), values.cend(), Point::MEDIUM_HIGH);
+        int veryHighCount = 0;
 
-        if (winCount > 1) {
-            return (Point::FINAL_WIN);
+        for (uint32_t const& value : values) {
+            if (value == Line::FINAL_WIN)
+                return Line::FINAL_WIN;
+            if (value == Line::WIN)
+                return Line::WIN;
+            if (value >= Line::MEDIUM_HIGH)
+                ++veryHighCount;
         }
+
         if (veryHighCount > 1) {
-            return (Point::WIN);
+            return (Line::WIN);
         }
-        return *std::max_element(values.begin(), values.end());
+
+        auto it = std::max_element(values.begin(), values.end());
+
+        if (*it >= Line::MEDIUM_HIGH && totalAround >= 4)
+            return Line::HIGH;
+        return *it;
     }
 }

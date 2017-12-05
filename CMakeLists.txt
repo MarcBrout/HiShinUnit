@@ -39,13 +39,13 @@ set(SOURCE_FILES
         include/Shin/Evaluator/Evaluator.hpp
         include/Shin/Evaluator/Move.h
         src/Logic/Position.cpp
-        src/Shin/Evaluator/Point.cpp
-        include/Shin/Evaluator/Point.hpp
+        src/Shin/Evaluator/Line.cpp
+        include/Shin/Evaluator/Line.hpp
         src/Shin/Evaluator/CanIProcess.cpp
         include/CanIProcess.hpp
         src/Shin/ShinAI.cpp
         include/Shin/ShinAI.hpp
         src/Shin/ShinCase.cpp
-        include/Shin/ShinCase.hpp)
+        include/Shin/ShinCase.hpp src/Shin/ShinHalbard.cpp include/Shin/ShinHalbard.hpp)
 
 add_executable(${NAME} ${SOURCE_FILES})

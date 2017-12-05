@@ -13,7 +13,7 @@
 #include "Shin/Evaluator/Move.h"
 
 namespace ai {
-    class Point {
+    class Line {
         // Public types
     public:
         enum Values {
@@ -45,11 +45,11 @@ namespace ai {
 
         // Public Constructors
     public:
-        Point(Position const &central, Direction const &direction, CellState const &player);
+        Line(Position const &central, Direction const &direction, CellState const &player);
 
         // Public Methods
     public:
-        void propagate(Board const &board);
+        uint32_t propagate(Board const &board);
 
         uint32_t getValue() const;
 

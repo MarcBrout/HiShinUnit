@@ -3,12 +3,14 @@
 //
 
 #include <iostream>
-#include "MonteCarlo/MonteCarloIA.hpp"
+#include "Shin/ShinAI.hpp"
 #include "Core/TaskManager.hpp"
 #include "Core/Core.hpp"
 
+static const unsigned int max_threads = std::thread::hardware_concurrency();
+
 void Core::run() {
-    TaskManager taskManager(running, 19, std::make_unique<MonteCarloIA>());
+    TaskManager taskManager(running, 19, std::make_unique<ai::ShinAI>(max_threads > 0 ? max_threads : 4, 3000));
 
     while (running) {
         std::string line = readString();

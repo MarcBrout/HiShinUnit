@@ -12,14 +12,10 @@ namespace ai {
     class ShinCase : public AICase {
     public:
         void process() override;
-        ShinCase(Board const &board, uint32_t x, uint32_t y);
-        ShinCase &operator=(uint32_t value);
+        ShinCase(Board const &board, uint32_t x, uint32_t y, size_t round, CellState player);
         Position const &operator*() const;
 
     private:
-        uint32_t value = 0;
-        Board const &board;
-        Position pos;
         Evaluator evaluator;
     };
 }

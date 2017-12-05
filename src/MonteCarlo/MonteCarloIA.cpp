@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "Shin/Evaluator/Point.hpp"
+#include "Shin/Evaluator/Line.hpp"
 #include "Shin/Evaluator/Evaluator.hpp"
 #include "MonteCarlo/MonteCarloIA.hpp"
 #include "MonteCarlo/MonteCarloCase.hpp"

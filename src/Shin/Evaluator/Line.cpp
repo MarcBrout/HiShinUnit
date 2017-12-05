@@ -4,7 +4,7 @@
 
 #include <cmath>
 #include <functional>
-#include "Shin/Evaluator/Point.hpp"
+#include "Shin/Evaluator/Line.hpp"
 
 namespace ai {
     bool isPlayer(CellState in, CellState player) {
@@ -15,7 +15,7 @@ namespace ai {
         return in == player || in == CellState::Empty;
     }
 
-    uint8_t Point::getLength(Board const &board) {
+    uint8_t Line::getLength(Board const &board) {
         Position lengthLeftPos(central);
         Position lengthRightPos(central);
 
@@ -36,7 +36,7 @@ namespace ai {
         return leftCell == CellState::Empty || rightCell == CellState::Empty;
     }
 
-    void Point::propagate(Board const &board) {
+    uint32_t Line::propagate(Board const &board) {
         CellState leftCell = countPlayerGoPieces(board, left, moves, direction, player, countLeft, isPlayer);
         CellState rightCell = countPlayerGoPieces(board, right, oppositeMoves, direction, player, countRight, isPlayer);
 
@@ -52,15 +52,19 @@ namespace ai {
                 else if (isOneEndFree(leftCell, rightCell))
                     value = Values::LOW;
                 else
-                    value = Values::NONE;
+                    value = Values::LOW;
                 break;
             case 2:
-                if (areEndsFree(leftCell, rightCell))
-                    value = Values::MEDIUM_HIGH;
-                else if (isOneEndFree(leftCell, rightCell))
+                if (areEndsFree(leftCell, rightCell)) {
+                    if (length > 5)
+                        value = Values::HIGH;
+                    else
+                        value = Values::MEDIUM_HIGH;
+                } else if (isOneEndFree(leftCell, rightCell)) {
                     value = Values::MEDIUM_LOW;
-                else
+                } else {
                     value = VERY_LOW;
+                }
                 break;
             case 3:
                 if (areEndsFree(leftCell, rightCell)) {
@@ -69,24 +73,24 @@ namespace ai {
                     else
                         value = Values::VERY_HIGH;
                 } else if (isOneEndFree(leftCell, rightCell) && length > 4)
-                    value = HIGH;
+                    value = Values::HIGH_LOW;
                 else
-                    value = VERY_LOW;
+                    value = LOW;
                 break;
             case 4:
-                value = Values::WIN;
+                value = Values::FINAL_WIN;
                 break;
             default:
                 break;
         }
-
+        return (countLeft + countRight);
     }
 
     inline int32_t absolute(int32_t val) {
         return (val > 0 ? val : -val);
     }
 
-    uint32_t Point::relativePositionEvaluation(Board const &board, Position const &pos) {
+    uint32_t Line::relativePositionEvaluation(Board const &board, Position const &pos) {
         int32_t size = board.getSize();
         int32_t posX = central.x;
         int32_t posY = central.y;
@@ -94,11 +98,11 @@ namespace ai {
         return static_cast<uint32_t >(size - absolute(size / 2 - posX) + size - absolute(size / 2 - posY)) / 2;
     }
 
-    CellState Point::move(Board const &board,
-                          Position &pos,
-                          Move const &move,
-                          CellState player,
-                          const std::function<bool(CellState, CellState)> &cmp) {
+    CellState Line::move(Board const &board,
+                         Position &pos,
+                         Move const &move,
+                         CellState player,
+                         const std::function<bool(CellState, CellState)> &cmp) {
         Position result(pos + move);
 
         if (result.x >= board.getSize() ||
@@ -113,13 +117,13 @@ namespace ai {
         return player;
     }
 
-    CellState Point::countPlayerGoPieces(Board const &board,
-                                         Position &pos,
-                                         const std::map<Direction, Move> &actions,
-                                         Point::Direction direction,
-                                         CellState player,
-                                         uint8_t &outCount,
-                                         const std::function<bool(CellState, CellState)> &cmp) {
+    CellState Line::countPlayerGoPieces(Board const &board,
+                                        Position &pos,
+                                        const std::map<Direction, Move> &actions,
+                                        Line::Direction direction,
+                                        CellState player,
+                                        uint8_t &outCount,
+                                        const std::function<bool(CellState, CellState)> &cmp) {
         CellState lastCell;
 
         do {
@@ -130,7 +134,7 @@ namespace ai {
         return lastCell;
     }
 
-    Point::Point(Position const &central, Direction const &direction, CellState const &player)
+    Line::Line(Position const &central, Direction const &direction, CellState const &player)
             :
             moves(
                     {
@@ -165,7 +169,7 @@ namespace ai {
             value(Values::NONE) {
     }
 
-    uint32_t Point::getValue() const {
+    uint32_t Line::getValue() const {
         return value;
     }
 }

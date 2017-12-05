@@ -24,7 +24,11 @@ namespace ai
         AICase();
         AICase(AICase const &other) = delete;
         AICase(std::unique_ptr<Board> newBoard, size_t round);
-        AICase(std::unique_ptr<Board> newBoard, uint32_t x, uint32_t y, size_t round);
+        AICase(std::unique_ptr<Board> newBoard,
+               uint32_t x,
+               uint32_t y,
+               size_t round,
+               CellState player = CellState::Player1);
         virtual ~AICase() = default;
 
         void        setBoard(std::unique_ptr<Board> newBoard);
@@ -35,6 +39,7 @@ namespace ai
 
         void        resetWeight();
         virtual void process() = 0;
+        CellState   getPlayer() const;
 
         AICase &operator=(AICase const &other) = delete;
 
@@ -43,6 +48,7 @@ namespace ai
         double                  weight;
         size_t                  round;
         Position                pos;
+        CellState               player;
     };
 }
 

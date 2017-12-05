@@ -33,7 +33,7 @@ Position Position::operator+(Move const &move) const
     return pos;
 }
 
-bool Position::operator==(Position const &pos)
+bool Position::operator==(Position const &pos) const
 {
     return pos.x == x && pos.y == y;
 }

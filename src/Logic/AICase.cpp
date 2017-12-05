@@ -13,11 +13,13 @@ ai::AICase::AICase()
 ai::AICase::AICase(std::unique_ptr<Board> newBoard,
                    uint32_t x,
                    uint32_t y,
-                   size_t startRound) :
+                   size_t startRound,
+                   CellState player) :
     board(std::move(newBoard)),
     weight(0.0),
     round(startRound),
-    pos(x, y)
+    pos(x, y),
+    player(player)
 {
    // std::cout << "CONSTRUCTION : " << pos.x << " & " << pos.y << std::endl;
 }
@@ -57,4 +59,8 @@ void ai::AICase::setRound(size_t round)
 
 const Position &ai::AICase::getPos() const {
     return pos;
+}
+
+CellState ai::AICase::getPlayer() const {
+    return player;
 }
