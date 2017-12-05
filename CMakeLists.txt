@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-set(NAME pbrain-HiShinUnit)
+set(NAME HiShinUnit)
 
 project(${NAME})
 

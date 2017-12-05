@@ -7,15 +7,17 @@
 
 #include <string>
 
-class Core {
-public:
-    void run();
+namespace ai {
+    class Core {
+    public:
+        void run();
 
-private:
-    bool running = true;
+    private:
+        bool running = true;
 
-    std::string readString() const;
-    void send(std::string const &message) const;
-};
+        std::string readString() const;
 
+        void send(std::string const &message) const;
+    };
+}
 #endif //GOMOKU_CORE_H

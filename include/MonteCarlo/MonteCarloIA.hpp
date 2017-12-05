@@ -10,15 +10,17 @@
 #include "Logic/Position.hpp"
 #include "Logic/AAI.hpp"
 
-class MonteCarloIA : public AAI {
-public:
-    MonteCarloIA();
-    MonteCarloIA(MonteCarloIA const& monteCarloIA) = delete;
+namespace ai {
+    class MonteCarloIA : public AAI {
+    public:
+        MonteCarloIA();
 
-private:
-    void initializeCases(Board const &board, std::deque<std::unique_ptr<ai::AICase>> &outCases, size_t round) override;
-    void resolve(std::deque<std::unique_ptr<ai::AICase>> &casesDone, Position &posOut) override;
-};
+        MonteCarloIA(MonteCarloIA const &monteCarloIA) = delete;
 
+    private:
+        void initializeCases(Board const &board, std::deque<std::unique_ptr<ai::AICase>> &outCases, size_t round) override;
+        void resolve(std::deque<std::unique_ptr<ai::AICase>> &casesDone, Position &posOut) override;
+    };
+}
 
 #endif //GOMOKU_MONTECARLOIA_HPP

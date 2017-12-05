@@ -4,6 +4,6 @@
 int main()
 {
     std::srand(static_cast<unsigned int>(time(nullptr)));
-    Core().run();
+    ai::Core().run();
 	return 0;
 }

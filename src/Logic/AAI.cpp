@@ -6,38 +6,39 @@
 #include <iostream>
 #include "Logic/AAI.hpp"
 
-AAI::AAI(unsigned int threadCount, unsigned int timeLimit) :
-        threadPool(threadCount),
-        cases(),
-        timeOut(timeLimit) {
-}
-
-void AAI::getAIPlay(Board const& board, size_t round, Position &posOut) {
-    initializeCases(board, cases, round);
-
-    while (!cases.empty()) {
-        threadPool.addCase(std::move(cases.front()));
-        cases.pop_front();
+namespace ai {
+    AAI::AAI(unsigned int threadCount, unsigned int timeLimit) :
+            threadPool(threadCount),
+            cases(),
+            timeOut(timeLimit) {
     }
 
-    //std::cout << "Go to the BED" << std::endl;
+    void AAI::getAIPlay(Board const &board, size_t round, Position &posOut) {
+        initializeCases(board, cases, round);
 
-    // Stop the main thread for timeOut milliseconds
-    std::this_thread::sleep_for(std::chrono::milliseconds(timeOut));
+        while (!cases.empty()) {
+            threadPool.addCase(std::move(cases.front()));
+            cases.pop_front();
+        }
 
-    //std::cout << "WAKE UP" << std::endl;
+        //std::cout << "Go to the BED" << std::endl;
 
-    std::deque<std::unique_ptr<ai::AICase>> results = threadPool.getCasesDone(round);
-    //std::cout << "SIZE = " << results.size() << std::endl;
+        // Stop the main thread for timeOut milliseconds
+        std::this_thread::sleep_for(std::chrono::milliseconds(timeOut));
 
-    resolve(results, posOut);
-}
+        //std::cout << "WAKE UP" << std::endl;
 
-void AAI::setTimeOut(unsigned int timeLimit) {
-     timeOut = timeLimit;
-}
+        std::deque<std::unique_ptr<ai::AICase>> results = threadPool.getCasesDone(round);
+        //std::cout << "SIZE = " << results.size() << std::endl;
 
-void AAI::stop()
-{
-    threadPool.stop();
+        resolve(results, posOut);
+    }
+
+    void AAI::setTimeOut(unsigned int timeLimit) {
+        timeOut = timeLimit;
+    }
+
+    void AAI::stop() {
+        threadPool.stop();
+    }
 }
