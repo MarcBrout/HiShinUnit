@@ -2,7 +2,7 @@
 // Created by Zenox on 12/4/2017.
 //
 
-#include "CanIProcess.hpp"
+#include "MonteCarlo/CanIProcess.hpp"
 
 bool  canIProcess(Board const &board, int32_t x, int32_t y) {
     if (board[y][x] == Empty) {

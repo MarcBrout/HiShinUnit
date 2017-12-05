@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Shin/Evaluator/Evaluator.hpp"
-#include "CanIProcess.hpp"
+#include "MonteCarlo/CanIProcess.hpp"
 #include "MonteCarlo/MonteCarloCase.hpp"
 
 namespace ai {

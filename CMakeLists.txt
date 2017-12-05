@@ -42,7 +42,7 @@ set(SOURCE_FILES
         src/Shin/Evaluator/Line.cpp
         include/Shin/Evaluator/Line.hpp
         src/MonteCarlo/CanIProcess.cpp
-        include/CanIProcess.hpp
+        include/MonteCarlo/CanIProcess.hpp
         src/Shin/ShinAI.cpp
         include/Shin/ShinAI.hpp
         src/Shin/ShinCase.cpp
