@@ -5,11 +5,6 @@
 #include <iostream>
 #include "Logic/AICase.hpp"
 
-ai::AICase::AICase()
-        : board(), weight(0.0)
-{
-}
-
 ai::AICase::AICase(std::unique_ptr<Board> newBoard,
                    uint32_t x,
                    uint32_t y,
@@ -21,16 +16,6 @@ ai::AICase::AICase(std::unique_ptr<Board> newBoard,
     pos(x, y),
     player(player)
 {
-}
-
-ai::AICase::AICase(std::unique_ptr<Board> newBoard, size_t startRound) :
-        board(std::move(newBoard)),
-        weight(0.0),
-        round(startRound),
-        pos(0, 0),
-        player(CellState::Empty)
-{
-
 }
 
 void ai::AICase::resetWeight()

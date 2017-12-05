@@ -49,8 +49,14 @@ namespace ai {
 
         // Public Methods
     public:
+        /**
+         * Method used to trace the line
+         * @param board on which the line must be propagated
+         * @return the count of the player Go pieces on the line
+         */
         uint32_t propagate(Board const &board);
 
+        // Get the value of the line
         uint32_t getValue() const;
 
     private:
@@ -87,6 +93,9 @@ namespace ai {
 
         uint8_t getLength(Board const &board);
 
+        // Deleted constructors and operators
+    public:
+        Line() = delete;
     };
 }
 

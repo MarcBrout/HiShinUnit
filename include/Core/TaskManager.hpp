@@ -18,8 +18,20 @@
 namespace ai {
     class TaskManager {
     public:
+        /**
+         * Constructor
+         * @param running Running boolean from the Core class to stop it when a END message is received by the TaskManager
+         * @param boardSize Size of the board (should be 19)
+         * @param ai AI used to play the gomoku
+         */
         explicit TaskManager(bool &running, uint32_t boardSize, std::unique_ptr<AAI> ai);
         ~TaskManager();
+
+        /**
+         *  Receive, parse and process the message sent by Piskvork
+         * @param task The message
+         * @return The answer from the TaskManager (or the IA if a TURN, DONE or BEGIN was sent)
+         */
         std::string executeTask(std::string const &task);
 
         typedef std::string (TaskManager::*taskPtr_t)(std::vector<std::string> const &);
@@ -54,6 +66,13 @@ namespace ai {
         std::string end(std::vector<std::string> const &args);
         std::string noMessage(std::vector<std::string> const &args);
         bool isInBound(int x) const;
+
+        // Deleted constructors and operators
+    public:
+        TaskManager(TaskManager const &) = delete;
+        TaskManager(TaskManager &&) = delete;
+        TaskManager &operator=(TaskManager const &) = delete;
+        TaskManager &operator=(TaskManager &&) = delete;
     };
 }
 #endif //GOMOKU_PARSER_H

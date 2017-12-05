@@ -21,9 +21,14 @@ namespace ai
     class AICase
     {
     public:
-        AICase();
-        AICase(AICase const &other) = delete;
-        AICase(std::unique_ptr<Board> newBoard, size_t round);
+        /**
+         * AICase Constructors
+         * @param newBoard Copy of the board, it will be used to process the case
+         * @param x position of the Cell being processed
+         * @param y position of the Cell being processed
+         * @param round of the game
+         * @param player to whow belong the case
+         */
         AICase(std::unique_ptr<Board> newBoard,
                uint32_t x,
                uint32_t y,
@@ -31,17 +36,24 @@ namespace ai
                CellState player = CellState::Player1);
         virtual ~AICase() = default;
 
-        void        setBoard(std::unique_ptr<Board> newBoard);
-        size_t      getRound() const;
-        const Position &getPos() const;
-        void        setRound(size_t round);
-        double      getWeight();
-
-        void        resetWeight();
+        /**
+         * Method used to process and resolve the AICase
+         */
         virtual void process() = 0;
-        CellState   getPlayer() const;
 
-        AICase &operator=(AICase const &other) = delete;
+        /**
+         * Getter
+         * @return the processed value of the case attribued by the process method
+         */
+        double getWeight();
+
+        // Getters and setters
+        void setBoard(std::unique_ptr<Board> newBoard);
+        size_t getRound() const;
+        const Position &getPos() const;
+        void setRound(size_t round);
+        void resetWeight();
+        CellState   getPlayer() const;
 
     protected:
         std::unique_ptr<Board>  board;
@@ -49,6 +61,14 @@ namespace ai
         size_t                  round;
         Position                pos;
         CellState               player;
+
+        // Delete constructors and operators
+    public:
+        AICase() = delete;
+        AICase(AICase const &) = delete;
+        AICase(AICase &&) = delete;
+        AICase &operator=(AICase const&) = delete;
+        AICase &operator=(AICase &&) = delete;
     };
 }
 

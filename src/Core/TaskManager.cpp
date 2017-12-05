@@ -166,7 +166,5 @@ namespace ai {
         return MSG_NO_RESPONSE;
     }
 
-    TaskManager::~TaskManager() {
-        ai->stop();
-    }
+    TaskManager::~TaskManager() = default;
 }

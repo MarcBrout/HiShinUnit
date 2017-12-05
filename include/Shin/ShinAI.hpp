@@ -10,6 +10,9 @@
 #include "Logic/AAI.hpp"
 
 namespace ai {
+    /**
+     * AI doing a Value evaluation of every cells, try to detect potential forks and cutting plays from the opponent
+     */
     class ShinAI : public AAI {
     public:
         ShinAI(unsigned int threadCount, unsigned int timeLimit);
@@ -23,6 +26,14 @@ namespace ai {
         void resolve(std::deque<std::unique_ptr<ai::AICase>> &casesDone, Position &posOut) override;
         void fusionPlays(Position &outPos, Line::Values value, CellState priority);
         void simplePlay(Position &outPos, Line::Values value, ShinHalbard &halbard);
+
+        // Deleted Constructors and operators
+    public:
+        ShinAI() = delete;
+        ShinAI(ShinAI const &) = delete;
+        ShinAI(ShinAI &&) = delete;
+        ShinAI &operator=(ShinAI const &) = delete;
+        ShinAI &operator=(ShinAI &&) = delete;
     };
 }
 

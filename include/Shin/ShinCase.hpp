@@ -17,6 +17,14 @@ namespace ai {
 
     private:
         Evaluator evaluator;
+
+        // Deleted Constructors and operators
+    public:
+        ShinCase() = delete;
+        ShinCase(ShinCase const &) = delete;
+        ShinCase(ShinCase &&) = delete;
+        ShinCase &operator=(ShinCase const &) = delete;
+        ShinCase &operator=(ShinCase &&) = delete;
     };
 }
 

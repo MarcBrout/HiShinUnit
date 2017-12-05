@@ -98,4 +98,10 @@ namespace ai {
         mutex.unlock();
         return out;
     }
+
+    ThreadPool::~ThreadPool() {
+        if (running) {
+            stop();
+        }
+    }
 }
