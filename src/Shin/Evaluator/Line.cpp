@@ -58,13 +58,13 @@ namespace ai {
             case 2:
                 if (areEndsFree(leftCell, rightCell)) {
                     if (length > 5)
-                        value = Values::HIGH;
-                    else
                         value = Values::MEDIUM_HIGH;
+                    else
+                        value = Values::MEDIUM;
                 } else if (isOneEndFree(leftCell, rightCell)) {
-                    value = Values::MEDIUM_LOW;
+                    value = Values::LOW_HIGH;
                 } else {
-                    value = VERY_LOW;
+                    value = LOW;
                 }
                 break;
             case 3:
@@ -74,12 +74,9 @@ namespace ai {
                     else
                         value = Values::VERY_HIGH;
                 } else if (isOneEndFree(leftCell, rightCell) && length > 4)
-                    value = Values::HIGH_LOW;
+                    value = Values::HIGH;
                 else
-                    value = LOW;
-                break;
-            case 4:
-                value = Values::FINAL_WIN;
+                    value = LOW_HIGH;
                 break;
             default:
                 if (countRight + countLeft >= 4)
@@ -99,46 +96,6 @@ namespace ai {
         int32_t posY = central.y;
 
         return static_cast<uint32_t >(size - absolute(size / 2 - posX) + size - absolute(size / 2 - posY)) / 2;
-    }
-
-    CellState Line::move(Board const &board,
-                         Position &pos,
-                         Move const &move,
-                         CellState player,
-                         const std::function<bool(CellState, CellState)> &cmp) {
-        Position result(pos + move);
-
-        if (result.x >= board.getSize() ||
-            result.y >= board.getSize()) {
-            return OutOfBound;
-        }
-
-        if (!cmp(board[result.y][result.x], player)) {
-            return board[result.y][result.x];
-        }
-        pos = result;
-        return player;
-    }
-
-    CellState Line::countPlayerGoPieces(Board const &board,
-                                        Position &pos,
-                                        const std::map<Direction, Move> &actions,
-                                        Line::Direction direction,
-                                        CellState player,
-                                        uint8_t &outCount,
-                                        const std::function<bool(CellState, CellState)> &cmp) {
-        CellState lastCell;
-
-        // Moving in the direction until I'm blocked by the cmp function
-        do {
-            lastCell = move(board, pos, actions.at(direction), player, cmp);
-            ++outCount;
-        } while (lastCell == player || outCount > 6);
-
-        // Removing one move because we move one case too far
-        --outCount;
-
-        return lastCell;
     }
 
     Line::Line(Position const &central, Direction const &direction, CellState const &player)

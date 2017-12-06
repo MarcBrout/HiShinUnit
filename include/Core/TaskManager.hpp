@@ -34,7 +34,7 @@ namespace ai {
          */
         std::string executeTask(std::string const &task);
 
-        typedef std::string (TaskManager::*taskPtr_t)(std::vector<std::string> const &);
+        using taskPtr_t = std::string (TaskManager::*)(std::vector<std::string> const &);
 
     private:
         std::map<std::string, taskPtr_t> tasks;

@@ -38,12 +38,31 @@ namespace ai {
          * @param board to be processed
          * @param outPos position of the best Cell
          * @param player for whom we want to evaluate the cells value
-         * @param check function used to pick if a cell must be processed of not
+         * @param check function or lambda used to pick if a cell must be processed of not
          * @return the value of the best Cell
          */
-        uint32_t evaluateBoard_max_if(const Board &board, Position &outPos, CellState player,
-                                      const std::function<bool(Board const &, uint32_t const &,
-                                                               uint32_t const &)> &check);
+        template<typename Function>
+        uint32_t evaluateBoard_max_if(const Board &board, Position &outPos, CellState player, Function check) {
+            Position tmp;
+            int32_t max = -1;
+
+            // Evaluation the highest point satisfying the check method parameter
+            for (uint32_t y = 0; y < board.getSize(); ++y) {
+                for (uint32_t x = 0; x < board.getSize(); ++x) {
+                    tmp.x = x;
+                    tmp.y = y;
+                    if (check(board, x, y)) {
+                        uint32_t value = evaluatePoint(board, tmp, player);
+                        if (static_cast<int32_t>(value) > max) {
+                            outPos = tmp;
+                            max = value;
+                        }
+                    }
+                }
+            }
+            return static_cast<uint32_t >(max);
+        }
+
         /**
          * Same Method as evaluateBoard but only process cells satisfying the check function
          * @param board to be processed
@@ -53,10 +72,32 @@ namespace ai {
          * @param limit of cases to be returned
          * @return the best cells satisfying the parameters
          */
+        template <typename Function>
         std::vector<std::pair<Position, uint32_t>> evaluateBoard_if(const Board &board, Position &outPos, CellState player,
-                                                                    const std::function<bool(const Board &, const uint32_t &,
-                                                                                             const uint32_t &)> &check,
-                                                                    uint32_t limit = 5);
+                                                                    Function check,
+                                                                    uint32_t limit = 5){
+            std::vector<std::pair<Position, uint32_t>> filteredPosition;
+
+            // Evaluation every point satisfying the check method parameter
+            for (uint32_t y = 0; y < board.getSize(); ++y) {
+                for (uint32_t x = 0; x < board.getSize(); ++x) {
+                    if (check(board, x, y)) {
+                        Position pos(x, y);
+                        filteredPosition.emplace_back(std::make_pair(pos, evaluatePoint(board, pos, player)));
+                    }
+                }
+            }
+
+            // Sorting in descending order on evaluated value
+            std::sort(filteredPosition.begin(), filteredPosition.end(),
+                      [](std::pair<Position, uint32_t> &a, std::pair<Position, uint32_t> &b) {
+                          return a.second > b.second;
+                      });
+
+            filteredPosition.resize(limit);
+            return filteredPosition;
+        }
+
         /**
          * Method used to evaluate a single point
          * @param board to be processed

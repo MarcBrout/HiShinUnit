@@ -77,19 +77,47 @@ namespace ai {
     private:
         uint32_t relativePositionEvaluation(Board const &board, Position const &pos);
 
+        template <typename Function>
         CellState move(Board const &board,
                        Position &pos,
                        Move const &move,
                        CellState player,
-                       const std::function<bool(CellState, CellState)> &cmp);
+                       Function cmp) {
+            Position result(pos + move);
 
+            if (result.x >= board.getSize() ||
+                result.y >= board.getSize()) {
+                return OutOfBound;
+            }
+
+            if (!cmp(board[result.y][result.x], player)) {
+                return board[result.y][result.x];
+            }
+            pos = result;
+            return player;
+        }
+
+        template<typename Function>
         CellState countPlayerGoPieces(const Board &board,
                                       Position &pos,
-                                      const std::map<Direction, Move> &moves,
+                                      const std::map<Direction, Move> &actions,
                                       Direction direction,
                                       CellState player,
                                       uint8_t &outCount,
-                                      const std::function<bool(CellState, CellState)> &cmp);
+                                      Function &cmp) {
+            CellState lastCell;
+
+            // Moving in the direction until I'm blocked by the cmp function
+            do {
+                lastCell = move(board, pos, actions.at(direction), player, cmp);
+                ++outCount;
+            } while (lastCell == player || outCount > 6);
+
+            // Removing one move because we move one case too far
+            --outCount;
+
+            return lastCell;
+        }
 
         uint8_t getLength(Board const &board);
 
