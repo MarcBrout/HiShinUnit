@@ -11,7 +11,7 @@ static const unsigned int max_threads = std::thread::hardware_concurrency();
 
 namespace ai {
     void Core::run() {
-        TaskManager taskManager(running, 19, std::make_unique<ai::ShinAI>(max_threads > 0 ? max_threads : 4, 2500));
+        TaskManager taskManager(running, 19, std::make_unique<ai::ShinAI>(max_threads > 0 ? max_threads : 4, 3000));
 
         while (running) {
             std::string line = readString();

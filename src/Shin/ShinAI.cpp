@@ -51,7 +51,7 @@ namespace ai {
         uint32_t myWins = myPlays.getCount(Line::WIN);
         uint32_t enemyWins = enemyPlays.getCount(Line::WIN);
 
-        if (myWins >= enemyWins && myWins != 0) {
+        if (myWins >= enemyWins && myWins > 0) {
             fusionPlays(posOut, Line::WIN, CellState::Player1);
         } else if (enemyWins > myWins) {
             fusionPlays(posOut, Line::WIN, CellState::Player2);

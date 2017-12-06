@@ -53,7 +53,7 @@ namespace ai {
                 else if (isOneEndFree(leftCell, rightCell))
                     value = Values::LOW;
                 else
-                    value = Values::LOW;
+                    value = Values::NONE;
                 break;
             case 2:
                 if (areEndsFree(leftCell, rightCell)) {
@@ -62,9 +62,9 @@ namespace ai {
                     else
                         value = Values::MEDIUM;
                 } else if (isOneEndFree(leftCell, rightCell)) {
-                    value = Values::LOW_HIGH;
+                    value = Values::MEDIUM_LOW;
                 } else {
-                    value = LOW;
+                    value = VERY_LOW;
                 }
                 break;
             case 3:
@@ -72,11 +72,11 @@ namespace ai {
                     if (length > 5)
                         value = Values::WIN;
                     else
-                        value = Values::VERY_HIGH;
+                        value = Values::HIGH;
                 } else if (isOneEndFree(leftCell, rightCell) && length > 4)
-                    value = Values::HIGH;
+                    value = Values::HIGH_LOW;
                 else
-                    value = LOW_HIGH;
+                    value = LOW;
                 break;
             default:
                 if (countRight + countLeft >= 4)

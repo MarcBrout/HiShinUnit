@@ -70,7 +70,7 @@ namespace ai {
 
         auto it = std::max_element(values.begin(), values.end());
 
-        if (*it >= Line::MEDIUM && totalAround >= 5)
+        if (*it >= Line::MEDIUM_HIGH && totalAround >= 5)
             return Line::WIN;
         return *it;
     }
